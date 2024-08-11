@@ -1,8 +1,10 @@
 
-export default function Home() {
+const page = () => {
   return (
-    <main>
-      last but not least
-    </main>
-  );
+    <div>
+      last
+    </div>
+  )
 }
+
+export default page
