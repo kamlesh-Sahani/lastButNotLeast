@@ -121,9 +121,9 @@ const UserProfile = () => {
       </Card>
 
       <Modal show={modalOpen} onClose={() => setModalOpen(false)}>
-        <Modal.Header>Edit Personal Information</Modal.Header>
+        <Modal.Header className="text-2xl font-semibold text-gray-800">Edit Personal Information</Modal.Header>
         <Modal.Body>
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div>
               <label
                 htmlFor="name"
@@ -138,7 +138,7 @@ const UserProfile = () => {
                 onChange={(e) =>
                   setPersonalInfo({ ...personalInfo, name: e.target.value })
                 }
-                className="form-input mt-1 block w-full"
+                className="form-input mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             <div>
@@ -155,7 +155,7 @@ const UserProfile = () => {
                 onChange={(e) =>
                   setPersonalInfo({ ...personalInfo, dob: e.target.value })
                 }
-                className="form-input mt-1 block w-full"
+                className="form-input mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             <div>
@@ -172,7 +172,7 @@ const UserProfile = () => {
                 onChange={(e) =>
                   setPersonalInfo({ ...personalInfo, email: e.target.value })
                 }
-                className="form-input mt-1 block w-full"
+                className="form-input mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             <div>
@@ -189,7 +189,7 @@ const UserProfile = () => {
                 onChange={(e) =>
                   setPersonalInfo({ ...personalInfo, phone: e.target.value })
                 }
-                className="form-input mt-1 block w-full"
+                className="form-input mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             <div>
@@ -205,16 +205,18 @@ const UserProfile = () => {
                 onChange={(e) =>
                   setPersonalInfo({ ...personalInfo, address: e.target.value })
                 }
-                className="form-textarea mt-1 block w-full"
+                className="form-textarea mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 rows={3}
               ></textarea>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setModalOpen(false)}>Cancel</Button>
-          <Button color="blue" onClick={handleSave}>
-            Save
+          <Button onClick={handleSave} color="blue">
+            Save Changes
+          </Button>
+          <Button onClick={() => setModalOpen(false)} color="gray">
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>
