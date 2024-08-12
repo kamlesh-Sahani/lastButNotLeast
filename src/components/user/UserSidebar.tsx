@@ -1,5 +1,5 @@
 "use client";
-import { Button, Modal, Sidebar } from "flowbite-react";
+import { Button, Modal } from "flowbite-react";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -10,7 +10,6 @@ import {
   HiCreditCard,
   HiCog,
 } from "react-icons/hi";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { RiMenu4Fill } from "react-icons/ri";
 export default function UserSidebar() {
   const [openModal, setOpenModal] = useState(false);
@@ -19,20 +18,22 @@ export default function UserSidebar() {
     <>
       <div onClick={() => setShowSidebar(!showSidebar)}>
         {!showSidebar && (
-       <RiMenu4Fill className="text-3xl cursor-pointer md:hidden absolute top-4 left-4 z-[999]" />
+          <RiMenu4Fill className="text-3xl cursor-pointer md:hidden absolute top-4 left-4 z-[999]" />
         )}
       </div>
 
-{
-  showSidebar &&     <div className="w-full h-full bg-black/50 cursor-pointer md:hidden" onClick={()=>setShowSidebar(!showSidebar)}>
-      </div>
-}
+      {showSidebar && (
+        <div
+          className="w-full h-full bg-black/50 cursor-pointer md:hidden"
+          onClick={() => setShowSidebar(!showSidebar)}
+        ></div>
+      )}
       {showSidebar && (
         <div
           className={`bg-white max-md:${
             showSidebar ? "block absolute z-[999]" : "hidden "
           } flex flex-col md:relative`}
-          style={{ width: "300px", height: "100vh" }} // Adjust width and height as needed
+          style={{ width: "300px", height: "100vh" }}
         >
           <div className="flex gap-5 items-center justify-center mb-7 relative">
             <div className="flex gap-5 items-center justify-center  mt-7">
@@ -49,30 +50,46 @@ export default function UserSidebar() {
           </div>
 
           <div className="flex flex-col gap-2 flex-[3]">
-            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959]">
-            <HiChartPie />
-              <p className="">Dashboard</p>
-            </div>
-            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-            <HiUser />
-              <p className="text">Profile</p>
-            </div>
-            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-            <HiShoppingBag />
-              <p className="text">Application</p>
-            </div>
-            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-            <HiCreditCard /> 
-              <p className="text">Balance</p>
-            </div>
-            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-            <HiViewBoards />
-              <p className="text">History</p>
-            </div>
-            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-            <HiCog /> 
-              <p className="text">Setting</p>
-            </div>
+            <Link href={"/user"}>
+              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959]">
+                <HiChartPie />
+                <p className="">Dashboard</p>
+              </div>
+            </Link>
+
+            <Link href={"/user/profile"}>
+              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+                <HiUser />
+                <p className="text">Profile</p>
+              </div>
+            </Link>
+
+            <Link href={"/user/application"}>
+              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+                <HiShoppingBag />
+                <p className="text">Application</p>
+              </div>
+            </Link>
+            <Link href={"/user/balance"}>
+              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+                <HiCreditCard />
+                <p className="text">Balance</p>
+              </div>
+            </Link>
+
+            <Link href={"/user/history"}>
+              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+                <HiViewBoards />
+                <p className="text">History</p>
+              </div>
+            </Link>
+
+            <Link href={"/user/"}>
+              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+                <HiCog />
+                <p className="text">Setting</p>
+              </div>
+            </Link>
           </div>
           <div className=" flex items-center w-full justify-center flex-auto">
             <Button
@@ -91,12 +108,12 @@ export default function UserSidebar() {
               <Modal.Header />
               <Modal.Body>
                 <div className="text-center">
-                  <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                 
                   <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                    Are you sure you want to delete this product?
+                    Are you sure you want to Logout?
                   </h3>
                   <div className="flex justify-center gap-4">
-                    <Button color="failure" onClick={() => setOpenModal(false)}>
+                    <Button color="blue"  onClick={() => setOpenModal(false)}>
                       {"Yes, I'm sure"}
                     </Button>
                     <Button color="gray" onClick={() => setOpenModal(false)}>
