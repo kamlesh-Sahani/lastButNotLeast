@@ -58,17 +58,23 @@ const SettingsPage = () => {
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-blue-600">Settings</h1>
         <p className="text-gray-600 mt-2">
-          Update your profile information, change your password, and manage your notification settings here.
+          Update your profile information, change your password, and manage your
+          notification settings here.
         </p>
       </header>
 
       <main>
         {/* Profile Information */}
         <section className="bg-white p-6 rounded-lg shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">Profile Information</h2>
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">
+            Profile Information
+          </h2>
           <form onSubmit={handleSubmitProfile}>
             <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
+              <label
+                className="block text-gray-700 font-semibold mb-2"
+                htmlFor="name"
+              >
                 Name
               </label>
               <input
@@ -83,7 +89,10 @@ const SettingsPage = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
+              <label
+                className="block text-gray-700 font-semibold mb-2"
+                htmlFor="email"
+              >
                 Email
               </label>
               <input
@@ -110,10 +119,15 @@ const SettingsPage = () => {
 
         {/* Change Password */}
         <section className="bg-white p-6 rounded-lg shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">Change Password</h2>
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">
+            Change Password
+          </h2>
           <form onSubmit={handleSubmitPasswordChange}>
             <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="password">
+              <label
+                className="block text-gray-700 font-semibold mb-2"
+                htmlFor="password"
+              >
                 Current Password
               </label>
               <input
@@ -128,7 +142,10 @@ const SettingsPage = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="newPassword">
+              <label
+                className="block text-gray-700 font-semibold mb-2"
+                htmlFor="newPassword"
+              >
                 New Password
               </label>
               <input
@@ -143,7 +160,10 @@ const SettingsPage = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="confirmNewPassword">
+              <label
+                className="block text-gray-700 font-semibold mb-2"
+                htmlFor="confirmNewPassword"
+              >
                 Confirm New Password
               </label>
               <input
@@ -170,7 +190,9 @@ const SettingsPage = () => {
 
         {/* Notification Settings */}
         <section className="bg-white p-6 rounded-lg shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">Notification Settings</h2>
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">
+            Notification Settings
+          </h2>
           <form onSubmit={handleSubmitNotificationSettings}>
             <div className="mb-4 flex items-center">
               <input
@@ -181,7 +203,10 @@ const SettingsPage = () => {
                 checked={notificationSettings.emailNotifications}
                 onChange={handleNotificationChange}
               />
-              <label htmlFor="emailNotifications" className="ml-2 text-gray-700 font-semibold">
+              <label
+                htmlFor="emailNotifications"
+                className="ml-2 text-gray-700 font-semibold"
+              >
                 Email Notifications
               </label>
             </div>
@@ -195,7 +220,10 @@ const SettingsPage = () => {
                 checked={notificationSettings.smsNotifications}
                 onChange={handleNotificationChange}
               />
-              <label htmlFor="smsNotifications" className="ml-2 text-gray-700 font-semibold">
+              <label
+                htmlFor="smsNotifications"
+                className="ml-2 text-gray-700 font-semibold"
+              >
                 SMS Notifications
               </label>
             </div>
@@ -213,10 +241,15 @@ const SettingsPage = () => {
 
         {/* Document Upload */}
         <section className="bg-white p-6 rounded-lg shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">Upload Profile Picture</h2>
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">
+            Upload Profile Picture
+          </h2>
           <form>
             <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="document">
+              <label
+                className="block text-gray-700 font-semibold mb-2"
+                htmlFor="document"
+              >
                 Upload Document
               </label>
               <input
@@ -234,9 +267,12 @@ const SettingsPage = () => {
 
         {/* Account Deactivation */}
         <section className="bg-red-50 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">Deactivate Account</h2>
+          <h2 className="text-2xl font-bold text-red-600 mb-4">
+            Deactivate Account
+          </h2>
           <p className="text-gray-600 mb-4">
-            If you wish to deactivate your account, please proceed with caution. This action cannot be undone.
+            If you wish to deactivate your account, please proceed with caution.
+            This action cannot be undone.
           </p>
           <button
             onClick={() => console.log("Account deactivated")}

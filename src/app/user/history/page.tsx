@@ -100,10 +100,10 @@ const LeaveHistory = () => {
   return (
     <div className="h-full w-full bg-gray-100 min-h-screen">
       <div className="container mx-auto p-6">
-        <h1 className="text-4xl font-bold mb-8 text-gray-800">Leave History</h1>
+        <h1 className="text-4xl font-bold mb-8 text-blue-500">Leave History</h1>
 
         <div className="mb-6 flex justify-between items-center">
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 items-center">
             <label className="font-semibold text-gray-600">Filter by:</label>
             <select
               value={filter}
@@ -118,7 +118,7 @@ const LeaveHistory = () => {
               <option value="Rejected">Rejected</option>
             </select>
           </div>
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 items-center">
             <label className="font-semibold text-gray-600">Sort by Date:</label>
             <select
               value={sortOrder}
