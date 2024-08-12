@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "chart.js": "^4.4.3",
     "flowbite-react": "^0.10.1",
     "mongoose": "^8.5.2",
     "next": "14.2.5",
     "react": "^18",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
     "react-simple-typewriter": "^5.0.1"
   },

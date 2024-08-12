@@ -4,20 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import {
-  HiArrowSmRight,
   HiChartPie,
-  HiInbox,
   HiShoppingBag,
-  HiTable,
   HiUser,
   HiViewBoards,
+  HiCreditCard,
+  HiCog,
 } from "react-icons/hi";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { RiMenu4Fill } from "react-icons/ri";
 export default function UserSidebar() {
   const [openModal, setOpenModal] = useState(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
-  console.log(showSidebar, "sfhsdkjf");
   return (
     <>
       <div onClick={() => setShowSidebar(!showSidebar)}>
@@ -53,27 +51,27 @@ export default function UserSidebar() {
 
           <div className="flex flex-col gap-2 flex-[3]">
             <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959]">
-              <HiViewBoards />
+            <HiChartPie />
               <p className="">Dashboard</p>
             </div>
             <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-              <HiViewBoards />
+            <HiUser />
               <p className="text">Profile</p>
             </div>
             <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-              <HiViewBoards />
+            <HiShoppingBag />
               <p className="text">Application</p>
             </div>
             <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-              <HiViewBoards />
+            <HiCreditCard /> 
               <p className="text">Balance</p>
             </div>
             <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-              <HiViewBoards />
+            <HiViewBoards />
               <p className="text">History</p>
             </div>
             <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-              <HiViewBoards />
+            <HiCog /> 
               <p className="text">Setting</p>
             </div>
           </div>
