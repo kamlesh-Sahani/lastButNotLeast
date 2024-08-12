@@ -1,5 +1,5 @@
 "use client";
-import { Line, Bar, Doughnut } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,11 +12,12 @@ import {
   Legend,
   ArcElement,
 } from 'chart.js';
-
+import {useRouter} from 'next/router'
 ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
 const DashboardPage = () => {
-  // Sample data for the line chart (Leave Requests Over Time)
+
+ 
   const lineData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
@@ -82,6 +83,8 @@ const DashboardPage = () => {
       },
     },
   };
+
+
   return (
     <div className="min-h-screen bg-gray-100 p-8 xl:w-[90%] m-auto">
       <header className="mb-8">
