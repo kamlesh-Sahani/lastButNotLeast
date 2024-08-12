@@ -38,25 +38,7 @@ const LeaveHistory = () => {
       type: "Annual Leave",
       status: "Approved",
       days: 5,
-      reason: "Family vacation",
-    },
-    {
-      id: 3,
-      startDate: "2024-05-22",
-      endDate: "2024-05-26",
-      type: "Annual Leave",
-      status: "Approved",
-      days: 5,
-      reason: "Family vacation",
-    },
-    {
-      id: 3,
-      startDate: "2024-05-22",
-      endDate: "2024-05-26",
-      type: "Annual Leave",
-      status: "Approved",
-      days: 5,
-      reason: "Family vacation",
+      reason: "Family vacation ",
     },
     // Add more data as needed
   ]);
@@ -64,6 +46,7 @@ const LeaveHistory = () => {
   const [filter, setFilter] = useState<string>("");
   const [filteredData, setFilteredData] = useState<Leave[]>(leaveData);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [hoveredLeaveId, setHoveredLeaveId] = useState<number | null>(null);
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -98,13 +81,29 @@ const LeaveHistory = () => {
     setFilteredData(sortedData);
   };
 
+  const truncateReason = (reason: string) => {
+    const words = reason.split(" ");
+    if (words.length > 3) {
+      return words.slice(0, 3).join(" ") + "...";
+    }
+    return reason;
+  };
+
+  const handleMouseEnter = (id: number) => {
+    setHoveredLeaveId(id);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredLeaveId(null);
+  };
+
   return (
-    <div className="bg-gray-100 h-screen w-full">
+    <div className="h-full w-full bg-gray-100 min-h-screen">
       <div className="container mx-auto p-6">
-        <h1 className="text-4xl font-bold mb-8 text-blue-500">Leave History</h1>
+        <h1 className="text-4xl font-bold mb-8 text-gray-800">Leave History</h1>
 
         <div className="mb-6 flex justify-between items-center">
-          <div className="flex space-x-4 items-center">
+          <div className="flex space-x-4">
             <label className="font-semibold text-gray-600">Filter by:</label>
             <select
               value={filter}
@@ -119,7 +118,7 @@ const LeaveHistory = () => {
               <option value="Rejected">Rejected</option>
             </select>
           </div>
-          <div className="flex space-x-4 items-center">
+          <div className="flex space-x-4">
             <label className="font-semibold text-gray-600">Sort by Date:</label>
             <select
               value={sortOrder}
@@ -136,7 +135,9 @@ const LeaveHistory = () => {
           {filteredData.map((leave) => (
             <div
               key={leave.id}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 relative"
+              onMouseEnter={() => handleMouseEnter(leave.id)}
+              onMouseLeave={handleMouseLeave}
             >
               <div className="flex justify-between items-center mb-4">
                 <span className="text-sm text-gray-500">
@@ -156,7 +157,18 @@ const LeaveHistory = () => {
                 {leave.type}
               </h2>
               <p className="text-gray-600 mb-2">Days: {leave.days}</p>
-              <p className="text-gray-600 italic">Reason: {leave.reason}</p>
+              <p className="text-gray-600 italic">
+                Reason: {truncateReason(leave.reason)}
+              </p>
+              {/* if you want then uncomment it */}
+
+              {/* {hoveredLeaveId === leave.id && (
+                <div className="absolute bg-white border border-gray-300 p-4 rounded-lg shadow-lg -bottom-10 left-0 z-10 w-full">
+                  <p className="text-gray-800">
+                    <strong>Full Reason:</strong> {leave.reason}
+                  </p>
+                </div>
+              )} */}
             </div>
           ))}
         </div>
