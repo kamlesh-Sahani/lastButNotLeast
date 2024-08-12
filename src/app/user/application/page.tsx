@@ -56,9 +56,9 @@ const LeaveApplication: React.FC = () => {
 
   return (
     <div className="flex w-full justify-center items-center bg-gradient-to-r bg-gray-50">
-      <div className="max-w-4xl w-full p-8 bg-white mt-8 rounded-lg shadow-2xl">
+      <div className="max-w-4xl w-full p-8 bg-white  mt-8 max-xl:m-12 rounded-lg shadow-2xl">
         <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
-          Apply for Leave
+          Leave Application
         </h1>
         <form onSubmit={handleSubmit}>
           {/* Leave Type Section */}
