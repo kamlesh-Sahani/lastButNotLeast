@@ -11,9 +11,13 @@ import {
   HiCog,
 } from "react-icons/hi";
 import { RiMenu4Fill } from "react-icons/ri";
+import { usePathname } from 'next/navigation';
 export default function UserSidebar() {
+  const pathname = usePathname();
   const [openModal, setOpenModal] = useState(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
+
+  console.log(pathname,"pathname");
   return (
     <>
       <div onClick={() => setShowSidebar(!showSidebar)}>
@@ -51,42 +55,41 @@ export default function UserSidebar() {
 
           <div className="flex flex-col gap-2 flex-[3]">
             <Link href={"/user"}>
-              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959]">
+              <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user'?"bg-[#eee]":""}`}>
                 <HiChartPie />
                 <p className="">Dashboard</p>
               </div>
             </Link>
 
             <Link href={"/user/profile"}>
-              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/profile'?"bg-[#eee]":""}`}>
                 <HiUser />
                 <p className="text">Profile</p>
               </div>
             </Link>
 
             <Link href={"/user/application"}>
-              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/application'?"bg-[#eee]":""}`}>
                 <HiShoppingBag />
                 <p className="text">Application</p>
               </div>
             </Link>
             <Link href={"/user/balance"}>
-              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/balance'?"bg-[#eee]":""}`}>
                 <HiCreditCard />
                 <p className="text">Balance</p>
               </div>
             </Link>
 
             <Link href={"/user/history"}>
-              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/history'?"bg-[#eee]":""}`}>
                 <HiViewBoards />
                 <p className="text">History</p>
               </div>
             </Link>
 
-            <Link href={"/user/"}>
-              <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
-                <HiCog />
+            <Link href={"/user/setting"}>
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/setting'?"bg-[#eee]":""}`}>
                 <p className="text">Setting</p>
               </div>
             </Link>

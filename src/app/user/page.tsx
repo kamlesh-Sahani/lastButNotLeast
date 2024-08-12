@@ -12,12 +12,12 @@ import {
   Legend,
   ArcElement,
 } from 'chart.js';
-import {useRouter} from 'next/router'
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
 const DashboardPage = () => {
 
- 
+
   const lineData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
