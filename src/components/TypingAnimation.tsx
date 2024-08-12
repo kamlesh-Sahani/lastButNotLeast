@@ -1,12 +1,10 @@
 // components/TypingAnimation.tsx
 "use client";
-
 import { Typewriter } from "react-simple-typewriter";
-
 const TypingAnimation = () => {
   return (
     <div className="flex flex-col justify-center items-center">
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-center drop-shadow-lg">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-center drop-shadow-lg   max-sm:text-3xl">
         <span className="text-blue-500">Efficiently Manage</span>{" "}
         <Typewriter
           words={[

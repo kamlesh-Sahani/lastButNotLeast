@@ -1,40 +1,113 @@
 "use client";
-import { Sidebar } from "flowbite-react";
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from "react-icons/hi";
+import { Button, Modal, Sidebar } from "flowbite-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import {
+  HiArrowSmRight,
+  HiChartPie,
+  HiInbox,
+  HiShoppingBag,
+  HiTable,
+  HiUser,
+  HiViewBoards,
+} from "react-icons/hi";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { RiMenu4Fill } from "react-icons/ri";
 export default function UserSidebar() {
+  const [openModal, setOpenModal] = useState(false);
+  const [showSidebar, setShowSidebar] = useState<boolean>(true);
+  console.log(showSidebar, "sfhsdkjf");
   return (
-    <Sidebar
-      aria-label="Sidebar with logo branding example"
-      style={{ width: '250px', height: '100vh' }} // Adjust width and height as needed
-    >
-      <Sidebar.Logo href="#" img="" imgAlt="Flowbite logo">
-        Flowbite
-      </Sidebar.Logo>
-      <Sidebar.Items>
-        <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={HiChartPie}>
-            Dashboard
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiViewBoards}>
-            Kanban
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiInbox}>
-            Inbox
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiUser}>
-            Users
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiShoppingBag}>
-            Products
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiArrowSmRight}>
-            Sign In
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiTable}>
-            Sign Up
-          </Sidebar.Item>
-        </Sidebar.ItemGroup>
-      </Sidebar.Items>
-    </Sidebar>
+    <>
+      <div onClick={() => setShowSidebar(!showSidebar)}>
+        {!showSidebar && (
+          <RiMenu4Fill className="text-3xl cursor-pointer md:hidden absolute top-4 left-4 z-[999]" />
+        )}
+      </div>
+
+      {showSidebar && (
+        <div
+          className={`bg-white max-md:${
+            showSidebar ? "block absolute z-[999]" : "hidden"
+          } flex flex-col `}
+          style={{ width: "300px", height: "100vh" }} // Adjust width and height as needed
+        >
+          <div className="flex gap-5 items-center justify-center mb-7 relative">
+            <div className="flex gap-5 items-center justify-center  mt-7">
+              <img
+                src={"https://avatar.iran.liara.run/public/boy"}
+                alt="df"
+                className="h-[80px] w-[80px] rounded-full object-cover"
+              />
+              <div className="flex flex-col">
+                <h1 className="text-xl font-semibold">Saad Mehmood</h1>
+                <p className="text-[#6b6b6b]">frontend developer</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2 flex-[3]">
+            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959]">
+              <HiViewBoards />
+              <p className="">Dashboard</p>
+            </div>
+            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+              <HiViewBoards />
+              <p className="text">Profile</p>
+            </div>
+            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+              <HiViewBoards />
+              <p className="text">Application</p>
+            </div>
+            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+              <HiViewBoards />
+              <p className="text">Balance</p>
+            </div>
+            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+              <HiViewBoards />
+              <p className="text">History</p>
+            </div>
+            <div className="flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px]">
+              <HiViewBoards />
+              <p className="text">Setting</p>
+            </div>
+          </div>
+          <div className=" flex items-center w-full justify-center flex-auto">
+            <Button
+              onClick={() => setOpenModal(true)}
+              className=" w-[270px] items-center bg-transparent border border-blue-500 text-black hover:bg-blue-600 hover:text-white hover:border-transparent"
+              color={"blue-500"}
+            >
+              Logout
+            </Button>
+            <Modal
+              show={openModal}
+              size="md"
+              onClose={() => setOpenModal(false)}
+              popup
+            >
+              <Modal.Header />
+              <Modal.Body>
+                <div className="text-center">
+                  <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                  <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    Are you sure you want to delete this product?
+                  </h3>
+                  <div className="flex justify-center gap-4">
+                    <Button color="failure" onClick={() => setOpenModal(false)}>
+                      {"Yes, I'm sure"}
+                    </Button>
+                    <Button color="gray" onClick={() => setOpenModal(false)}>
+                      No, cancel
+                    </Button>
+                  </div>
+                </div>
+              </Modal.Body>
+            </Modal>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
