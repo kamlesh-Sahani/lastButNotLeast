@@ -82,10 +82,8 @@ const DashboardPage = () => {
       },
     },
   };
-
-
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gray-100 p-8 xl:w-[90%] m-auto">
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-blue-600">Dashboard</h1>
         <p className="text-gray-600 mt-2">Welcome back! Here’s a summary of your leave requests and other insights.</p>
@@ -110,18 +108,18 @@ const DashboardPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold text-gray-700 mb-6">Leave Requests Over Time</h2>
-            <Line data={lineData} options={lineOptions} height={250}/>
+            <Line data={lineData} options={lineOptions} height={210}/>
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-lg ">
             <h2 className="text-2xl font-bold text-gray-700 mb-6">Leave Types Distribution</h2>
-            <Bar data={barData} options={barOptions} height={250}/>
+            <Bar data={barData} options={barOptions} height={210}/>
           </div>
         </div>
 
      
 
-        <section className="bg-blue-50 p-6 rounded-lg shadow-lg">
+          <section className="bg-blue-50 p-6 rounded-lg shadow-lg">
           <h2 className="text-3xl font-bold text-gray-700 mb-4">Leave Management Insights</h2>
           <p className="text-lg text-gray-600">The system shows a balanced leave distribution among different types, with a majority of requests being approved. Make sure to submit your requests early for timely approval.</p>
         </section>
