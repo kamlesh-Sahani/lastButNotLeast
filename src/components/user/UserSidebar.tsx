@@ -22,15 +22,19 @@ export default function UserSidebar() {
     <>
       <div onClick={() => setShowSidebar(!showSidebar)}>
         {!showSidebar && (
-          <RiMenu4Fill className="text-3xl cursor-pointer md:hidden absolute top-4 left-4 z-[999]" />
+       <RiMenu4Fill className="text-3xl cursor-pointer md:hidden absolute top-4 left-4 z-[999]" />
         )}
       </div>
 
+{
+  showSidebar &&     <div className="w-full h-full bg-black/50 cursor-pointer md:hidden" onClick={()=>setShowSidebar(!showSidebar)}>
+      </div>
+}
       {showSidebar && (
         <div
           className={`bg-white max-md:${
-            showSidebar ? "block absolute z-[999]" : "hidden"
-          } flex flex-col `}
+            showSidebar ? "block absolute z-[999]" : "hidden "
+          } flex flex-col md:relative`}
           style={{ width: "300px", height: "100vh" }} // Adjust width and height as needed
         >
           <div className="flex gap-5 items-center justify-center mb-7 relative">
