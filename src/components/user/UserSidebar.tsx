@@ -88,11 +88,11 @@ export default function UserSidebar() {
               </div>
             </Link>
 
-            <Link href={"/user/setting"}>
+            {/* <Link href={"/user/setting"}>
             <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/setting'?"bg-[#eee]":""}`}>
                 <p className="text">Setting</p>
               </div>
-            </Link>
+            </Link> */}
           </div>
           <div className=" flex items-center w-full justify-center flex-auto">
             <Button
