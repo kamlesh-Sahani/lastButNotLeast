@@ -12,19 +12,31 @@ const LeaveApplication: React.FC = () => {
   const [reason, setReason] = useState<string>("");
 
   // State for class arrangements
-  const [arrangements, setArrangements] = useState<Array<{
-    facultyName: string;
-    department: string;
-    subject: string;
-    course: string;
-    semester: string;
-  }>>([]);
+  const [arrangements, setArrangements] = useState<
+    Array<{
+      facultyName: string;
+      department: string;
+      subject: string;
+      course: string;
+      semester: string;
+    }>
+  >([]);
 
   // Handle form submission
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Add submit logic here
-    console.log({ leaveType, startDate, endDate, shortLeaveTime, document, phone, email, reason, arrangements });
+    console.log({
+      leaveType,
+      startDate,
+      endDate,
+      shortLeaveTime,
+      document,
+      phone,
+      email,
+      reason,
+      arrangements,
+    });
   };
 
   // Handle file change
@@ -35,7 +47,11 @@ const LeaveApplication: React.FC = () => {
   };
 
   // Handle arrangement changes
-  const handleArrangementChange = (index: number, field: string, value: string) => {
+  const handleArrangementChange = (
+    index: number,
+    field: string,
+    value: string
+  ) => {
     const newArrangements = [...arrangements];
     newArrangements[index] = { ...newArrangements[index], [field]: value };
     setArrangements(newArrangements);
@@ -45,7 +61,13 @@ const LeaveApplication: React.FC = () => {
   const addArrangement = () => {
     setArrangements([
       ...arrangements,
-      { facultyName: "", department: "", subject: "", course: "", semester: "" },
+      {
+        facultyName: "",
+        department: "",
+        subject: "",
+        course: "",
+        semester: "",
+      },
     ]);
   };
 
@@ -171,9 +193,14 @@ const LeaveApplication: React.FC = () => {
 
           {/* Class Arrangement Section */}
           <div className="mt-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Class Arrangement</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-4">
+              Class Arrangement
+            </h2>
             {arrangements.map((arrangement, index) => (
-              <div key={index} className="mb-6 p-4 border rounded-lg shadow-sm bg-white">
+              <div
+                key={index}
+                className="mb-6 p-4 border rounded-lg shadow-sm bg-white"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-600">
@@ -182,7 +209,13 @@ const LeaveApplication: React.FC = () => {
                     <input
                       type="text"
                       value={arrangement.facultyName}
-                      onChange={(e) => handleArrangementChange(index, 'facultyName', e.target.value)}
+                      onChange={(e) =>
+                        handleArrangementChange(
+                          index,
+                          "facultyName",
+                          e.target.value
+                        )
+                      }
                       className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     />
                   </div>
@@ -193,7 +226,13 @@ const LeaveApplication: React.FC = () => {
                     <input
                       type="text"
                       value={arrangement.department}
-                      onChange={(e) => handleArrangementChange(index, 'department', e.target.value)}
+                      onChange={(e) =>
+                        handleArrangementChange(
+                          index,
+                          "department",
+                          e.target.value
+                        )
+                      }
                       className="mt-2 block w-full px-4 py-3 bg-gray-50 rounded-lg shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     />
                   </div>
@@ -204,7 +243,13 @@ const LeaveApplication: React.FC = () => {
                     <input
                       type="text"
                       value={arrangement.subject}
-                      onChange={(e) => handleArrangementChange(index, 'subject', e.target.value)}
+                      onChange={(e) =>
+                        handleArrangementChange(
+                          index,
+                          "subject",
+                          e.target.value
+                        )
+                      }
                       className="mt-2 block w-full px-4 py-3 bg-gray-50 rounded-lg shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     />
                   </div>
@@ -215,7 +260,9 @@ const LeaveApplication: React.FC = () => {
                     <input
                       type="text"
                       value={arrangement.course}
-                      onChange={(e) => handleArrangementChange(index, 'course', e.target.value)}
+                      onChange={(e) =>
+                        handleArrangementChange(index, "course", e.target.value)
+                      }
                       className="mt-2 block w-full px-4 py-3 bg-gray-50 rounded-lg shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     />
                   </div>
@@ -226,7 +273,13 @@ const LeaveApplication: React.FC = () => {
                     <input
                       type="text"
                       value={arrangement.semester}
-                      onChange={(e) => handleArrangementChange(index, 'semester', e.target.value)}
+                      onChange={(e) =>
+                        handleArrangementChange(
+                          index,
+                          "semester",
+                          e.target.value
+                        )
+                      }
                       className="mt-2 block bg-gray-50 w-full px-4 py-3 rounded-lg shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     />
                   </div>
@@ -245,29 +298,30 @@ const LeaveApplication: React.FC = () => {
             <button
               type="button"
               onClick={addArrangement}
-              className="mt-4 px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition-all duration-200"
+              className="mt-4 px-6 py-3 bg-green-500 text-sm max-md:text-sm  text-white rounded-lg shadow-md hover:bg-green-600 transition-all duration-200"
             >
               Add Arrangement
             </button>
           </div>
-          <div className="flex justify-end space-x-4 mt-8">
+          <div className="flex max-md:flex-col max-sm:w-full  lg:gap-12 gap-4 max-sm:gap-4 max-sm:items-center max-md:justify-center mt-8">
             <button
               type="button"
-              className="px-6 py-3 bg-gray-400 text-white rounded-lg shadow-md hover:bg-gray-500 transition-all duration-200"
+              className="p-3 w-1/3 text-md max-md:w-full max-md:text-sm bg-gray-400 text-white rounded-lg shadow-md hover:bg-gray-500 transition-all duration-200"
             >
               Cancel
             </button>
-            <button
-              type="button"
-              className="px-6 py-3 bg-yellow-400 text-white rounded-lg shadow-md hover:bg-yellow-500 transition-all duration-200"
-            >
-              Save as Draft
-            </button>
+
             <button
               type="submit"
-              className="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200"
+              className=" w-1/3 p-3 bg-indigo-600 max-md:w-full text-md max-md:text-sm text-white rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200"
             >
               Submit
+            </button>
+            <button
+              type="button"
+              className=" w-1/3 p-3 bg-yellow-400 max-md:w-full text-md max-md:text-sm text-white rounded-lg shadow-md hover:bg-yellow-500 transition-all duration-200"
+            >
+              Save as Draft
             </button>
           </div>
         </form>
