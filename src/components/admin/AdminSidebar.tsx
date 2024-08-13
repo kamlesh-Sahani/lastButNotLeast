@@ -11,7 +11,7 @@ import {
 } from "react-icons/hi";
 import { RiMenu4Fill } from "react-icons/ri";
 import { usePathname } from 'next/navigation';
-export default function UserSidebar() {
+export default function AdminSidebar() {
   const pathname = usePathname();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
@@ -69,17 +69,17 @@ export default function UserSidebar() {
           </div>
 
           <div className="flex flex-col gap-2 flex-[3]">
-            <Link href={"/user"}>
-              <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user'?"bg-[#eee]":""}`}>
+            <Link href={"/admin"}>
+              <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin'?"bg-[#eee]":""}`}>
                 <HiChartPie />
                 <p className="">Dashboard</p>
               </div>
             </Link>
 
-            <Link href={"/user/profile"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/profile'?"bg-[#eee]":""}`}>
+            <Link href={"/admin/employee"}>
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/employee'?"bg-[#eee]":""}`}>
                 <HiUser />
-                <p className="text">Profile</p>
+                <p className="text">Employee</p>
               </div>
             </Link>
 
