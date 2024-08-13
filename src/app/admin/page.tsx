@@ -139,7 +139,7 @@ const LMSAdminDashboard = () => {
         </div>
      
         <button
-          className="mt-4 bg-blue-600 text-white h-[40px] w-[200px] rounded-lg flex items-center cursor-pointer justify-center "
+          className="mt-4 bg-blue-600 hover:bg-blue-800 text-white h-[40px] w-[200px] rounded-lg flex items-center cursor-pointer justify-center "
         >
           <FaDownload className="mr-2" />
           Download Report
