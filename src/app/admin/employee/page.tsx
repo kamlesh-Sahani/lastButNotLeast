@@ -14,7 +14,7 @@ const employeeData = [
     dateOfJoining: "11 Jan, 2021",
     email: "markwood@gmail.com",
     phone: "(229) 555-0109",
-    imageUrl: "https://images.unsplash.com/photo-1534308143481-c55f00be8bd7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D",
+    imageUrl: "https://avatar.iran.liara.run/public/boy",
   },
   {
     name: "Amandeep Singh",
@@ -24,7 +24,7 @@ const employeeData = [
     dateOfJoining: "18 Feb, 2021",
     email: "markwood@gmail.com",
     phone: "(229) 555-0109",
-    imageUrl: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageUrl: "https://avatar.iran.liara.run/public/boy",
   },
   {
     name: "Charanpreet Kaur",
@@ -34,7 +34,7 @@ const employeeData = [
     dateOfJoining: "13 Feb, 2020",
     email: "markwood@gmail.com",
     phone: "(229) 555-0109",
-    imageUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fHw%3D",
+    imageUrl: "https://avatar.iran.liara.run/public",
   },
   {
     name: "Mark Wood",
@@ -44,7 +44,7 @@ const employeeData = [
     dateOfJoining: "24 Aug, 2021",
     email: "markwood@gmail.com",
     phone: "(229) 555-0109",
-    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageUrl: "https://avatar.iran.liara.run/public/girl",
   },
   {
     name: "Amandeep Singh",
@@ -54,7 +54,7 @@ const employeeData = [
     dateOfJoining: "22 Sep, 2022",
     email: "markwood@gmail.com",
     phone: "(229) 555-0109",
-    imageUrl: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageUrl: "https://avatar.iran.liara.run/public/boy",
   },
 ];
 

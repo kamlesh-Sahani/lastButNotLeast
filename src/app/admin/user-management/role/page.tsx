@@ -110,7 +110,7 @@ const PermissionsPage: React.FC = () => {
                 onClick={() => handleEditRole(role)}
                 className="text-gray-500 hover:text-gray-800"
               >
-                <FaEdit size={16} />
+                <FaEdit size={18} />
               </button>
               <button
                 onClick={(e) => {

@@ -23,8 +23,6 @@ import {
   Legend,
 } from "chart.js";
 
-
-
 const leaveTrendData = {
   labels: [
     "Jan",
