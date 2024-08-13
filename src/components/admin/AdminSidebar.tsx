@@ -4,19 +4,21 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
   HiChartPie,
-  HiShoppingBag,
   HiUser,
-  HiViewBoards,
+  HiBookOpen,
   HiCreditCard,
+  HiOutlineClipboardCheck,
+  HiOutlineDocumentText,
+  HiOutlineUserGroup,
+  HiViewBoards,
 } from "react-icons/hi";
 import { RiMenu4Fill } from "react-icons/ri";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
+
 export default function AdminSidebar() {
   const pathname = usePathname();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
-
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,13 +29,13 @@ export default function AdminSidebar() {
       }
     };
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  return (                                    
+  return (
     <>
       <div onClick={() => setShowSidebar(!showSidebar)}>
         {!showSidebar && (
@@ -50,7 +52,7 @@ export default function AdminSidebar() {
       {showSidebar && (
         <div
           className={`bg-white max-md:${
-            showSidebar ? "block absolute z-[999]" : "hidden "
+            showSidebar ? "block absolute z-[999]" : "hidden"
           } flex flex-col md:relative`}
           style={{ width: "300px", height: "100vh" }}
         >
@@ -70,71 +72,100 @@ export default function AdminSidebar() {
 
           <div className="flex flex-col gap-2 flex-[3]">
             <Link href={"/admin"}>
-              <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin'?"bg-[#eee]":""}`}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/admin" ? "bg-[#eee]" : ""
+                }`}
+              >
                 <HiChartPie />
                 <p className="">Dashboard</p>
               </div>
             </Link>
 
             <Link href={"/admin/employee"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/employee'?"bg-[#eee]":""}`}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/admin/employee" ? "bg-[#eee]" : ""
+                }`}
+              >
                 <HiUser />
                 <p className="text">Employee</p>
               </div>
             </Link>
 
             <Link href={"/admin/department/course"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin/department/course'?"bg-[#eee]":""}`}>
-                <HiShoppingBag />
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/admin/department/course" ? "bg-[#eee]" : ""
+                }`}
+              >
+                <HiBookOpen />
                 <p className="text">Course</p>
               </div>
             </Link>
 
+            <div className="flex flex-col pl-4 ">
+              <h3 className="text-xl font-semibold mb-3 text-[#595959]">
+                Leave
+              </h3>
+              <Link href={"/admin/leave/request"}>
+                <div
+                  className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                    pathname === "/admin/leave/request" ? "bg-[#eee]" : ""
+                  }`}
+                >
+                  <HiOutlineClipboardCheck />
+                  <p className="text">Request</p>
+                </div>
+              </Link>
 
-<div className="flex flex-col pl-4 ">
-  <h3 className="text-xl font-semibold mb-3 text-[#595959]">Leave</h3>
-<Link href={"/admin/leave/request"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[rgb(238,238,238)] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin/leave/request'?"bg-[#eee]":""}`}>
-                <HiCreditCard />
-                <p className="text">Request</p>
-              </div>
-            </Link>
-
-            <Link href={"/admin/leave/type"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin/leave/type'?"bg-[#eee]":""}`}>
-                <HiViewBoards />
-                <p className="text">Type</p>
-              </div>
-            </Link>
-</div>
-          
-
-<div className="flex flex-col pl-4 ">
-  <h3 className="text-xl font-semibold  text-[#595959]">User Management</h3>
-            <Link href={"/admin/user-management/role"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin/user-managenent/role'?"bg-[#eee]":""}`}>
-                <HiViewBoards />
-                <p className="text">Role</p>
-              </div>
-            </Link>
-
-
-            <Link href={"/admin/user-management/permission"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin/user-managenent/permission'?"bg-[#eee]":""}`}>
-                <HiViewBoards />
-                <p className="text">Permission</p>
-              </div>
-            </Link>
-
+              <Link href={"/admin/leave/type"}>
+                <div
+                  className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                    pathname === "/admin/leave/type" ? "bg-[#eee]" : ""
+                  }`}
+                >
+                  <HiOutlineDocumentText />
+                  <p className="text">Type</p>
+                </div>
+              </Link>
             </div>
 
+            <div className="flex flex-col pl-4 ">
+              <h3 className="text-xl font-semibold text-[#595959]">
+                User Management
+              </h3>
+              <Link href={"/admin/user-management/role"}>
+                <div
+                  className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                    pathname === "/admin/user-management/role"
+                      ? "bg-[#eee]"
+                      : ""
+                  }`}
+                >
+                  <HiOutlineUserGroup />
+                  <p className="text">Role</p>
+                </div>
+              </Link>
 
-
+              <Link href={"/admin/user-management/permission"}>
+                <div
+                  className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                    pathname === "/admin/user-management/permission"
+                      ? "bg-[#eee]"
+                      : ""
+                  }`}
+                >
+                  <HiViewBoards />
+                  <p className="text">Permission</p>
+                </div>
+              </Link>
+            </div>
           </div>
-          <div className=" flex items-center w-full justify-center flex-auto">
+          <div className="flex items-center w-full justify-center flex-auto">
             <Button
               onClick={() => setOpenModal(true)}
-              className=" w-[270px] items-center bg-transparent border border-blue-500 text-black hover:bg-blue-600 hover:text-white hover:border-transparent"
+              className="w-[270px] items-center bg-transparent border border-blue-500 text-black hover:bg-blue-600 hover:text-white hover:border-transparent"
               color={"blue-500"}
             >
               Logout
@@ -148,12 +179,11 @@ export default function AdminSidebar() {
               <Modal.Header />
               <Modal.Body>
                 <div className="text-center">
-                 
                   <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                     Are you sure you want to Logout?
                   </h3>
                   <div className="flex justify-center gap-4">
-                    <Button color="blue"  onClick={() => setOpenModal(false)}>
+                    <Button color="blue" onClick={() => setOpenModal(false)}>
                       {"Yes, I'm sure"}
                     </Button>
                     <Button color="gray" onClick={() => setOpenModal(false)}>
