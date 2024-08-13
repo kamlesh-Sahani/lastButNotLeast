@@ -22,19 +22,19 @@ const LeaveApprovalPage = () => {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-100">
               <tr>
-                <th className="px-4 py-2 text-left text-gray-600">Employee</th>
+                <th className="px-4 py-5 text-left text-gray-600">Employee</th>
                 {/* <th className="px-4 py-2 text-left text-gray-600">Department</th> */}
-                <th className="px-4 py-2 text-left text-gray-600">
+                <th className="px-4 py-5 text-left text-gray-600">
                   Leave Type
                 </th>
-                <th className="px-4 py-2 text-left text-gray-600">Dates</th>
+                <th className="px-4 py-5 text-left text-gray-600">Dates</th>
                 {/* <th className="px-4 py-2 text-left text-gray-600">Substitute Teacher</th> */}
-                <th className="px-4 py-2 text-left text-gray-600">Reason</th>
-                <th className="px-4 py-2 text-left text-gray-600">
+                <th className="px-4 py-5 text-left text-gray-600">Reason</th>
+                <th className="px-4 py-5 text-left text-gray-600">
                   Proof Document
                 </th>
-                <th className="px-4 py-2 text-left text-gray-600">Status</th>
-                <th className="px-4 py-2 text-center text-gray-600">Actions</th>
+                <th className="px-4 py-5 text-left text-gray-600">Status</th>
+                <th className="px-4 py-5 text-center text-gray-600">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">

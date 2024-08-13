@@ -63,13 +63,20 @@ const AddDataForm = () => {
   const [showExperience, setShowExperience] = useState(false);
   return (
     <>
-    <div className="flex justify-between pt-6 py-4 px-8 bg-slate-50">
+    <div className="flex justify-between pt-6 py-4 lg:px-8 px-3 bg-slate-50">
       <h1 className="text-3xl font-bold">Create New Employee</h1>
       <Link href='/admin/employee'>
-      <button className="bg-purple-300 hover:bg-purple-400 rounded-3xl px-4 py-3 flex gap-2">
+      {/* <button className="bg-purple-300 hover:bg-purple-400 rounded-3xl px-4 py-3 flex gap-2">
         <IoPersonSharp className="mt-1"/>
         Employees
-      </button>
+      </button> */}
+      <button className="bg-purple-300 hover:bg-purple-400 rounded-3xl lg:px-4 lg:py-3 py-2 px-3 flex items-center gap-2">
+  {/* Icon visible on all screen sizes */}
+  <IoPersonSharp className="text-xl mt-1" />
+
+  {/* Text hidden on small screens, visible on larger screens */}
+  <span className="hidden lg:block">Employees</span>
+</button>
       </Link>
     </div>
     <div className=" flex justify-center  mt-10">

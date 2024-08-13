@@ -103,24 +103,28 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex justify-between pt-6 py-4 px-8 bg-slate-50">
+      <div className="flex justify-between pt-6 py-4 lg:px-8 px-2 bg-slate-50">
         <h1 className="text-3xl font-bold">Employees</h1>
-        <Link href={'employee/new'}>
-        <button className="bg-purple-300 hover:bg-purple-400 rounded-3xl px-4 py-3">
-          + Add Employee
-        </button>
+        <Link href={"employee/new"}>
+          <button className="bg-purple-300 hover:bg-purple-400 rounded-3xl lg:px-4 lg:py-3 px-4 py-2">
+            <span className="block lg:hidden text-xl font-bold rounded-full">
+              +
+            </span>
+            <span className="hidden lg:block">+ Add Employee</span>
+          </button>
         </Link>
       </div>
-      <div className="flex px-10 pb-2 mt-6 -ml-2   justify-between">
-        
-        <div className="flex gap-2">
-        <div className="relative">
+      <div className="flex lg:px-10 px-6 pb-2 mt-6 -ml-2 justify-between">
+        <div className=" lg:flex gap-2">
+          <div className="relative">
             <select
               value={selectedDepartment}
               onChange={handleDepartmentChange}
-              className="border rounded-lg px-4 py-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="border rounded-lg px-2 lg:px-4 py-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
-              <option value="All">All Departments</option>
+              <option className="sm:w-[20px]" value="All">
+                All Departments
+              </option>
               <option value="Commerce & Business">Commerce & Business</option>
               <option value="Computer Science">Computer Science</option>
               <option value="Management Studies">Management Studies</option>
@@ -130,28 +134,28 @@ export default function Home() {
             <select
               value={selectedSort}
               onChange={handleSortChange}
-              className="border rounded-lg px-4 py-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="border rounded-lg px-2 lg:px-4 py-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 "
             >
               <option value="dateOfJoining">Sort by Joining Date</option>
               <option value="department">Sort by Department</option>
             </select>
           </div>
         </div>
-        <div className="w-[300px] flex">
+        <div className="w-[20px] lg:w-[300px] flex">
           <input
             type="text"
             placeholder="Search employees..."
-            className="w-[300px] border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-[20px] lg:w-[300px] border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 hidden lg:block"
             value={searchTerm}
             onChange={handleSearchChange}
           />
-          <div className=" bg-red-100 w-10 h-10 p-2 -ml-[42px] mt-[1px] rounded-r-lg cursor-pointer ">
-          <LuSearch className="w-5 h-5 z-10"/>
+          <div className=" bg-red-100 w-10 h-10 p-2 lg:-ml-[42px] mt-[1px] rounded-lg lg:rounded-r-lg cursor-pointer ">
+            <LuSearch className="w-5 h-5 z-10" />
           </div>
         </div>
       </div>
-      <div className="flex p-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div className="flex lg:p-6 px-3 py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-6">
           {sortedEmployees.map((employee, index) => (
             <EmployeeCard
               key={index}
