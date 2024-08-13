@@ -50,7 +50,7 @@ const LeaveBalancePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gray-100 p-8  xl:w-[90%] m-auto">
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-blue-600">Leave Balance</h1>
         <p className="text-gray-600 mt-2">Track your remaining leave balance across all types.</p>

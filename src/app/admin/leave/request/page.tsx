@@ -106,7 +106,7 @@ const LeaveRequests: React.FC = () => {
         <div className="relative w-full md:w-1/3">
           <input
             type="text"
-            placeholder="Search by name"
+            placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"

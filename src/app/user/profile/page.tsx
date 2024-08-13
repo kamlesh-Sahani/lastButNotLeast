@@ -24,9 +24,9 @@ const UserProfile: React.FC = () => {
   });
 
   const handleEditClick = () => {
-    setModalOpen(true); 
+    setModalOpen(true);
   };
-  
+
   const handleSave = () => {
     // Save the updated personal information here
     setModalOpen(false);
@@ -57,38 +57,54 @@ const UserProfile: React.FC = () => {
             className="mb-4 md:mb-0 md:mr-6"
           />
           <div className="text-center md:text-left">
-            <h2 className="text-xl md:text-2xl font-bold mb-2">{personalInfo.name}</h2>
-            <p className="text-gray-600 text-sm md:text-base">Software Engineer</p>
+            <h2 className="text-xl md:text-2xl font-bold mb-2">
+              {personalInfo.name}
+            </h2>
+            <p className="text-gray-600 text-sm md:text-base">
+              Software Engineer
+            </p>
           </div>
         </div>
 
         <div className="w-full mb-6">
-          <h3 className="text-lg md:text-xl font-semibold mb-4">Department Details</h3>
+          <h3 className="text-lg md:text-xl font-semibold mb-4">
+            Department Details
+          </h3>
           <div className="sm:grid sm:grid-cols-2 flex flex-col gap-4">
             <div className="bg-white p-4 rounded-lg shadow-sm">
-              <h4 className="text-base font-medium text-gray-800">Department</h4>
+              <h4 className="text-base font-medium text-gray-800">
+                Department
+              </h4>
               <p className="text-gray-600 mt-1">Computer Science</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
-              <h4 className="text-base font-medium text-gray-800">Department ID</h4>
+              <h4 className="text-base font-medium text-gray-800">
+                Department ID
+              </h4>
               <p className="text-gray-600 mt-1">348973948320</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
-              <h4 className="text-base font-medium text-gray-800">Designation</h4>
+              <h4 className="text-base font-medium text-gray-800">
+                Designation
+              </h4>
               <p className="text-gray-600 mt-1">Senior Faculty</p>
             </div>
           </div>
         </div>
 
         <div className="w-full mb-6">
-          <h3 className="text-lg md:text-xl font-semibold mb-4">Personal Information</h3>
+          <h3 className="text-lg md:text-xl font-semibold mb-4">
+            Personal Information
+          </h3>
           <div className="sm:grid sm:grid-cols-2 flex flex-col gap-4">
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Name</h4>
               <p className="text-gray-600 mt-1">{personalInfo.name}</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
-              <h4 className="text-base font-medium text-gray-800">Date of Birth</h4>
+              <h4 className="text-base font-medium text-gray-800">
+                Date of Birth
+              </h4>
               <p className="text-gray-600 mt-1">{personalInfo.dob}</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
@@ -107,15 +123,21 @@ const UserProfile: React.FC = () => {
         </div>
 
         <div className="w-full mb-6">
-          <h3 className="text-lg md:text-xl font-semibold mb-4">Educational Qualification</h3>
+          <h3 className="text-lg md:text-xl font-semibold mb-4">
+            Educational Qualification
+          </h3>
           <div className="flex flex-col gap-4">
             <div className="bg-white p-4 rounded-lg shadow-sm">
-              <h4 className="text-base font-medium text-gray-800">Bachelor's Degree</h4>
+              <h4 className="text-base font-medium text-gray-800">
+                Bachelor's Degree
+              </h4>
               <p className="text-gray-600 mt-1">BSc in Computer Science</p>
               <p className="text-gray-600 mt-1">University of XYZ, 2012-2016</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
-              <h4 className="text-base font-medium text-gray-800">Master's Degree</h4>
+              <h4 className="text-base font-medium text-gray-800">
+                Master's Degree
+              </h4>
               <p className="text-gray-600 mt-1">MSc in Software Engineering</p>
               <p className="text-gray-600 mt-1">University of ABC, 2016-2018</p>
             </div>
