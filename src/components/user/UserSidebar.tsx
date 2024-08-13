@@ -1,24 +1,39 @@
 "use client";
 import { Button, Modal } from "flowbite-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   HiChartPie,
   HiShoppingBag,
   HiUser,
   HiViewBoards,
   HiCreditCard,
-  HiCog,
 } from "react-icons/hi";
 import { RiMenu4Fill } from "react-icons/ri";
 import { usePathname } from 'next/navigation';
 export default function UserSidebar() {
   const pathname = usePathname();
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
 
-  console.log(pathname,"pathname");
-  return (
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setShowSidebar(false);
+      } else {
+        setShowSidebar(true);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (                                    
     <>
       <div onClick={() => setShowSidebar(!showSidebar)}>
         {!showSidebar && (
@@ -28,7 +43,7 @@ export default function UserSidebar() {
 
       {showSidebar && (
         <div
-          className="w-full h-full bg-black/50 cursor-pointer md:hidden"
+          className="w-full h-full bg-black/20 cursor-pointer md:hidden"
           onClick={() => setShowSidebar(!showSidebar)}
         ></div>
       )}
