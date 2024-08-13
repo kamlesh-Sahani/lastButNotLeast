@@ -83,31 +83,53 @@ export default function AdminSidebar() {
               </div>
             </Link>
 
-            <Link href={"/user/application"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/application'?"bg-[#eee]":""}`}>
+            <Link href={"/admin/department/course"}>
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin/department/course'?"bg-[#eee]":""}`}>
                 <HiShoppingBag />
-                <p className="text">Application</p>
+                <p className="text">Course</p>
               </div>
             </Link>
-            <Link href={"/user/balance"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/balance'?"bg-[#eee]":""}`}>
+
+
+<div className="flex flex-col pl-4 ">
+  <h3 className="text-xl font-semibold mb-3 text-[#595959]">Leave</h3>
+<Link href={"/admin/leave/request"}>
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[rgb(238,238,238)] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin/leave/request'?"bg-[#eee]":""}`}>
                 <HiCreditCard />
-                <p className="text">Balance</p>
+                <p className="text">Request</p>
               </div>
             </Link>
 
-            <Link href={"/user/history"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/history'?"bg-[#eee]":""}`}>
+            <Link href={"/admin/leave/type"}>
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin/leave/type'?"bg-[#eee]":""}`}>
                 <HiViewBoards />
-                <p className="text">History</p>
+                <p className="text">Type</p>
+              </div>
+            </Link>
+</div>
+          
+
+<div className="flex flex-col pl-4 ">
+  <h3 className="text-xl font-semibold  text-[#595959]">User Management</h3>
+            <Link href={"/admin/user-management/role"}>
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin/user-managenent/role'?"bg-[#eee]":""}`}>
+                <HiViewBoards />
+                <p className="text">Role</p>
               </div>
             </Link>
 
-            {/* <Link href={"/user/setting"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/setting'?"bg-[#eee]":""}`}>
-                <p className="text">Setting</p>
+
+            <Link href={"/admin/user-management/permission"}>
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/admin/user-managenent/permission'?"bg-[#eee]":""}`}>
+                <HiViewBoards />
+                <p className="text">Permission</p>
               </div>
-            </Link> */}
+            </Link>
+
+            </div>
+
+
+
           </div>
           <div className=" flex items-center w-full justify-center flex-auto">
             <Button
