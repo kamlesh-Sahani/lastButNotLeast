@@ -24,9 +24,9 @@ const UserProfile: React.FC = () => {
   });
 
   const handleEditClick = () => {
-    setModalOpen(true);
+    setModalOpen(true); 
   };
-
+  
   const handleSave = () => {
     // Save the updated personal information here
     setModalOpen(false);
