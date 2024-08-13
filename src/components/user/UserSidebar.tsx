@@ -9,6 +9,7 @@ import {
   HiViewBoards,
   HiCreditCard,
 } from "react-icons/hi";
+import { FaCheck } from 'react-icons/fa';
 import { RiMenu4Fill } from "react-icons/ri";
 import { usePathname } from 'next/navigation';
 export default function UserSidebar() {
@@ -103,9 +104,10 @@ export default function UserSidebar() {
               </div>
             </Link>
 
-            <Link href={"/user/approval"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/approval'?"bg-[#eee]":""}`}>
-                <HiViewBoards />
+            <Link href={"/approval"}>
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/approval'?"bg-[#eee]":""}`}>
+                <FaCheck />
+                
                 <p className="text">Approval</p>
               </div>
             </Link>
