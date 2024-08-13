@@ -1,7 +1,7 @@
 "use client";
 import { Modal } from "flowbite-react";
 import React, { useState } from "react";
-import { FaCheckCircle, FaPlus, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt, FaPlus } from "react-icons/fa";
 
 interface Role {
   id: number;
@@ -17,22 +17,19 @@ const rolesData: Role[] = [
 
 const PermissionsPage: React.FC = () => {
   const [roles, setRoles] = useState<Role[]>(rolesData);
-  const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [roleName, setRoleName] = useState<string>("");
   const [rolePermissions, setRolePermissions] = useState<string[]>([]);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [selectedRoleId, setSelectedRoleId] = useState<number | null>(null);
   const [roleToDelete, setRoleToDelete] = useState<Role | null>(null);
-
-  const handleRoleSelect = (role: Role) => {
-    setSelectedRole(role);
-  };
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const handleCreateRole = () => {
     setRoleName("");
     setRolePermissions([]);
     setIsEditing(false);
+    setSelectedRoleId(null);
     setIsModalOpen(true);
   };
 
@@ -40,6 +37,7 @@ const PermissionsPage: React.FC = () => {
     setRoleName(role.name);
     setRolePermissions(role.permissions);
     setIsEditing(true);
+    setSelectedRoleId(role.id);
     setIsModalOpen(true);
   };
 
@@ -55,17 +53,14 @@ const PermissionsPage: React.FC = () => {
       );
       setIsDeleteModalOpen(false);
       setRoleToDelete(null);
-      if (selectedRole && selectedRole.id === roleToDelete.id) {
-        setSelectedRole(null);
-      }
     }
   };
 
   const handleSaveRole = () => {
-    if (isEditing && selectedRole) {
+    if (isEditing && selectedRoleId !== null) {
       setRoles((prevRoles) =>
         prevRoles.map((r) =>
-          r.id === selectedRole.id
+          r.id === selectedRoleId
             ? { ...r, name: roleName, permissions: rolePermissions }
             : r
         )
@@ -91,83 +86,47 @@ const PermissionsPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto w-full py-5 px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 md:space-x-10">
-        <div className="md:w-1/3">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-semibold">Roles</h2>
-            <button
-              onClick={handleCreateRole}
-              className="text-blue-500 hover:text-blue-700"
-            >
-              <FaPlus size={20} />
-            </button>
-          </div>
-          <ul className="space-y-4">
-            {roles.map((role) => (
-              <li
-                key={role.id}
-                className={`p-4 bg-white rounded shadow-md cursor-pointer flex items-center justify-between ${
-                  selectedRole && selectedRole.id === role.id
-                    ? "border-l-4 border-blue-500"
-                    : ""
-                }`}
-                onClick={() => handleRoleSelect(role)}
-              >
-                <div className="flex items-center">
-                  <FaCheckCircle
-                    className={`mr-2 ${
-                      selectedRole && selectedRole.id === role.id
-                        ? "text-blue-500"
-                        : "text-gray-500"
-                    }`}
-                  />
-                  {role.name}
-                </div>
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => handleEditRole(role)}
-                    className="text-gray-500 hover:text-gray-800"
-                  >
-                    <FaEdit size={16} />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteRole(role);
-                    }}
-                    className="text-red-500 hover:text-red-700"
-                  >
-                    <FaTrashAlt size={16} />
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="md:w-2/3">
-          {selectedRole ? (
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">
-                Permissions for {selectedRole.name}
-              </h2>
-              <ul className="space-y-2">
-                {selectedRole.permissions.map((permission, index) => (
-                  <li
-                    key={index}
-                    className="p-4 bg-white rounded shadow-md flex items-center"
-                  >
-                    <FaCheckCircle className="mr-2 text-green-500" />
-                    {permission}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <p className="text-2xl font-medium">Select a role to view permissions</p>
-          )}
-        </div>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-semibold">Roles</h2>
+        <button
+          onClick={handleCreateRole}
+          className="text-blue-500 hover:text-blue-700 flex items-center"
+        >
+          <FaPlus size={20} className="mr-2" />
+          Create Role
+        </button>
       </div>
+      <ul className="space-y-4">
+        {roles.map((role) => (
+          <li key={role.id} className="bg-white rounded shadow-md p-4 flex justify-between items-center">
+            <div className="flex flex-col md:flex-row md:items-center">
+              <span className="text-lg font-medium">{role.name}</span>
+              <span className="md:ml-4 text-gray-600 flex flex-wrap">
+                {role.permissions.join(", ")}
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => handleEditRole(role)}
+                className="text-gray-500 hover:text-gray-800"
+              >
+                <FaEdit size={16} />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteRole(role);
+                }}
+                className="text-red-500 hover:text-red-700"
+              >
+                <FaTrashAlt size={16} />
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
 
+      {/* Modal for Creating/Editing Role */}
       <Modal
         show={isModalOpen}
         onClose={() => setIsModalOpen(false)}
