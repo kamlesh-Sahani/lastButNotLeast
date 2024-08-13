@@ -3,7 +3,7 @@ import TypingAnimation from '../components/TypingAnimation';
 import Image from 'next/image';
 const HomePage = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Header Section */}
       <div className='flex gap-4 justify-center items-center bg-blue-10  pt-4 '>
         <Image
