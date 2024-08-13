@@ -100,7 +100,7 @@ const LeaveHistory = () => {
   return (
     <div className="h-full w-full bg-gray-100 min-h-screen">
       <div className="max-w-7xl mx-auto p-6 my-4">
-        <h1 className="text-4xl font-bold mb-8 text-blue-500">Leave History</h1>
+        <h1 className="text-4xl font-bold mb-8 text-blue-500 max-sm:text-center">Leave History</h1>
 
         <div className="mb-6 flex md:justify-between items-center max-sm:flex-col gap-2 ">
           <div className="flex space-x-4 items-center">
