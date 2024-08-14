@@ -33,7 +33,7 @@ const EmployeeCard: FC<EmployeeCardProps> = ({
   
   return (
    <>
-         <div className="lg:w-[250px] lg:h-[327px] h-[350px] w-[370px] rounded-3xl overflow-hidden shadow-md bg-white px-3 py-3 border border-gray-200 relative">
+         <div className="lg:w-[250px] lg:h-[327px] max-sm:h-[350px] max-sm:w-[370px] rounded-3xl overflow-hidden shadow-md bg-white px-3 py-3 border border-gray-200 relative">
          <PiDotsThreeOutlineVertical className="flex float-end cursor-pointer" onClick={toggleOptions}/>
          {isOptionsVisible && (
           <div className="absolute top-8 right-2 bg-white border border-gray-200 shadow-lg rounded-lg w-32">
