@@ -1,7 +1,7 @@
 
 "use client";
 import { useState } from "react";
-import EmployeeCard from "./component/EmployeeCard";
+import EmployeeCard from "../../../components/admin/EmployeeCard";
 import { LuSearch } from "react-icons/lu";
 import Link from "next/link";
 
