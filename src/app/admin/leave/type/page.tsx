@@ -100,14 +100,14 @@ const LeaveTypes: React.FC = () => {
   const handleSave = () => {
     if (currentLeaveType) {
       if (currentLeaveType.id <= leaveTypes.length) {
-        // Update existing leave type
+
         setLeaveTypes(
           leaveTypes.map((leaveType) =>
             leaveType.id === currentLeaveType.id ? currentLeaveType : leaveType
           )
         );
       } else {
-        // Add new leave type
+
         setLeaveTypes([...leaveTypes, currentLeaveType]);
       }
     }

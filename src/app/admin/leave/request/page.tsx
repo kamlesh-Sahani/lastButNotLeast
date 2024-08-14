@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdOutlineArrowDropDown } from "react-icons/md";
+
 interface LeaveRequest {
   id: number;
   name: string;
@@ -13,6 +14,7 @@ interface LeaveRequest {
   reason: string;
   email: string;
   phone: string;
+  createdAt: string; // New field to store the creation time of the request
 }
 
 const LeaveRequests: React.FC = () => {
@@ -21,7 +23,22 @@ const LeaveRequests: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
-    const leaveRequests: LeaveRequest[] = [
+  // Dummy function to return a relative time
+  const getRelativeTime = (createdAt: string) => {
+    const now = new Date();
+    const createdTime = new Date(createdAt);
+    const diffInMinutes = Math.floor((now.getTime() - createdTime.getTime()) / 60000);
+
+    if (diffInMinutes < 60) {
+      return `${diffInMinutes} minutes ago`;
+    } else if (diffInMinutes < 1440) {
+      return `${Math.floor(diffInMinutes / 60)} hours ago`;
+    } else {
+      return `${Math.floor(diffInMinutes / 1440)} days ago`;
+    }
+  };
+
+  const leaveRequests: LeaveRequest[] = [
     {
       id: 1,
       name: 'John Doe',
@@ -32,6 +49,7 @@ const LeaveRequests: React.FC = () => {
       reason: 'Family emergency',
       email: 'john.doe@example.com',
       phone: '123-456-7890',
+      createdAt: '2024-08-14T08:30:00', // Example creation time
     },
     {
       id: 2,
@@ -43,6 +61,7 @@ const LeaveRequests: React.FC = () => {
       reason: 'Medical leave',
       email: 'jane.smith@example.com',
       phone: '987-654-3210',
+      createdAt: '2024-08-13T14:00:00',
     },
     {
       id: 3,
@@ -54,6 +73,7 @@ const LeaveRequests: React.FC = () => {
       reason: 'Personal reason',
       email: 'emily.johnson@example.com',
       phone: '456-789-0123',
+      createdAt: '2024-08-12T09:15:00',
     },
     {
       id: 4,
@@ -65,6 +85,7 @@ const LeaveRequests: React.FC = () => {
       reason: 'Conference attendance',
       email: 'michael.brown@example.com',
       phone: '321-654-0987',
+      createdAt: '2024-08-11T16:45:00',
     },
     {
       id: 5,
@@ -76,11 +97,10 @@ const LeaveRequests: React.FC = () => {
       reason: 'Vacation',
       email: 'linda.white@example.com',
       phone: '654-321-7890',
+      createdAt: '2024-08-10T12:00:00',
     },
   ];
 
-
-  // Filter, search, and sort logic
   const filteredRequests = leaveRequests
     .filter((request) =>
       filterStatus === 'All' || request.status === filterStatus
@@ -156,8 +176,20 @@ const LeaveRequests: React.FC = () => {
                   <p className="text-gray-500">
                     {request.startDate} - {request.endDate}
                   </p>
-                  <p className={`text-sm font-semibold ${request.status === 'Pending' ? 'text-yellow-500' : request.status === 'Accepted' ? 'text-green-500' : 'text-red-500'}`}>
+                  <p
+                    className={`text-sm font-semibold ${
+                      request.status === "Pending"
+                        ? "text-yellow-500"
+                        : request.status === "Accepted"
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                  >
                     {request.status}
+                  </p>
+                  {/* New line for relative time */}
+                  <p className="text-gray-400 text-sm">
+                    {getRelativeTime(request.createdAt)}
                   </p>
                 </div>
               </div>
@@ -174,9 +206,15 @@ const LeaveRequests: React.FC = () => {
             </div>
             {expandedRequestId === request.id && (
               <div className="flex flex-col p-4 pl-20 space-y-2 bg-gray-100">
-                <p><strong>Reason:</strong> {request.reason}</p>
-                <p><strong>Email:</strong> {request.email}</p>
-                <p><strong>Phone:</strong> {request.phone}</p>
+                <p>
+                  <strong>Reason:</strong> {request.reason}
+                </p>
+                <p>
+                  <strong>Email:</strong> {request.email}
+                </p>
+                <p>
+                  <strong>Phone:</strong> {request.phone}
+                </p>
               </div>
             )}
           </div>
