@@ -8,16 +8,16 @@ import {
   HiUser,
   HiViewBoards,
   HiCreditCard,
+  HiCheckCircle,
+  HiUserGroup,
 } from "react-icons/hi";
+import { IoIosNotifications } from "react-icons/io";
 import { RiMenu4Fill } from "react-icons/ri";
 import { usePathname } from 'next/navigation';
-import { SlCalender } from "react-icons/sl";
 export default function UserSidebar() {
   const pathname = usePathname();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
-
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,13 +28,13 @@ export default function UserSidebar() {
       }
     };
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  return (                                    
+  return (
     <>
       <div onClick={() => setShowSidebar(!showSidebar)}>
         {!showSidebar && (
@@ -55,43 +55,62 @@ export default function UserSidebar() {
           } flex flex-col md:relative`}
           style={{ width: "300px", height: "100vh" }}
         >
-          <div className="flex gap-5 items-center justify-center mb-7 relative">
+          <div className="flex gap-5 items-center justify-center mb-7 relative ">
             <div className="flex gap-5 items-center justify-center  mt-7">
               <img
                 src={"https://avatar.iran.liara.run/public/boy"}
                 alt="df"
                 className="h-[80px] w-[80px] rounded-full object-cover"
               />
+            
               <div className="flex flex-col">
                 <h1 className="text-xl font-semibold">Saad Mehmood</h1>
                 <p className="text-[#6b6b6b]">frontend developer</p>
+               
               </div>
             </div>
+           
           </div>
 
           <div className="flex flex-col gap-2 flex-[3]">
             <Link href={"/user"}>
-              <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user'?"bg-[#eee]":""}`}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/user" ? "bg-[#eee]" : ""
+                }`}
+              >
                 <HiChartPie />
                 <p className="">Dashboard</p>
               </div>
             </Link>
 
             <Link href={"/user/profile"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/profile'?"bg-[#eee]":""}`}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/user/profile" ? "bg-[#eee]" : ""
+                }`}
+              >
                 <HiUser />
                 <p className="text">Profile</p>
               </div>
             </Link>
 
             <Link href={"/user/application"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/application'?"bg-[#eee]":""}`}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/user/application" ? "bg-[#eee]" : ""
+                }`}
+              >
                 <HiShoppingBag />
                 <p className="text">Application</p>
               </div>
             </Link>
             <Link href={"/user/balance"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/balance'?"bg-[#eee]":""}`}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/user/balance" ? "bg-[#eee]" : ""
+                }`}
+              >
                 <HiCreditCard />
                 <p className="text">Balance</p>
               </div>
@@ -104,22 +123,45 @@ export default function UserSidebar() {
             </Link>
 
             <Link href={"/user/history"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/history'?"bg-[#eee]":""}`}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/user/history" ? "bg-[#eee]" : ""
+                }`}
+              >
                 <HiViewBoards />
                 <p className="text">History</p>
               </div>
             </Link>
-
-              <Link href={"/approval"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/approval'?"bg-[#eee]":""}`}>
-                <HiViewBoards />
+            <Link href={"/approval"}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/approval" ? "bg-[#eee]" : ""
+                }`}
+              >
+                <HiCheckCircle />
                 <p className="text">Approval</p>
               </div>
             </Link>
 
-        
+            <Link href={"/user/substitute-requests"}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/user/substitute-requests" ? "bg-[#eee]" : ""
+                }`}
+              >
+                <HiUserGroup />
+                <p className="text">Substitute Requests</p>
+                <div>
+                  <span className="text-red-600 font-semibold">(2)</span>
+                </div>
+              </div>
+            </Link>
+
+  
+
           </div>
           <div className=" flex items-center w-full justify-center flex-auto">
+        
             <Button
               onClick={() => setOpenModal(true)}
               className=" w-[270px] items-center bg-transparent border border-blue-500 text-black hover:bg-blue-600 hover:text-white hover:border-transparent"
@@ -136,12 +178,11 @@ export default function UserSidebar() {
               <Modal.Header />
               <Modal.Body>
                 <div className="text-center">
-                 
                   <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                     Are you sure you want to Logout?
                   </h3>
                   <div className="flex justify-center gap-4">
-                    <Button color="blue"  onClick={() => setOpenModal(false)}>
+                    <Button color="blue" onClick={() => setOpenModal(false)}>
                       {"Yes, I'm sure"}
                     </Button>
                     <Button color="gray" onClick={() => setOpenModal(false)}>

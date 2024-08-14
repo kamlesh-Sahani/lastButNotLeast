@@ -17,15 +17,15 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, LineEleme
 
 const DashboardPage = () => {
 
-
+  // Sample data for the line chart (Leave Requests Over Time)
   const lineData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
         label: 'Leave Requests',
         data: [3, 2, 5, 4, 6, 7, 8],
-        borderColor: 'rgba(59, 130, 246, 0.9)', // Tailwind's blue-500
-        backgroundColor: 'rgba(59, 130, 246, 0.2)', // Tailwind's blue-500 with transparency
+        borderColor: 'rgba(59, 130, 246, 0.9)', 
+        backgroundColor: 'rgba(59, 130, 246, 0.2)', 
         fill: true,
         tension: 0.4,
       },
@@ -84,6 +84,14 @@ const DashboardPage = () => {
     },
   };
 
+  // Sample data for recent leave applications
+  const recentLeaves = [
+    { id: 1, employee: 'John Doe', date: '2024-08-01', status: 'Approved' },
+    { id: 2, employee: 'Jane Smith', date: '2024-08-03', status: 'Pending' },
+    { id: 3, employee: 'Alice Johnson', date: '2024-08-05', status: 'Rejected' },
+    { id: 4, employee: 'Robert Brown', date: '2024-08-07', status: 'Approved' },
+    { id: 5, employee: 'Emily Davis', date: '2024-08-10', status: 'Pending' },
+  ];
 
   return (
     <div className="min-h-screen bg-gray-100 p-8 xl:w-[90%] m-auto">
@@ -114,15 +122,48 @@ const DashboardPage = () => {
             <Line data={lineData} options={lineOptions} height={210}/>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-lg ">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold text-gray-700 mb-6">Leave Types Distribution</h2>
             <Bar data={barData} options={barOptions} height={210}/>
           </div>
         </div>
 
-     
+        {/* Recent Leave Applications */}
+        <section className="bg-white p-6 rounded-lg shadow-lg mb-8">
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">Recent Leave Applications</h2>
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-4 py-2 text-left text-gray-600">Employee</th>
+                <th className="px-4 py-2 text-left text-gray-600">Date Applied</th>
+                <th className="px-4 py-2 text-left text-gray-600">Status</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {recentLeaves.map((leave) => (
+                <tr key={leave.id}>
+                  <td className="px-4 py-4">{leave.employee}</td>
+                  <td className="px-4 py-4">{leave.date}</td>
+                  <td className="px-4 py-4">
+                    <span
+                      className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
+                        leave.status === 'Approved'
+                          ? 'bg-green-100 text-green-700'
+                          : leave.status === 'Pending'
+                          ? 'bg-yellow-100 text-yellow-700'
+                          : 'bg-red-100 text-red-700'
+                      }`}
+                    >
+                      {leave.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
 
-          <section className="bg-blue-50 p-6 rounded-lg shadow-lg">
+        <section className="bg-blue-50 p-6 rounded-lg shadow-lg">
           <h2 className="text-3xl font-bold text-gray-700 mb-4">Leave Management Insights</h2>
           <p className="text-lg text-gray-600">The system shows a balanced leave distribution among different types, with a majority of requests being approved. Make sure to submit your requests early for timely approval.</p>
         </section>
