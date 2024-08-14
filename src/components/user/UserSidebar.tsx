@@ -14,6 +14,7 @@ import {
 import { IoIosNotifications } from "react-icons/io";
 import { RiMenu4Fill } from "react-icons/ri";
 import { usePathname } from 'next/navigation';
+import { SlCalender } from "react-icons/sl";
 export default function UserSidebar() {
   const pathname = usePathname();
   const [openModal, setOpenModal] = useState<boolean>(false);
