@@ -11,6 +11,7 @@ import {
 } from "react-icons/hi";
 import { RiMenu4Fill } from "react-icons/ri";
 import { usePathname } from 'next/navigation';
+import { SlCalender } from "react-icons/sl";
 export default function UserSidebar() {
   const pathname = usePathname();
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -93,6 +94,12 @@ export default function UserSidebar() {
             <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/balance'?"bg-[#eee]":""}`}>
                 <HiCreditCard />
                 <p className="text">Balance</p>
+              </div>
+            </Link>
+            <Link href={"/user/leavetype"}>
+            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/leavetype'?"bg-[#eee]":""}`}>
+                <SlCalender/>
+                <p className="text">Leaves</p>
               </div>
             </Link>
 

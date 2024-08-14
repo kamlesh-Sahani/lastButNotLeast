@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
@@ -7,6 +7,17 @@ interface Arrangement {
   subject: string;
   course: string;
   semester: string;
+}
+
+interface Course {
+  name: string;
+  semesters: number;
+}
+
+interface Subjects {
+  [key: string]: {
+    [semester: number]: string[];
+  };
 }
 
 const LeaveApplication: React.FC = () => {
@@ -29,11 +40,11 @@ const LeaveApplication: React.FC = () => {
     false
   );
 
-  const [courses] = useState([
+  const [courses] = useState<Course[]>([
     { name: "BCA", semesters: 6 },
     { name: "BTech", semesters: 8 },
   ]);
-  const [subjects] = useState({
+  const [subjects] = useState<Subjects>({
     BCA: {
       1: ["Maths 1", "Programming 1", "Communication Skills"],
       2: ["Maths 2", "Programming 2", "Data Structures"],
@@ -44,7 +55,6 @@ const LeaveApplication: React.FC = () => {
     },
   });
   const [facultyList] = useState(["John Doe", "Jane Smith", "Albert Johnson"]);
-
 
   const handleNewArrangementChange = (
     field: keyof Arrangement,
@@ -60,6 +70,7 @@ const LeaveApplication: React.FC = () => {
   const handleSemesterChange = (semester: string) => {
     setNewArrangement({ ...newArrangement, semester, subject: "" });
   };
+
   const addArrangement = () => {
     if (
       newArrangement.facultyName &&
@@ -68,7 +79,7 @@ const LeaveApplication: React.FC = () => {
       newArrangement.semester
     ) {
       setArrangements([...arrangements, newArrangement]);
-      console.log("New Arrangement Added:", newArrangement); 
+      console.log("New Arrangement Added:", newArrangement);
       setNewArrangement({
         facultyName: "",
         subject: "",
@@ -76,7 +87,7 @@ const LeaveApplication: React.FC = () => {
         semester: "",
       });
     } else {
-      console.log("Incomplete Arrangement Data"); 
+      console.log("Incomplete Arrangement Data");
     }
   };
 
@@ -217,18 +228,20 @@ const LeaveApplication: React.FC = () => {
           </div>
           <div className="mt-8">
             <div
-              className="flex items-center cursor-pointer"
+              className="flex items-center gap-4 cursor-pointer"
               onClick={toggleArrangementsVisibility}
             >
-              <h2 className="text-xl font-semibold text-gray-700">Class Arrangements</h2>
+              <h2 className="text-xl font-semibold text-gray-800">
+                Class Arrangements
+              </h2>
               {isArrangementsVisible ? (
-                <HiChevronUp className="ml-2 text-xl" />
+                <HiChevronUp className="w-6 h-6 text-gray-600" />
               ) : (
-                <HiChevronDown className="ml-2 text-xl" />
+                <HiChevronDown className="w-6 h-6 text-gray-600" />
               )}
             </div>
             {isArrangementsVisible && (
-              <div className="mt-6">
+              <div className="mt-4 p-4 rounded-lg shadow-inner">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-600">
@@ -236,150 +249,98 @@ const LeaveApplication: React.FC = () => {
                     </label>
                     <select
                       value={newArrangement.facultyName}
-                      onChange={(e) =>
-                        handleNewArrangementChange(
-                          "facultyName",
-                          e.target.value
-                        )
-                      }
+                      onChange={(e) => handleNewArrangementChange("facultyName", e.target.value)}
                       className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     >
-                      <option value="" disabled>
-                        Select Faculty
-                      </option>
+                      <option value="" disabled>Select Faculty</option>
                       {facultyList.map((faculty, index) => (
-                        <option key={index} value={faculty}>
-                          {faculty}
-                        </option>
+                        <option key={index} value={faculty}>{faculty}</option>
                       ))}
                     </select>
                   </div>
-
-                  
                   <div>
                     <label className="block text-sm font-semibold text-gray-600">
                       Course
                     </label>
                     <select
                       value={newArrangement.course}
-                      onChange={(e) =>
-                        handleCourseChange(e.target.value)
-                      }
+                      onChange={(e) => handleCourseChange(e.target.value)}
                       className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     >
-                      <option value="" disabled>
-                        Select Course
-                      </option>
+                      <option value="" disabled>Select Course</option>
                       {courses.map((course, index) => (
-                        <option key={index} value={course.name}>
-                          {course.name}
-                        </option>
+                        <option key={index} value={course.name}>{course.name}</option>
                       ))}
                     </select>
                   </div>
-
                   <div>
                     <label className="block text-sm font-semibold text-gray-600">
                       Semester
                     </label>
                     <select
                       value={newArrangement.semester}
-                      onChange={(e) =>
-                        handleSemesterChange(e.target.value)
-                      }
+                      onChange={(e) => handleSemesterChange(e.target.value)}
                       className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     >
-                      <option value="" disabled>
-                        Select Semester
-                      </option>
-                      {courses
-                        .find(
-                          (course) => course.name === newArrangement.course
-                        )
-                        ?.semesters &&
-                        Array.from(
-                          {
-                            length: courses.find(
-                              (course) =>
-                                course.name === newArrangement.course
-                            )?.semesters,
-                          },
-                          (_, i) => i + 1
-                        ).map((sem) => (
-                          <option key={sem} value={sem}>
-                            Semester {sem}
-                          </option>
-                        ))}
+                      <option value="" disabled>Select Semester</option>
+                      {newArrangement.course &&
+                        courses.find((course) => course.name === newArrangement.course)?.semesters
+                        ? Array.from({ length: courses.find((course) => course.name === newArrangement.course)!.semesters }, (_, i) => i + 1).map((semester) => (
+                          <option key={semester} value={semester}>{semester}</option>
+                        ))
+                        : null}
                     </select>
                   </div>
-
                   <div>
                     <label className="block text-sm font-semibold text-gray-600">
                       Subject
                     </label>
                     <select
                       value={newArrangement.subject}
-                      onChange={(e) =>
-                        handleNewArrangementChange(
-                          "subject",
-                          e.target.value
-                        )
-                      }
+                      onChange={(e) => handleNewArrangementChange("subject", e.target.value)}
                       className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     >
-                      <option value="" disabled>
-                        Select Subject
-                      </option>
-                      {newArrangement.course &&
-                        newArrangement.semester &&
-                        subjects[newArrangement.course]?.[
-                          newArrangement.semester
-                        ]?.map((subject, index) => (
-                          <option key={index} value={subject}>
-                            {subject}
-                          </option>
-                        ))}
+                      <option value="" disabled>Select Subject</option>
+                      {newArrangement.course && newArrangement.semester
+                        ? subjects[newArrangement.course]?.[parseInt(newArrangement.semester)]?.map((subject, index) => (
+                          <option key={index} value={subject}>{subject}</option>
+                        ))
+                        : null}
                     </select>
                   </div>
                 </div>
-
                 <button
                   type="button"
                   onClick={addArrangement}
-                  className="mt-4 px-6 py-3 bg-indigo-500 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   Add Arrangement
                 </button>
-                <div className="mt-8">
-                  {arrangements.map((arrangement, index) => (
-                    <div
-                      key={index}
-                      className="flex lg:items-center lg:justify-between max-lg:flex-col bg-gray-50 p-4 rounded-lg shadow mb-4"
-                    >
-                      <div>
-                        <p className="text-sm">
-                          <strong>Faculty:</strong>{" "}
-                          {arrangement.facultyName}
-                        </p>
-                  
-                        <p className="text-sm">
-                          <strong>Course:</strong> {arrangement.course},{" "}
-                          <strong>Semester:</strong>{" "}
-                          {arrangement.semester}
-                        </p>
-                        <p className="text-sm">
-                          <strong>Subject:</strong>{" "}
-                          {arrangement.subject}
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => handleDelete(index)}
-                        className="text-white bg-red-500 p-2 max-lg:w-full  rounded-md mt-4 hover:text-red-700"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  ))}
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold text-gray-800">Current Arrangements</h3>
+                  {arrangements.length > 0 ? (
+                    <ul className="mt-4">
+                      {arrangements.map((arrangement, index) => (
+                        <li key={index} className="flex lg:items-center lg:justify-between max-lg:flex-col max-lg:gap-4 bg-gray-100 p-4 rounded-lg shadow-inner mb-2">
+                          <span>
+                            <strong>Faculty:</strong> {arrangement.facultyName} <br />
+                            <strong>Subject:</strong> {arrangement.subject} <br />
+                            <strong>Course:</strong> {arrangement.course} <br />
+                            <strong>Semester:</strong> {arrangement.semester}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(index)}
+                            className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                          >
+                            Delete
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No arrangements added yet.</p>
+                  )}
                 </div>
               </div>
             )}
