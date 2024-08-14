@@ -90,6 +90,10 @@ const LeaveApplication: React.FC = () => {
       }); // Reset input fields
     }
   };
+  // Handle delete arrangement
+  const handleDelete = (index: number) => {
+    setArrangements((prev) => prev.filter((_, i) => i !== index));
+  };
 
   // Toggle visibility of class arrangements section
   const toggleArrangementsVisibility = () => {
@@ -230,83 +234,85 @@ const LeaveApplication: React.FC = () => {
 
             {/* New Arrangement Input Section */}
             {isArrangementsVisible && (
-             <div className="mb-6 p-4 border rounded-lg shadow-sm bg-white">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-               <div>
-                 <label className="block text-sm font-semibold text-gray-600">
-                   Faculty Name
-                 </label>
-                 <input
-                   type="text"
-                   value={newArrangement.facultyName}
-                   onChange={(e) =>
-                     handleNewArrangementChange("facultyName", e.target.value)
-                   }
-                   className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                 />
-               </div>
-               <div>
-                 <label className="block text-sm font-semibold text-gray-600">
-                   Department
-                 </label>
-                 <input
-                   type="text"
-                   value={newArrangement.department}
-                   onChange={(e) =>
-                     handleNewArrangementChange("department", e.target.value)
-                   }
-                   className="mt-2 block w-full px-4 py-3 bg-gray-50 rounded-lg shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                 />
-               </div>
-               <div>
-                 <label className="block text-sm font-semibold text-gray-600">
-                   Subject
-                 </label>
-                 <input
-                   type="text"
-                   value={newArrangement.subject}
-                   onChange={(e) =>
-                     handleNewArrangementChange("subject", e.target.value)
-                   }
-                   className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                 />
-               </div>
-               <div>
-                 <label className="block text-sm font-semibold text-gray-600">
-                   Course
-                 </label>
-                 <input
-                   type="text"
-                   value={newArrangement.course}
-                   onChange={(e) =>
-                     handleNewArrangementChange("course", e.target.value)
-                   }
-                   className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                 />
-               </div>
-               <div>
-                 <label className="block text-sm font-semibold text-gray-600">
-                   Semester
-                 </label>
-                 <input
-                   type="text"
-                   value={newArrangement.semester}
-                   onChange={(e) =>
-                     handleNewArrangementChange("semester", e.target.value)
-                   }
-                   className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                 />
-               </div>
-             </div>
-             <button
-               type="button"
-               onClick={addArrangement}
-               className="mt-4 max-lg:text-sm p-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
-             >
-               Add Arrangement
-             </button>
-           </div>
-
+              <div className="mb-6 p-4 border rounded-lg shadow-sm bg-white">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-600">
+                      Faculty Name
+                    </label>
+                    <input
+                      type="text"
+                      value={newArrangement.facultyName}
+                      onChange={(e) =>
+                        handleNewArrangementChange(
+                          "facultyName",
+                          e.target.value
+                        )
+                      }
+                      className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-600">
+                      Department
+                    </label>
+                    <input
+                      type="text"
+                      value={newArrangement.department}
+                      onChange={(e) =>
+                        handleNewArrangementChange("department", e.target.value)
+                      }
+                      className="mt-2 block w-full px-4 py-3 bg-gray-50 rounded-lg shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-600">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      value={newArrangement.subject}
+                      onChange={(e) =>
+                        handleNewArrangementChange("subject", e.target.value)
+                      }
+                      className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-600">
+                      Course
+                    </label>
+                    <input
+                      type="text"
+                      value={newArrangement.course}
+                      onChange={(e) =>
+                        handleNewArrangementChange("course", e.target.value)
+                      }
+                      className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-600">
+                      Semester
+                    </label>
+                    <input
+                      type="text"
+                      value={newArrangement.semester}
+                      onChange={(e) =>
+                        handleNewArrangementChange("semester", e.target.value)
+                      }
+                      className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={addArrangement}
+                  className="mt-4 max-lg:text-sm p-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                >
+                  Add Arrangement
+                </button>
+              </div>
             )}
 
             {/* List of Arrangements */}
@@ -319,23 +325,32 @@ const LeaveApplication: React.FC = () => {
                   {arrangements.map((arrangement, index) => (
                     <li
                       key={index}
-                      className="border p-4 rounded-lg shadow-sm bg-gray-50"
+                      className="border max-lg:flex-col p-4 rounded-lg shadow-sm bg-gray-50 flex lg:justify-between lg:items-center"
                     >
-                      <p>
-                        <strong>Faculty Name:</strong> {arrangement.facultyName}
-                      </p>
-                      <p>
-                        <strong>Department:</strong> {arrangement.department}
-                      </p>
-                      <p>
-                        <strong>Subject:</strong> {arrangement.subject}
-                      </p>
-                      <p>
-                        <strong>Course:</strong> {arrangement.course}
-                      </p>
-                      <p>
-                        <strong>Semester:</strong> {arrangement.semester}
-                      </p>
+                      <div>
+                        <p>
+                          <strong>Faculty Name:</strong>{" "}
+                          {arrangement.facultyName}
+                        </p>
+                        <p>
+                          <strong>Department:</strong> {arrangement.department}
+                        </p>
+                        <p>
+                          <strong>Subject:</strong> {arrangement.subject}
+                        </p>
+                        <p>
+                          <strong>Course:</strong> {arrangement.course}
+                        </p>
+                        <p>
+                          <strong>Semester:</strong> {arrangement.semester}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => handleDelete(index)}
+                        className="bg-red-500 p-2 rounded-md mt-4 text-white  hover:text-red-800 font-semibold"
+                      >
+                        Delete
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -343,22 +358,22 @@ const LeaveApplication: React.FC = () => {
             )}
           </div>
 
-          <div className="mt-8 flex max-md:flex-col md:gap-10 gap-4 justify-center items-center w-full text-center">
+          <div className="mt-8 flex max-lg:flex-col md:gap-10 gap-4 justify-center items-center w-full text-center">
             <button
               type="submit"
-              className="max-lg:text-sm p-3 max-md:w-full bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="max-lg:text-sm p-3 max-lg:w-full bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             >
               Cancel Application
             </button>
             <button
               type="submit"
-              className="max-lg:text-sm p-3 max-md:w-full bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="max-lg:text-sm p-3 max-lg:w-full bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               Submit Application
             </button>
             <button
               type="submit"
-              className="max-lg:text-sm p-3 max-md:w-full bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="max-lg:text-sm p-3 max-lg:w-full bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
             >
               Save As Draft
             </button>

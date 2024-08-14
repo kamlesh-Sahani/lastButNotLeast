@@ -1,7 +1,6 @@
-
 "use client";
 import { useState } from "react";
-import EmployeeCard from "./component/EmployeeCard";
+import EmployeeCard from "../../../components/admin/EmployeeCard";
 import { LuSearch } from "react-icons/lu";
 import Link from "next/link";
 
@@ -116,13 +115,13 @@ export default function Home() {
       </div>
       <div className="flex lg:px-10 px-6 pb-2 mt-6 -ml-2 justify-between">
         <div className=" lg:flex gap-2">
-          <div className="relative">
+          <div className="relative ">
             <select
               value={selectedDepartment}
               onChange={handleDepartmentChange}
               className="border rounded-lg px-2 lg:px-4 py-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
-              <option className="sm:w-[20px]" value="All">
+              <option  value="All">
                 All Departments
               </option>
               <option value="Commerce & Business">Commerce & Business</option>
@@ -136,7 +135,7 @@ export default function Home() {
               onChange={handleSortChange}
               className="border rounded-lg px-2 lg:px-4 py-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 "
             >
-              <option value="dateOfJoining">Sort by Joining Date</option>
+              <option value="dateOfJoining" className="text-sm">Sort by Joining Date</option>
               <option value="department">Sort by Department</option>
             </select>
           </div>

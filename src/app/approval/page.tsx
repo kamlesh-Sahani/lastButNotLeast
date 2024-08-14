@@ -11,7 +11,7 @@ const LeaveApprovalPage = () => {
 
   const arr = new Array(20).fill(0);
 
-  const handleViewMore = (index) => {
+  const handleViewMore = (index:any) => {
     // Set the selected leave request and open the details modal
     setSelectedLeave(index);
     setOpenDetails(true);
@@ -38,7 +38,6 @@ const LeaveApprovalPage = () => {
                   Leave Type
                 </th>
                 <th className="px-4 py-2 text-left text-gray-600">Dates</th>
-                {/* <th className="px-4 py-2 text-left text-gray-600">Substitute Teacher</th> */}
                 <th className="px-4 py-2 text-left text-gray-600">Reason</th>
                 <th className="px-4 py-2 text-left text-gray-600">
                   Proof Document
@@ -73,7 +72,7 @@ const LeaveApprovalPage = () => {
                   <td className="px-4 py-4 text-center">
                     <div className="flex justify-center gap-2">
                       <button
-                        className="bg-red-500 text-white w-[120px] h-[40px] rounded-lg shadow-md hover:bg-red-700 transition-colors duration-300"
+                        className="bg-blue-500 text-white w-[120px] h-[40px] rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
                         onClick={() => setOpenModel(true)}
                       >
                         <IoNotificationsCircleOutline className="inline-block mr-2" />

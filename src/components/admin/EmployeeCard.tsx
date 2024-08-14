@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { PiDotsThreeOutlineVertical } from "react-icons/pi";
 import { IoMailOutline } from "react-icons/io5";
 import { CiMobile1 } from "react-icons/ci";
+import Image from "next/image";
 
 interface EmployeeCardProps {
   name: string;
@@ -41,7 +42,7 @@ const EmployeeCard: FC<EmployeeCardProps> = ({
           </div>
         )}
       <div className="flex items-center justify-center">
-      <img src={imageUrl} className="w-16 h-16 rounded-full object-cover " />
+      <Image alt="name" src="" className="w-16 h-16 rounded-full object-cover " />
       </div>
       <div className=" text-center">
         <h2 className="text-xl font-bold text-gray-800">{name}</h2>
