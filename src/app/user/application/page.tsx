@@ -2,6 +2,13 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
+interface Arrangement {
+  facultyName: string;
+  subject: string;
+  course: string;
+  semester: string;
+}
+
 const LeaveApplication: React.FC = () => {
   const [leaveType, setLeaveType] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
@@ -11,41 +18,80 @@ const LeaveApplication: React.FC = () => {
   const [phone, setPhone] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [reason, setReason] = useState<string>("");
-
-  // State for class arrangements
-  const [arrangements, setArrangements] = useState<
-    Array<{
-      facultyName: string;
-      department: string;
-      subject: string;
-      course: string;
-      semester: string;
-    }>
-  >([]);
-
-  // State for new arrangement inputs
-  const [newArrangement, setNewArrangement] = useState<{
-    facultyName: string;
-    department: string;
-    subject: string;
-    course: string;
-    semester: string;
-  }>({
+  const [arrangements, setArrangements] = useState<Arrangement[]>([]);
+  const [newArrangement, setNewArrangement] = useState<Arrangement>({
     facultyName: "",
-    department: "",
     subject: "",
     course: "",
     semester: "",
   });
+  const [isArrangementsVisible, setIsArrangementsVisible] = useState<boolean>(
+    false
+  );
 
-  // State for toggling the class arrangements section
-  const [isArrangementsVisible, setIsArrangementsVisible] =
-    useState<boolean>(false);
+  const [courses] = useState([
+    { name: "BCA", semesters: 6 },
+    { name: "BTech", semesters: 8 },
+  ]);
+  const [subjects] = useState({
+    BCA: {
+      1: ["Maths 1", "Programming 1", "Communication Skills"],
+      2: ["Maths 2", "Programming 2", "Data Structures"],
+    },
+    BTech: {
+      1: ["Engineering Maths 1", "Physics 1", "Chemistry 1"],
+      2: ["Engineering Maths 2", "Physics 2", "Computer Science 1"],
+    },
+  });
+  const [facultyList] = useState(["John Doe", "Jane Smith", "Albert Johnson"]);
 
-  // Handle form submission
+
+  const handleNewArrangementChange = (
+    field: keyof Arrangement,
+    value: string
+  ) => {
+    setNewArrangement({ ...newArrangement, [field]: value });
+  };
+
+  const handleCourseChange = (course: string) => {
+    setNewArrangement({ ...newArrangement, course, semester: "", subject: "" });
+  };
+
+  const handleSemesterChange = (semester: string) => {
+    setNewArrangement({ ...newArrangement, semester, subject: "" });
+  };
+  const addArrangement = () => {
+    if (
+      newArrangement.facultyName &&
+      newArrangement.subject &&
+      newArrangement.course &&
+      newArrangement.semester
+    ) {
+      setArrangements([...arrangements, newArrangement]);
+      console.log("New Arrangement Added:", newArrangement); 
+      setNewArrangement({
+        facultyName: "",
+        subject: "",
+        course: "",
+        semester: "",
+      });
+    } else {
+      console.log("Incomplete Arrangement Data"); 
+    }
+  };
+
+  const handleDelete = (index: number) => {
+    setArrangements(arrangements.filter((_, i) => i !== index));
+  };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setDocument(e.target.files[0]);
+    }
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // Add submit logic here
     console.log({
       leaveType,
       startDate,
@@ -59,55 +105,17 @@ const LeaveApplication: React.FC = () => {
     });
   };
 
-  // Handle file change
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setDocument(e.target.files[0]);
-    }
-  };
-
-  // Handle new arrangement input changes
-  const handleNewArrangementChange = (field: string, value: string) => {
-    setNewArrangement((prev) => ({ ...prev, [field]: value }));
-  };
-
-  // Add new arrangement
-  const addArrangement = () => {
-    if (
-      newArrangement.facultyName &&
-      newArrangement.department &&
-      newArrangement.subject &&
-      newArrangement.course &&
-      newArrangement.semester
-    ) {
-      setArrangements((prev) => [...prev, newArrangement]);
-      setNewArrangement({
-        facultyName: "",
-        department: "",
-        subject: "",
-        course: "",
-        semester: "",
-      }); // Reset input fields
-    }
-  };
-  // Handle delete arrangement
-  const handleDelete = (index: number) => {
-    setArrangements((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  // Toggle visibility of class arrangements section
   const toggleArrangementsVisibility = () => {
-    setIsArrangementsVisible((prev) => !prev);
+    setIsArrangementsVisible(!isArrangementsVisible);
   };
 
   return (
-    <div className="flex w-full justify-center items-center  bg-gray-100">
+    <div className="flex w-full justify-center items-center bg-gray-100">
       <div className="lg:max-w-4xl w-full p-8 bg-white mt-8 max-xl:m-12 max-sm:m-2 rounded-lg shadow-xl">
         <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
           Leave Application
         </h1>
         <form onSubmit={handleSubmit}>
-          {/* Leave Type Section */}
           <div>
             <label className="block text-sm font-semibold text-gray-600">
               Leave Type
@@ -125,8 +133,6 @@ const LeaveApplication: React.FC = () => {
               <option value="short">Short Leave</option>
             </select>
           </div>
-
-          {/* Date and Time Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
             <div>
               <label className="block text-sm font-semibold text-gray-600">
@@ -136,7 +142,7 @@ const LeaveApplication: React.FC = () => {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               />
             </div>
             <div>
@@ -150,11 +156,10 @@ const LeaveApplication: React.FC = () => {
                 className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               />
             </div>
-
             {leaveType === "short" && (
               <div>
                 <label className="block text-sm font-semibold text-gray-600">
-                  Time
+                  Short Leave Time
                 </label>
                 <input
                   type="time"
@@ -164,45 +169,41 @@ const LeaveApplication: React.FC = () => {
                 />
               </div>
             )}
-
-            {leaveType === "medical" && (
-              <div>
-                <label className="block text-sm font-semibold text-gray-600">
-                  Upload Document
-                </label>
-                <input
-                  type="file"
-                  onChange={handleFileChange}
-                  className="mt-2 block w-full text-sm bg-gray-50 text-gray-600 file:mr-4 file:py-3 file:px-6 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100"
-                />
-              </div>
-            )}
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-600">
-                Phone Number
-              </label>
-              <input
-                type="text"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-600">
-                Email
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              />
-            </div>
           </div>
-
-          {/* Reason for Leave Section */}
+          {leaveType === "medical" && (
+            <div className="mt-6">
+              <label className="block text-sm font-semibold text-gray-600">
+                Upload Document
+              </label>
+              <input
+                type="file"
+                onChange={handleFileChange}
+                className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              />
+            </div>
+          )}
+          <div className="mt-6">
+            <label className="block text-sm font-semibold text-gray-600">
+              Phone Number
+            </label>
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            />
+          </div>
+          <div className="mt-6">
+            <label className="block text-sm font-semibold text-gray-600">
+              Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            />
+          </div>
           <div className="mt-6">
             <label className="block text-sm font-semibold text-gray-600">
               Reason for Leave
@@ -210,38 +211,30 @@ const LeaveApplication: React.FC = () => {
             <textarea
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              className="mt-2 block w-full px-4 py-3 shadow-inner bg-gray-50 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               rows={4}
-            ></textarea>
+            />
           </div>
-
-          {/* Class Arrangement Section */}
           <div className="mt-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-              Class Arrangement
-              <button
-                type="button"
-                onClick={toggleArrangementsVisibility}
-                className="ml-4 text-gray-600 hover:text-gray-800"
-              >
-                {isArrangementsVisible ? (
-                  <HiChevronUp className="w-6 h-6" />
-                ) : (
-                  <HiChevronDown className="w-6 h-6" />
-                )}
-              </button>
-            </h2>
-
-            {/* New Arrangement Input Section */}
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={toggleArrangementsVisibility}
+            >
+              <h2 className="text-xl font-semibold text-gray-700">Class Arrangements</h2>
+              {isArrangementsVisible ? (
+                <HiChevronUp className="ml-2 text-xl" />
+              ) : (
+                <HiChevronDown className="ml-2 text-xl" />
+              )}
+            </div>
             {isArrangementsVisible && (
-              <div className="mb-6 p-4 border rounded-lg shadow-sm bg-white">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="mt-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-600">
                       Faculty Name
                     </label>
-                    <input
-                      type="text"
+                    <select
                       value={newArrangement.facultyName}
                       onChange={(e) =>
                         handleNewArrangementChange(
@@ -249,133 +242,166 @@ const LeaveApplication: React.FC = () => {
                           e.target.value
                         )
                       }
-                      className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    />
+                      className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    >
+                      <option value="" disabled>
+                        Select Faculty
+                      </option>
+                      {facultyList.map((faculty, index) => (
+                        <option key={index} value={faculty}>
+                          {faculty}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-600">
-                      Department
-                    </label>
-                    <input
-                      type="text"
-                      value={newArrangement.department}
-                      onChange={(e) =>
-                        handleNewArrangementChange("department", e.target.value)
-                      }
-                      className="mt-2 block w-full px-4 py-3 bg-gray-50 rounded-lg shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-600">
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      value={newArrangement.subject}
-                      onChange={(e) =>
-                        handleNewArrangementChange("subject", e.target.value)
-                      }
-                      className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    />
-                  </div>
+
+                  
                   <div>
                     <label className="block text-sm font-semibold text-gray-600">
                       Course
                     </label>
-                    <input
-                      type="text"
+                    <select
                       value={newArrangement.course}
                       onChange={(e) =>
-                        handleNewArrangementChange("course", e.target.value)
+                        handleCourseChange(e.target.value)
                       }
-                      className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    />
+                      className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    >
+                      <option value="" disabled>
+                        Select Course
+                      </option>
+                      {courses.map((course, index) => (
+                        <option key={index} value={course.name}>
+                          {course.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-600">
                       Semester
                     </label>
-                    <input
-                      type="text"
+                    <select
                       value={newArrangement.semester}
                       onChange={(e) =>
-                        handleNewArrangementChange("semester", e.target.value)
+                        handleSemesterChange(e.target.value)
                       }
-                      className="mt-2 block w-full px-4 py-3 rounded-lg bg-gray-50 shadow-inner border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    />
+                      className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    >
+                      <option value="" disabled>
+                        Select Semester
+                      </option>
+                      {courses
+                        .find(
+                          (course) => course.name === newArrangement.course
+                        )
+                        ?.semesters &&
+                        Array.from(
+                          {
+                            length: courses.find(
+                              (course) =>
+                                course.name === newArrangement.course
+                            )?.semesters,
+                          },
+                          (_, i) => i + 1
+                        ).map((sem) => (
+                          <option key={sem} value={sem}>
+                            Semester {sem}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-600">
+                      Subject
+                    </label>
+                    <select
+                      value={newArrangement.subject}
+                      onChange={(e) =>
+                        handleNewArrangementChange(
+                          "subject",
+                          e.target.value
+                        )
+                      }
+                      className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    >
+                      <option value="" disabled>
+                        Select Subject
+                      </option>
+                      {newArrangement.course &&
+                        newArrangement.semester &&
+                        subjects[newArrangement.course]?.[
+                          newArrangement.semester
+                        ]?.map((subject, index) => (
+                          <option key={index} value={subject}>
+                            {subject}
+                          </option>
+                        ))}
+                    </select>
                   </div>
                 </div>
+
                 <button
                   type="button"
                   onClick={addArrangement}
-                  className="mt-4 max-lg:text-sm p-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="mt-4 px-6 py-3 bg-indigo-500 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add Arrangement
                 </button>
-              </div>
-            )}
-
-            {/* List of Arrangements */}
-            {arrangements.length > 0 && (
-              <div>
-                <h3 className="text-lg font-semibold text-gray-700 mb-4">
-                  Current Arrangements
-                </h3>
-                <ul className="space-y-4">
+                <div className="mt-8">
                   {arrangements.map((arrangement, index) => (
-                    <li
+                    <div
                       key={index}
-                      className="border max-lg:flex-col p-4 rounded-lg shadow-sm bg-gray-50 flex lg:justify-between lg:items-center"
+                      className="flex lg:items-center lg:justify-between max-lg:flex-col bg-gray-50 p-4 rounded-lg shadow mb-4"
                     >
                       <div>
-                        <p>
-                          <strong>Faculty Name:</strong>{" "}
+                        <p className="text-sm">
+                          <strong>Faculty:</strong>{" "}
                           {arrangement.facultyName}
                         </p>
-                        <p>
-                          <strong>Department:</strong> {arrangement.department}
+                  
+                        <p className="text-sm">
+                          <strong>Course:</strong> {arrangement.course},{" "}
+                          <strong>Semester:</strong>{" "}
+                          {arrangement.semester}
                         </p>
-                        <p>
-                          <strong>Subject:</strong> {arrangement.subject}
-                        </p>
-                        <p>
-                          <strong>Course:</strong> {arrangement.course}
-                        </p>
-                        <p>
-                          <strong>Semester:</strong> {arrangement.semester}
+                        <p className="text-sm">
+                          <strong>Subject:</strong>{" "}
+                          {arrangement.subject}
                         </p>
                       </div>
                       <button
                         onClick={() => handleDelete(index)}
-                        className="bg-red-500 p-2 rounded-md mt-4 text-white  hover:text-red-800 font-semibold"
+                        className="text-white bg-red-500 p-2 max-lg:w-full  rounded-md mt-4 hover:text-red-700"
                       >
                         Delete
                       </button>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             )}
           </div>
-
-          <div className="mt-8 flex max-lg:flex-col md:gap-10 gap-4 justify-center items-center w-full text-center">
+          <div className="mt-8 flex justify-end max-lg:flex-col gap-8 max-lg:gap-4">
             <button
-              type="submit"
-              className="max-lg:text-sm p-3 max-lg:w-full bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              type="button"
+              className="px-6 py-3 max-lg:w-full bg-gray-500 text-white font-semibold rounded-lg shadow-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
             >
-              Cancel Application
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="px-6 py-3 max-lg:w-full bg-yellow-500 text-white font-semibold rounded-lg shadow-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+            >
+              Save as Draft
             </button>
             <button
               type="submit"
-              className="max-lg:text-sm p-3 max-lg:w-full bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="px-6 py-3 max-lg:w-full bg-indigo-500 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Submit Application
-            </button>
-            <button
-              type="submit"
-              className="max-lg:text-sm p-3 max-lg:w-full bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
-            >
-              Save As Draft
+              Submit
             </button>
           </div>
         </form>

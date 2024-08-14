@@ -10,6 +10,7 @@ interface PersonalInfo {
   address: string;
   dob: string;
   avatar: string;
+  password: string;
 }
 
 const UserProfile: React.FC = () => {
@@ -21,6 +22,7 @@ const UserProfile: React.FC = () => {
     address: "D-27 Shaheen Bagh Okhla new delhi 110025",
     dob: "15-03-2003",
     avatar: "https://avatar.iran.liara.run/public/boy",
+    password: "**********", // Password placeholder
   });
 
   const handleEditClick = () => {
@@ -115,9 +117,17 @@ const UserProfile: React.FC = () => {
               <h4 className="text-base font-medium text-gray-800">Phone</h4>
               <p className="text-gray-600 mt-1">{personalInfo.phone}</p>
             </div>
+         
             <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
               <h4 className="text-base font-medium text-gray-800">Address</h4>
               <p className="text-gray-600 mt-1">{personalInfo.address}</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
+              <h4 className="text-base font-medium text-gray-800">Password</h4>
+              <p className="text-gray-600 mt-1">{personalInfo.password}</p>
+              <Button className="mt-2" color="blue">
+                Change Password
+              </Button>
             </div>
           </div>
         </div>
@@ -235,7 +245,7 @@ const UserProfile: React.FC = () => {
               </label>
               <input
                 id="phone"
-                type="text"
+                type="tel"
                 value={personalInfo.phone}
                 onChange={(e) =>
                   setPersonalInfo({ ...personalInfo, phone: e.target.value })
@@ -256,17 +266,16 @@ const UserProfile: React.FC = () => {
                 onChange={(e) =>
                   setPersonalInfo({ ...personalInfo, address: e.target.value })
                 }
-                className="form-textarea mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                rows={3}
-              ></textarea>
+                className="form-input mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              />
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleSave} color="blue">
-            Save Changes
+          <Button color="blue" onClick={handleSave}>
+            Save
           </Button>
-          <Button onClick={() => setModalOpen(false)} color="gray">
+          <Button color="gray" onClick={() => setModalOpen(false)}>
             Cancel
           </Button>
         </Modal.Footer>
