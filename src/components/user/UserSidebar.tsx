@@ -45,7 +45,7 @@ export default function UserSidebar() {
 
       {showSidebar && (
         <div
-          className="w-full h-full bg-black/20 cursor-pointer md:hidden"
+          className="w-full h-full bg-black/5 cursor-pointer md:hidden"
           onClick={() => setShowSidebar(!showSidebar)}
         ></div>
       )}
