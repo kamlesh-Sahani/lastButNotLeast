@@ -12,6 +12,7 @@ import {
   HiUserGroup,
 } from "react-icons/hi";
 import { IoIosNotifications } from "react-icons/io";
+import { SlGraph } from "react-icons/sl";
 import { RiMenu4Fill } from "react-icons/ri";
 import { usePathname } from 'next/navigation';
 import { SlCalender } from "react-icons/sl";
@@ -104,6 +105,16 @@ export default function UserSidebar() {
               >
                 <HiShoppingBag />
                 <p className="text">Application</p>
+              </div>
+            </Link>
+            <Link href={"/user/status"}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/user/status" ? "bg-[#eee]" : ""
+                }`}
+              >
+                <SlGraph />
+                <p className="text">Status</p>
               </div>
             </Link>
             <Link href={"/user/balance"}>
