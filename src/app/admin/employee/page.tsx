@@ -139,7 +139,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-4 max-lg:px-10 md:px-4 py-3 px-5 items-center justify-center">
+      <div className="flex flex-wrap gap-4  py-3 px-5 items-center justify-center">
         {sortedEmployees.map((employee, index) => (
           <EmployeeCard
             key={index}
