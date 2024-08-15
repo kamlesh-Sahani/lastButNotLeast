@@ -6,13 +6,19 @@ interface Leave {
   startDate: string;
   endDate: string;
   type: string;
-  status: string;
+  status: "Approved"|"Pending"|"Rejected";
   days: number;
   reason: string;
-  approvalReason?: string;
-  rejectionReason?: string;
-  approvedBy?: string;
-  rejectedBy?: string;
+  approvalReason?: {
+    title?: string,
+    reason?:string,
+  }[]|undefined;
+  rejectionReason?: {
+    title?: string,
+    reason?:string,
+  }[]
+  approvedBy?: string[];
+  rejectedBy?: string[];
   documents?: string[];
 }
 
@@ -26,8 +32,7 @@ const LeaveHistory = () => {
       status: "Approved",
       days: 2,
       reason: "Flu and fever",
-      approvalReason: "Valid medical certificate",
-      approvedBy: "HOD",
+      approvedBy: ["HOD","VP","Director"],
       documents: ["medical_certificate.pdf"],
     },
     {
@@ -38,19 +43,22 @@ const LeaveHistory = () => {
       status: "Rejected",
       days: 1,
       reason: "Personal work",
-      rejectionReason: "Too many leaves in a short period",
-      rejectedBy: "VP",
+      approvedBy:['HOD'],
+      rejectionReason:[{
+        title:"VP",
+       reason: "Too many leaves in a short period",
+      }],
+      rejectedBy: ["VP"],
     },
     {
       id: 3,
       startDate: "2024-05-22",
       endDate: "2024-05-26",
       type: "Annual Leave",
-      status: "Approved",
+      status: "Pending",
       days: 5,
       reason: "Family vacation ",
-      approvalReason: "Planned in advance",
-      approvedBy: "HOD",
+      approvedBy: ["HOD"],
     },
     // Add more data as needed
   ]);
@@ -158,7 +166,7 @@ const LeaveHistory = () => {
                   className={`px-3 py-1 text-sm font-medium rounded-full ${
                     leave.status === "Approved"
                       ? "bg-green-100 text-green-600"
-                      : "bg-red-100 text-red-600"
+                      :leave.status==='Rejected'? "bg-red-100 text-red-600":'bg-green-100 text-green-600'
                   }`}
                 >
                   {leave.status}
@@ -206,11 +214,23 @@ const LeaveHistory = () => {
               {selectedLeave.status === "Approved" && (
                 <>
                   <p>
-                    <strong>Approved By:</strong> {selectedLeave.approvedBy}
+                    <strong>Approved By:</strong> {selectedLeave.approvedBy?.map((i)=>(
+
+
+                        <b>{i} </b>
+                      
+                    ))}
                   </p>
                   <p>
                     <strong>Approval Reason:</strong>{" "}
-                    {selectedLeave.approvalReason}
+                    {selectedLeave.approvalReason&&(
+                      selectedLeave.approvalReason?.map((items)=>(
+                        <div>
+                          <h3>{items.title}</h3>
+                          <p>{items.reason}</p>
+                        </div>
+                      ))
+                    )}
                   </p>
                 </>
               )}
@@ -221,7 +241,14 @@ const LeaveHistory = () => {
                   </p>
                   <p>
                     <strong>Rejection Reason:</strong>{" "}
-                    {selectedLeave.rejectionReason}
+                    {selectedLeave.rejectionReason&&(
+                      selectedLeave.rejectionReason.map((items)=>(
+                        <div className="flex gap-2">
+                          <h3 className="font-semibold">{items.title}:</h3>
+                          <p>{items.reason}</p>
+                        </div>
+                      ))
+                    )}
                   </p>
                 </>
               )}
