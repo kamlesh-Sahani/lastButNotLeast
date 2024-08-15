@@ -1,10 +1,8 @@
-import dbConnect from "@/src/app/lib/dbConnect";
-import { getDataFromCookie } from "@/src/app/lib/getDataFromCookie";
-import EmployeeModel from "@/src/models/Employee.model";
+import EmployeeModel from "@/models/Employee.model";
+import { getDataFromCookie } from "@/lib/getDataFromCookie";
+import dbConnect from "@/lib/dbConnect";
 import { NextResponse,NextRequest } from "next/server";
-
 dbConnect();
-
 export async function GET(req:NextRequest){
     try {
         const employeeId = await getDataFromCookie(req);

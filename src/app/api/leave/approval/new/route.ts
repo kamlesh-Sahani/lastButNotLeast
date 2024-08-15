@@ -1,6 +1,7 @@
-import dbConnect from "@/src/app/lib/dbConnect";
-import LeaveApplicationModel from "@/src/models/LeaveApplication.model";
-import LeaveApprovalModel from "@/src/models/LeaveApproval.model";
+
+import LeaveApplicationModel from "@/models/LeaveApplication.model";
+import dbConnect from "@/lib/dbConnect";
+import LeaveApprovalModel from "@/models/LeaveApproval.model";
 import { NextResponse, NextRequest } from "next/server";
 dbConnect();
 

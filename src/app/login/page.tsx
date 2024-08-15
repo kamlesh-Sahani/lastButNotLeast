@@ -1,11 +1,16 @@
-
+"use client";
+import { FormEvent, useState } from "react";
 const LoginPage = () => {
+  const [email,setEmail] = useState<string>("");
+  const [password,setPassword] = useState<string>("");
+  const loginHandler = (e:FormEvent<HTMLFormElement>)=>{
+    e.preventDefault();
+  }
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-3xl font-bold text-center mb-6 text-blue-500">Login</h2>
-          
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={loginHandler} method="post">
             <div>
               <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email Address</label>
               <input
@@ -15,6 +20,8 @@ const LoginPage = () => {
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="example@domain.com"
+                value={email}
+                onChange={e=>setEmail(e.target.value)}
               />
             </div>
   
@@ -27,6 +34,8 @@ const LoginPage = () => {
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="••••••••"
+                value={password}
+                onChange={e=>setPassword(e.target.value)}
               />
             </div>
   

@@ -1,6 +1,5 @@
-
-import dbConnect from "@/src/app/lib/dbConnect";
-import EmployeeModel from "@/src/models/Employee.model";
+import dbConnect from "@/lib/dbConnect";
+import EmployeeModel from "@/models/Employee.model";
 import {NextResponse } from "next/server";
 dbConnect();
 export async function GET(){

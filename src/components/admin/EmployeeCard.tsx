@@ -42,7 +42,7 @@ const EmployeeCard: FC<EmployeeCardProps> = ({
           </div>
         )}
       <div className="flex items-center justify-center">
-      <Image alt="name" src="" className="w-16 h-16 rounded-full object-cover " />
+      <img alt="name" src={imageUrl} className="w-16 h-16 rounded-full object-cover " />
       </div>
       <div className=" text-center">
         <h2 className="text-xl font-bold text-gray-800">{name}</h2>
