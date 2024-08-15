@@ -136,6 +136,7 @@ const LeaveHistory = () => {
               <option value="Annual Leave">Annual Leave</option>
               <option value="Approved">Approved</option>
               <option value="Rejected">Rejected</option>
+              <option value="Pending">Pending</option>
             </select>
           </div>
           <div className="flex space-x-4 items-center">
@@ -166,7 +167,7 @@ const LeaveHistory = () => {
                   className={`px-3 py-1 text-sm font-medium rounded-full ${
                     leave.status === "Approved"
                       ? "bg-green-100 text-green-600"
-                      :leave.status==='Rejected'? "bg-red-100 text-red-600":'bg-green-100 text-green-600'
+                      :leave.status==='Rejected'? "bg-red-100 text-red-600":'bg-yellow-100 text-yellow-600'
                   }`}
                 >
                   {leave.status}
@@ -211,19 +212,21 @@ const LeaveHistory = () => {
               <p>
                 <strong>Reason:</strong> {selectedLeave.reason}
               </p>
-              {selectedLeave.status === "Approved" && (
+              {(selectedLeave.status) && (
                 <>
                   <p>
                     <strong>Approved By:</strong> {selectedLeave.approvedBy?.map((i)=>(
 
 
-                        <b>{i} </b>
+                        <p className="font-medium flex gap-2"><span>{i}</span> </p>
                       
                     ))}
                   </p>
+                  {/* yeh jab show hu jab reason mention hu dummy data per  
                   <p>
+                    
                     <strong>Approval Reason:</strong>{" "}
-                    {selectedLeave.approvalReason&&(
+                    {selectedLeave.approvalReason?.length===0&&(
                       selectedLeave.approvalReason?.map((items)=>(
                         <div>
                           <h3>{items.title}</h3>
@@ -231,7 +234,7 @@ const LeaveHistory = () => {
                         </div>
                       ))
                     )}
-                  </p>
+                  </p> */}
                 </>
               )}
               {selectedLeave.status === "Rejected" && (
