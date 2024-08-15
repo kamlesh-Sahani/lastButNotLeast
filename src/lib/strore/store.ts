@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
-
+import userReducer from './features/user/userSlice'
+import leaveApplicationReducer from './features/leave/application/leaveApplicationSlice'
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: {
+      user:userReducer,
+      leaveApplication:leaveApplicationReducer,
+    },
   })
 }
 

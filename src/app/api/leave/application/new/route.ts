@@ -1,5 +1,5 @@
-import dbConnect from "@/src/app/lib/dbConnect";
-import LeaveApplicationModel from "@/src/models/LeaveApplication.model";
+import dbConnect from "@/lib/dbConnect";
+import LeaveApplicationModel from "@/models/LeaveApplication.model";
 import { NextResponse,NextRequest } from "next/server";
 dbConnect();
 export async function POST(req:NextRequest){

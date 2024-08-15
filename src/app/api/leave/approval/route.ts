@@ -1,5 +1,6 @@
-import dbConnect from "@/src/app/lib/dbConnect";
-import LeaveApprovalModel from "@/src/models/LeaveApproval.model";
+import dbConnect from "@/lib/dbConnect";
+import LeaveApprovalModel from "@/models/LeaveApproval.model";
+
 import { NextRequest, NextResponse } from "next/server";
 dbConnect();
 export async function GET(req:NextRequest){

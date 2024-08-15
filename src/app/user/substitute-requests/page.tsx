@@ -78,7 +78,7 @@ const SubstituteRequestPage = () => {
     // Add more request objects as needed
   ];
 
-  const handleViewMore = (index) => {
+  const handleViewMore = (index:any) => {
     setSelectedRequest(index);
     setOpenDetails(true);
   };

@@ -42,7 +42,7 @@ const LeaveRequests: React.FC = () => {
     {
       id: 1,
       name: 'John Doe',
-      profileImage: 'https://avatar.iran.liara.run/public/boy',
+      profileImage: 'https://i.pravatar.cc/150?img=3',
       startDate: '2024-08-15',
       endDate: '2024-08-18',
       status: 'Pending',
@@ -54,7 +54,7 @@ const LeaveRequests: React.FC = () => {
     {
       id: 2,
       name: 'Jane Smith',
-      profileImage: 'https://avatar.iran.liara.run/public/boy',
+      profileImage: 'https://i.pravatar.cc/150?img=4',
       startDate: '2024-08-20',
       endDate: '2024-08-22',
       status: 'Accepted',
@@ -66,7 +66,7 @@ const LeaveRequests: React.FC = () => {
     {
       id: 3,
       name: 'Emily Johnson',
-      profileImage: 'https://avatar.iran.liara.run/public/boy',
+      profileImage: 'https://i.pravatar.cc/150?img=5',
       startDate: '2024-08-25',
       endDate: '2024-08-28',
       status: 'Declined',
@@ -78,7 +78,7 @@ const LeaveRequests: React.FC = () => {
     {
       id: 4,
       name: 'Michael Brown',
-      profileImage: 'https://avatar.iran.liara.run/public/boy',
+      profileImage: 'https://i.pravatar.cc/150?img=6',
       startDate: '2024-09-01',
       endDate: '2024-09-03',
       status: 'Pending',
@@ -90,7 +90,7 @@ const LeaveRequests: React.FC = () => {
     {
       id: 5,
       name: 'Linda White',
-      profileImage: 'https://avatar.iran.liara.run/public/boy',
+      profileImage: 'https://i.pravatar.cc/150?img=7',
       startDate: '2024-09-10',
       endDate: '2024-09-15',
       status: 'Accepted',
