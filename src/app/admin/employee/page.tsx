@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import EmployeeCard from "../../../components/admin/EmployeeCard";
 import { LuSearch } from "react-icons/lu";
 import Link from "next/link";
@@ -63,36 +63,38 @@ export default function Home() {
   const [selectedDepartment, setSelectedDepartment] = useState("All");
   const [selectedSort, setSelectedSort] = useState("dateOfJoining");
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-  };
+  }, []);
 
-  const handleDepartmentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDepartmentChange = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedDepartment(event.target.value);
-  };
+  }, []);
 
-  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSortChange = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSort(event.target.value);
-  };
+  }, []);
 
-  const filteredEmployees = employeeData
-    .filter(employee => 
-      employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.department.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .filter(employee => 
-      selectedDepartment === "All" || employee.department === selectedDepartment
-    );
+  const filteredEmployees = useMemo(() => 
+    employeeData
+        .filter(employee => 
+            employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            employee.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            employee.department.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .filter(employee => 
+            selectedDepartment === "All" || employee.department === selectedDepartment
+        ), [searchTerm, selectedDepartment]);
 
-  const sortedEmployees = filteredEmployees.sort((a, b) => {
-    if (selectedSort === "dateOfJoining") {
-      return new Date(a.dateOfJoining).getTime() - new Date(b.dateOfJoining).getTime();
-    } else if (selectedSort === "department") {
-      return a.department.localeCompare(b.department);
-    }
-    return 0;
-  });
+const sortedEmployees = useMemo(() => 
+    filteredEmployees.sort((a, b) => {
+        if (selectedSort === "dateOfJoining") {
+            return new Date(a.dateOfJoining).getTime() - new Date(b.dateOfJoining).getTime();
+        } else if (selectedSort === "department") {
+            return a.department.localeCompare(b.department);
+        }
+        return 0;
+    }), [filteredEmployees, selectedSort]);
 
   return (
     <>
@@ -139,7 +141,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-4  py-3 px-5 items-center justify-center">
+      <div className="flex flex-wrap gap-4 py-3 px-5 items-center justify-center">
         {sortedEmployees.map((employee, index) => (
           <EmployeeCard
             key={index}
