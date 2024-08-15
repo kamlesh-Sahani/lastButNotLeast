@@ -13,7 +13,7 @@ const employeeData = [
       dateOfJoining: "11 Jan, 2021",
       email: "markwood@gmail.com",
       phone: "(229) 555-0109",
-      imageUrl: "https://avatar.iran.liara.run/public/boy",
+      imageUrl: "https://i.pravatar.cc/150?img=7",
     },
     {
       name: "Amandeep Singh",
@@ -23,7 +23,7 @@ const employeeData = [
       dateOfJoining: "18 Feb, 2021",
       email: "markwood@gmail.com",
       phone: "(229) 555-0109",
-      imageUrl: "https://avatar.iran.liara.run/public/boy",
+      imageUrl: "https://i.pravatar.cc/150?img=7",
     },
     {
       name: "Charanpreet Kaur",
@@ -33,7 +33,7 @@ const employeeData = [
       dateOfJoining: "13 Feb, 2020",
       email: "markwood@gmail.com",
       phone: "(229) 555-0109",
-      imageUrl: "https://avatar.iran.liara.run/public",
+      imageUrl: "https://i.pravatar.cc/150?img=7",
     },
     {
       name: "Mark Wood",
@@ -43,7 +43,7 @@ const employeeData = [
       dateOfJoining: "24 Aug, 2021",
       email: "markwood@gmail.com",
       phone: "(229) 555-0109",
-      imageUrl: "https://avatar.iran.liara.run/public/girl",
+      imageUrl: "https://i.pravatar.cc/150?img=7",
     },
     {
       name: "Amandeep Singh",
@@ -53,7 +53,7 @@ const employeeData = [
       dateOfJoining: "22 Sep, 2022",
       email: "markwood@gmail.com",
       phone: "(229) 555-0109",
-      imageUrl: "https://avatar.iran.liara.run/public/boy",
+      imageUrl: "https://i.pravatar.cc/150?img=9",
     },
   ];
   
