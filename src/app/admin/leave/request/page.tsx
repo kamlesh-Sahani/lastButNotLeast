@@ -1,8 +1,9 @@
 "use client";
-import { useState } from 'react';
+import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdOutlineArrowDropDown } from "react-icons/md";
+import Image from "next/image";
 
 interface LeaveRequest {
   id: number;
@@ -10,7 +11,7 @@ interface LeaveRequest {
   profileImage: string;
   startDate: string;
   endDate: string;
-  status: 'Pending' | 'Accepted' | 'Declined';
+  status: "Pending" | "Accepted" | "Declined";
   reason: string;
   email: string;
   phone: string;
@@ -18,16 +19,22 @@ interface LeaveRequest {
 }
 
 const LeaveRequests: React.FC = () => {
-  const [expandedRequestId, setExpandedRequestId] = useState<number | null>(null);
-  const [filterStatus, setFilterStatus] = useState<'All' | 'Pending' | 'Accepted' | 'Declined'>('All');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [expandedRequestId, setExpandedRequestId] = useState<number | null>(
+    null
+  );
+  const [filterStatus, setFilterStatus] = useState<
+    "All" | "Pending" | "Accepted" | "Declined"
+  >("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   // Dummy function to return a relative time
   const getRelativeTime = (createdAt: string) => {
     const now = new Date();
     const createdTime = new Date(createdAt);
-    const diffInMinutes = Math.floor((now.getTime() - createdTime.getTime()) / 60000);
+    const diffInMinutes = Math.floor(
+      (now.getTime() - createdTime.getTime()) / 60000
+    );
 
     if (diffInMinutes < 60) {
       return `${diffInMinutes} minutes ago`;
@@ -41,75 +48,75 @@ const LeaveRequests: React.FC = () => {
   const leaveRequests: LeaveRequest[] = [
     {
       id: 1,
-      name: 'John Doe',
-      profileImage: 'https://avatar.iran.liara.run/public/boy',
-      startDate: '2024-08-15',
-      endDate: '2024-08-18',
-      status: 'Pending',
-      reason: 'Family emergency',
-      email: 'john.doe@example.com',
-      phone: '123-456-7890',
-      createdAt: '2024-08-14T08:30:00', // Example creation time
+      name: "John Doe",
+      profileImage: "https://avatar.iran.liara.run/public/boy",
+      startDate: "2024-08-15",
+      endDate: "2024-08-18",
+      status: "Pending",
+      reason: "Family emergency",
+      email: "john.doe@example.com",
+      phone: "123-456-7890",
+      createdAt: "2024-08-14T08:30:00", // Example creation time
     },
     {
       id: 2,
-      name: 'Jane Smith',
-      profileImage: 'https://avatar.iran.liara.run/public/boy',
-      startDate: '2024-08-20',
-      endDate: '2024-08-22',
-      status: 'Accepted',
-      reason: 'Medical leave',
-      email: 'jane.smith@example.com',
-      phone: '987-654-3210',
-      createdAt: '2024-08-13T14:00:00',
+      name: "Jane Smith",
+      profileImage: "https://avatar.iran.liara.run/public/boy",
+      startDate: "2024-08-20",
+      endDate: "2024-08-22",
+      status: "Accepted",
+      reason: "Medical leave",
+      email: "jane.smith@example.com",
+      phone: "987-654-3210",
+      createdAt: "2024-08-13T14:00:00",
     },
     {
       id: 3,
-      name: 'Emily Johnson',
-      profileImage: 'https://avatar.iran.liara.run/public/boy',
-      startDate: '2024-08-25',
-      endDate: '2024-08-28',
-      status: 'Declined',
-      reason: 'Personal reason',
-      email: 'emily.johnson@example.com',
-      phone: '456-789-0123',
-      createdAt: '2024-08-12T09:15:00',
+      name: "Emily Johnson",
+      profileImage: "https://avatar.iran.liara.run/public/boy",
+      startDate: "2024-08-25",
+      endDate: "2024-08-28",
+      status: "Declined",
+      reason: "Personal reason",
+      email: "emily.johnson@example.com",
+      phone: "456-789-0123",
+      createdAt: "2024-08-12T09:15:00",
     },
     {
       id: 4,
-      name: 'Michael Brown',
-      profileImage: 'https://avatar.iran.liara.run/public/boy',
-      startDate: '2024-09-01',
-      endDate: '2024-09-03',
-      status: 'Pending',
-      reason: 'Conference attendance',
-      email: 'michael.brown@example.com',
-      phone: '321-654-0987',
-      createdAt: '2024-08-11T16:45:00',
+      name: "Michael Brown",
+      profileImage: "https://avatar.iran.liara.run/public/boy",
+      startDate: "2024-09-01",
+      endDate: "2024-09-03",
+      status: "Pending",
+      reason: "Conference attendance",
+      email: "michael.brown@example.com",
+      phone: "321-654-0987",
+      createdAt: "2024-08-11T16:45:00",
     },
     {
       id: 5,
-      name: 'Linda White',
-      profileImage: 'https://avatar.iran.liara.run/public/boy',
-      startDate: '2024-09-10',
-      endDate: '2024-09-15',
-      status: 'Accepted',
-      reason: 'Vacation',
-      email: 'linda.white@example.com',
-      phone: '654-321-7890',
-      createdAt: '2024-08-10T12:00:00',
+      name: "Linda White",
+      profileImage: "https://avatar.iran.liara.run/public/boy",
+      startDate: "2024-09-10",
+      endDate: "2024-09-15",
+      status: "Accepted",
+      reason: "Vacation",
+      email: "linda.white@example.com",
+      phone: "654-321-7890",
+      createdAt: "2024-08-10T12:00:00",
     },
   ];
 
   const filteredRequests = leaveRequests
-    .filter((request) =>
-      filterStatus === 'All' || request.status === filterStatus
+    .filter(
+      (request) => filterStatus === "All" || request.status === filterStatus
     )
     .filter((request) =>
       request.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) =>
-      sortOrder === 'asc'
+      sortOrder === "asc"
         ? new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
         : new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
     );
@@ -166,11 +173,12 @@ const LeaveRequests: React.FC = () => {
           <div key={request.id} className="border-b mb-6 last:mb-0">
             <div className="flex justify-between p-4 items-center">
               <div className="flex items-center">
-                <img
-                  src={request.profileImage}
+                <Image
+                  src={`${request.profileImage}`}
                   alt={`${request.name}'s profile`}
                   className="w-12 h-12 rounded-full mr-4"
                 />
+
                 <div>
                   <p className="font-medium text-lg">{request.name}</p>
                   <p className="text-gray-500">
