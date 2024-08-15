@@ -1,4 +1,4 @@
-import dbConnect from "@/src/app/lib/dbConnect";
+import dbConnect from "@/lib/dbConnect";
 import { NextResponse } from "next/server";
 
 dbConnect();

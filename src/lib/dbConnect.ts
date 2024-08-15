@@ -5,8 +5,6 @@ interface ConnectionType{
 const connection:ConnectionType={};
 async function dbConnect(){
     try {
-        console.log("kamlesj");
-        console.log(process.env.MONGO_URI,'dfd')
         if(connection.isConnected){
         console.log("database is already connected");
             return;
