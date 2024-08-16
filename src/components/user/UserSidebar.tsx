@@ -184,6 +184,7 @@ export default function UserSidebar() {
 
           </div>
           <div className=" flex items-center w-full justify-center flex-auto">
+         
             <Button
               onClick={() => setOpenModal(true)}
               className=" w-[270px] items-center bg-transparent border border-blue-500 text-black hover:bg-blue-600 hover:text-white hover:border-transparent"
@@ -191,6 +192,7 @@ export default function UserSidebar() {
             >
               Logout
             </Button>
+     
             <Modal
               show={openModal}
               size="md"
@@ -204,9 +206,11 @@ export default function UserSidebar() {
                     Are you sure you want to Logout?
                   </h3>
                   <div className="flex justify-center gap-4">
+                  <Link href={"/logout"}>
                     <Button color="blue" onClick={() => setOpenModal(false)}>
                       {"Yes, I'm sure"}
                     </Button>
+                    </Link>
                     <Button color="gray" onClick={() => setOpenModal(false)}>
                       No, cancel
                     </Button>
@@ -214,6 +218,7 @@ export default function UserSidebar() {
                 </div>
               </Modal.Body>
             </Modal>
+           
           </div>
         </div>
       )}
