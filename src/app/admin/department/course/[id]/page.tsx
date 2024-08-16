@@ -145,7 +145,7 @@ export default function CourseDetailPage({
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
       <header className="text-center mb-8">
-        <h1 className="text-4xl font-extrabold text-gray-800">
+        <h1 className="text-4xl font-extrabold text-blue-700">
           {course.name} Details
         </h1>
         <p className="text-lg text-gray-600 mt-2">
@@ -153,12 +153,12 @@ export default function CourseDetailPage({
         </p>
       </header>
 
-      <div className="bg-white shadow-md rounded-lg overflow-hidden">
+      <div className=" shadow-md rounded-lg overflow-hidden">
         <div className="flex border-b border-gray-200">
           <button
-            className={`flex-1 py-4 text-lg font-medium text-center ${
+            className={`flex-1 py-4 text-lg font-medium text-center bg-white   ${
               activeTab === "overview"
-                ? "bg-blue-500 text-white"
+                ? "border-b-4 border-blue-600 text-blue-500 bg-blue-200/50 "
                 : "bg-gray-100 text-gray-700"
             }`}
             onClick={() => setActiveTab("overview")}
@@ -166,9 +166,9 @@ export default function CourseDetailPage({
             Overview
           </button>
           <button
-            className={`flex-1 py-4 text-lg font-medium text-center ${
+            className={`flex-1 py-4 text-lg font-medium text-center bg-white ${
               activeTab === "semesters"
-                ? "bg-blue-500 text-white"
+                ? "border-b-4 border-blue-600 text-blue-500 bg-blue-200/50"
                 : "bg-gray-100 text-gray-700"
             }`}
             onClick={() => setActiveTab("semesters")}
@@ -177,9 +177,9 @@ export default function CourseDetailPage({
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 bg-white">
           {activeTab === "overview" && (
-            <div className="space-y-4">
+            <div className="space-y-4 ">
               <h2 className="text-2xl font-semibold text-gray-800">
                 Course Overview
               </h2>
