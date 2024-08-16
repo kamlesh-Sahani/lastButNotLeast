@@ -1,9 +1,11 @@
+import { EmployeeSchemaType } from '@/models/Employee.model';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 // employee login 
 const employeeBaseUrl="api/employee";
-export const loginUser = createAsyncThunk("user/login",async(userData)=>{
+export const loginUser = createAsyncThunk<EmployeeSchemaType,{email:string,password:string}>("user/login",async(userData)=>{
     const {data} = await axios.post(`${employeeBaseUrl}/login`,userData);
+    console.log(data,"thank data");
     return data;
 })
 
@@ -44,5 +46,4 @@ export const editUser = createAsyncThunk("user/edit",async(userData)=>{
 export const oneUser = createAsyncThunk("user/one",async(userId)=>{
 const {data} = await axios.post(`${employeeBaseUrl}?id=${userId}`);
 return data;
-
 })

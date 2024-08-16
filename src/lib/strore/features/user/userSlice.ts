@@ -6,12 +6,14 @@ interface initialStateType {
     user:any;
     users:any;
     error:string | undefined
+    message:string|undefined;
 }
 const initialState:initialStateType = {
     isLoading:false,
     user:null,
     users:[],
-    error:undefined
+    error:undefined,
+    message:undefined
 }
 const userSlice = createSlice({
     name:"user",
@@ -32,7 +34,7 @@ const userSlice = createSlice({
         .addCase(loginUser.rejected,(state,action)=>{
             state.user = null;
             state.isLoading=false;
-            state.error=action.error.message
+            state.error= action.error.message;
         })
 
 
