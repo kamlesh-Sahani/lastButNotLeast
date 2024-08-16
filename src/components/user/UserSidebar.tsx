@@ -13,8 +13,8 @@ import {
 } from "react-icons/hi";
 import { IoIosNotifications } from "react-icons/io";
 import { SlGraph } from "react-icons/sl";
-import { RiMenu4Fill } from "react-icons/ri";
-import { usePathname } from 'next/navigation';
+import { RiAdminFill, RiMenu4Fill } from "react-icons/ri";
+import { usePathname } from "next/navigation";
 import { SlCalender } from "react-icons/sl";
 export default function UserSidebar() {
   const pathname = usePathname();
@@ -64,21 +64,19 @@ export default function UserSidebar() {
                 alt="df"
                 className="h-[80px] w-[80px] rounded-full object-cover"
               />
-            
+
               <div className="flex flex-col">
                 <h1 className="text-xl font-semibold">Saad Mehmood</h1>
                 <p className="text-[#6b6b6b]">frontend developer</p>
-               
               </div>
             </div>
-           
           </div>
 
           <div className="flex flex-col gap-2 flex-[3]">
             <Link href={"/user"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/user" ? "bg-[#eee]" : ""
+                  pathname === "/user" ? "bg-[#3d24fc2a]" : ""
                 }`}
               >
                 <HiChartPie />
@@ -89,7 +87,7 @@ export default function UserSidebar() {
             <Link href={"/user/profile"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/user/profile" ? "bg-[#eee]" : ""
+                  pathname === "/user/profile" ? "bg-[#3d24fc2a]" : ""
                 }`}
               >
                 <HiUser />
@@ -100,7 +98,7 @@ export default function UserSidebar() {
             <Link href={"/user/application"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/user/application" ? "bg-[#eee]" : ""
+                  pathname === "/user/application" ? "bg-[#3d24fc2a]" : ""
                 }`}
               >
                 <HiShoppingBag />
@@ -110,7 +108,7 @@ export default function UserSidebar() {
             <Link href={"/user/status"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/user/status" ? "bg-[#eee]" : ""
+                  pathname === "/user/status" ? "bg-[#3d24fc2a]" : ""
                 }`}
               >
                 <SlGraph />
@@ -120,7 +118,7 @@ export default function UserSidebar() {
             <Link href={"/user/balance"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/user/balance" ? "bg-[#eee]" : ""
+                  pathname === "/user/balance" ? "bg-[#3d24fc2a]" : ""
                 }`}
               >
                 <HiCreditCard />
@@ -128,8 +126,12 @@ export default function UserSidebar() {
               </div>
             </Link>
             <Link href={"/user/leavetype"}>
-            <div className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${pathname ==='/user/leavetype'?"bg-[#eee]":""}`}>
-                <SlCalender/>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/user/leavetype" ? "bg-[#3d24fc2a]" : ""
+                }`}
+              >
+                <SlCalender />
                 <p className="text">Leaves</p>
               </div>
             </Link>
@@ -137,7 +139,7 @@ export default function UserSidebar() {
             <Link href={"/user/history"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/user/history" ? "bg-[#eee]" : ""
+                  pathname === "/user/history" ? "bg-[#3d24fc2a]" : ""
                 }`}
               >
                 <HiViewBoards />
@@ -147,7 +149,7 @@ export default function UserSidebar() {
             <Link href={"/approval"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/approval" ? "bg-[#eee]" : ""
+                  pathname === "/user/approval" ? "bg-[#3d24fc2a]" : ""
                 }`}
               >
                 <HiCheckCircle />
@@ -158,7 +160,9 @@ export default function UserSidebar() {
             <Link href={"/user/substitute-requests"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/user/substitute-requests" ? "bg-[#eee]" : ""
+                  pathname === "/user/substitute-requests"
+                    ? "bg-[#3d24fc2a]"
+                    : ""
                 }`}
               >
                 <HiUserGroup />
@@ -169,11 +173,17 @@ export default function UserSidebar() {
               </div>
             </Link>
 
-  
+            <Link href={"/admin"}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#3d24fc2a] pl-4 text-[20px] text-[#595959] `}
+              >
+            <RiAdminFill />
+                <p className="text">Admin</p>
+              </div>
+            </Link>
 
           </div>
           <div className=" flex items-center w-full justify-center flex-auto">
-        
             <Button
               onClick={() => setOpenModal(true)}
               className=" w-[270px] items-center bg-transparent border border-blue-500 text-black hover:bg-blue-600 hover:text-white hover:border-transparent"

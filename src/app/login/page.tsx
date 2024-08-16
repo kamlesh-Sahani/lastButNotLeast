@@ -1,10 +1,35 @@
 "use client";
+import { loginUser } from "@/lib/strore/features/user/userThanks";
+import { AppDispatch, RootState } from "@/lib/strore/store";
+import { Button, Spinner } from "flowbite-react";
 import { FormEvent, useState } from "react";
+import toast from "react-hot-toast";
+import {useDispatch,useSelector} from "react-redux";
+import {useRouter}from 'next/navigation';
 const LoginPage = () => {
   const [email,setEmail] = useState<string>("");
   const [password,setPassword] = useState<string>("");
-  const loginHandler = (e:FormEvent<HTMLFormElement>)=>{
+  const dispatch = useDispatch<AppDispatch>();
+  const {isLoading,error,user} =useSelector((state:RootState)=>state.user);
+  const router = useRouter();
+  const loginHandler = async(e:FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
+    try {
+      await dispatch(loginUser({email,password}));
+      console.log(user,"userdata");
+      console.log(error,"err");
+      if(user?.success){
+        toast.success(user?.message);
+        router.push("/user");
+      }else{
+        toast.error("email or password is wrong");
+      }
+     
+    } catch (error:any) {
+      toast.error(error.message || "something went error");
+    }
+
+    
   }
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -39,12 +64,18 @@ const LoginPage = () => {
               />
             </div>
   
-            <button
+  {
+    isLoading ?   <Button>
+    <Spinner aria-label="Spinner button example" size="sm" />
+    <span className="pl-3">loading...</span>
+  </Button> : <button
               type="submit"
               className="w-full bg-blue-600 text-white px-4 py-2 rounded-md font-semibold shadow-lg hover:bg-blue-700 transition-colors duration-300"
             >
               Login
             </button>
+  }
+           
           </form>
         </div>
       </div>
