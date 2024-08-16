@@ -56,7 +56,7 @@ const UserProfile: React.FC = () => {
     }
   };
 
-  console.log(user,'userprofile ');
+  console.log(user?.employee?.personalInfo,'userprofile ');
 
   return (
     <>
@@ -72,7 +72,7 @@ const UserProfile: React.FC = () => {
           />
           <div className="text-center md:text-left">
             <h2 className="text-xl md:text-2xl font-bold mb-2">
-              {user?.personalInfo?.name}
+              {user?.employee?.personalInfo?.fullName}
             </h2>
             <p className="text-gray-600 text-sm md:text-base">
               Software Engineer
@@ -119,7 +119,7 @@ const UserProfile: React.FC = () => {
               <h4 className="text-base font-medium text-gray-800">
                 Date of Birth
               </h4>
-              <p className="text-gray-600 mt-1">{personalInfo.dob}</p>
+              <p className="text-gray-600 mt-1">{user?.employee?.personalInfo?.dob}</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Email</h4>
