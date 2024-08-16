@@ -39,7 +39,8 @@ const LeaveHistory = () => {
       approvalReason: [
         {
           title: "VP",
-          reason: "valid reason for leave",
+          reason:
+            "valid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leavevalid reason for leave",
         },
         { title: "Director", reason: "ajdfkldjfklds" },
       ],
@@ -200,8 +201,11 @@ const LeaveHistory = () => {
         </div>
 
         {selectedLeave && (
-          <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-[999]" onClick={closeModal}>
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg relative">
+          <div
+            className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-[999]"
+            onClick={closeModal}
+          >
+            <div className="bg-white max-md:mx-2 px-6 py-8 rounded-lg shadow-lg w-full max-w-5xl  relative mx-auto">
               <button
                 className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
                 onClick={closeModal}
@@ -212,7 +216,7 @@ const LeaveHistory = () => {
                 Leave Details
               </h2>
 
-              <div className="mb-4">
+              <div className="mb-4 w-full">
                 <p className="text-lg font-semibold">
                   <strong>Type:</strong> {selectedLeave.type}
                 </p>
@@ -232,64 +236,31 @@ const LeaveHistory = () => {
                 </p>
               </div>
 
-              <div className="mb-4 grid grid-cols-2 gap-4">
-                <p>
-                  <strong>Start Date:</strong> {selectedLeave.startDate}
-                </p>
-                <p>
-                  <strong>End Date:</strong> {selectedLeave.endDate}
-                </p>
-                <p>
-                  <strong>Duration:</strong> {selectedLeave.days} days
-                </p>
-                <p>
-                  <strong>Reason:</strong> {selectedLeave.reason}
-                </p>
-              </div>
-
-              {(selectedLeave.approvedBy || selectedLeave.rejectedBy) && (
-                <div className="mb-4 space-y-3">
-                  <h3 className="text-lg font-semibold">
-                    Approval & Rejection Details
-                  </h3>
-                  <ul className="list-none space-y-2">
-                    {selectedLeave.approvedBy?.map((approver, index) => (
-                      <li key={index} className="flex justify-between">
-                        <span className="font-medium">{approver}</span>
-                        <span>
-                          {selectedLeave.approvalReason?.find(
-                            (reason) => reason.title === approver
-                          )?.reason || "N/A"}
-                        </span>
-                        <span className="text-green-600 font-semibold">
-                          Approved
-                        </span>
-                      </li>
-                    ))}
-                    {selectedLeave.rejectedBy?.map((rejecter, index) => (
-                      <li key={index} className="flex justify-between">
-                        <span className="font-medium">{rejecter}</span>
-                        <span>
-                          {selectedLeave.rejectionReason?.find(
-                            (reason) => reason.title === rejecter
-                          )?.reason || "N/A"}
-                        </span>
-                        <span className="text-red-600 font-semibold">
-                          Rejected
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+              <div className="mb-4 flex justify-between pr-5">
+                <div>
+                  <p>
+                    <strong>Start Date:</strong> {selectedLeave.startDate}
+                  </p>
+                  <p>
+                    <strong>End Date:</strong> {selectedLeave.endDate}
+                  </p>
                 </div>
-              )}
-
+                <div>
+                  <p>
+                    <strong>Duration:</strong> {selectedLeave.days} days
+                  </p>
+                  <p>
+                    <strong>Reason:</strong> {selectedLeave.reason}
+                  </p>
+                </div>
+              </div>
               {selectedLeave.documents &&
                 selectedLeave.documents.length > 0 && (
-                  <div className="mb-4">
+                  <div className="mb-4 flex">
                     <strong>Documents:</strong>
-                    <ul className="list-disc list-inside ml-4 mt-2">
+                    <ul className="list-disc list-inside ml-4 ">
                       {selectedLeave.documents.map((doc, index) => (
-                        <li key={index}>
+                        <li key={index} className="list-none">
                           <a
                             href={`/path/to/documents/${doc}`}
                             target="_blank"
@@ -303,6 +274,61 @@ const LeaveHistory = () => {
                     </ul>
                   </div>
                 )}
+              {(selectedLeave.approvedBy || selectedLeave.rejectedBy) && (
+                <div className="mb-4 space-y-3 w-full">
+                  <h3 className="text-lg font-semibold">
+                    Approval & Rejection Details
+                  </h3>
+                  <ul className="list-none space-y-2">
+                    {selectedLeave.approvedBy?.map((approver, index) => (
+                      <li
+                        key={index}
+                        className="flex gap-3  w-full shadow-md py-2 border px-2"
+                      >
+                        <span className="flex-col flex">
+                          <span className="font-medium ">{approver}:</span>
+                          <span className="text-base font-semibold">
+                            Reason: 
+                          </span>
+                        </span>
+                        
+                        <span className="flex-col flex">
+                          <span className="text-green-600 font-semibold">
+                            Approved
+                          </span>
+                          {selectedLeave.approvalReason?.find(
+                            (reason) => reason.title === approver
+                          )?.reason || "N/A"}
+                        </span>
+                      </li>
+                    ))}
+                    {selectedLeave.rejectedBy?.map((reject, index) => (
+                      <li
+                        key={index}
+                        className="flex gap-3  w-full shadow-md py-2 border px-2"
+                      >
+                        <span className="flex-col flex">
+                          <span className="font-medium ">{reject}:</span>
+                          <span className="text-base font-semibold">
+                            Reason: 
+                          </span>
+                        </span>
+                        
+                        <span className="flex-col flex">
+                          <span className="text-red-600 font-semibold">
+                            Reject 
+                          </span>
+                          {selectedLeave.rejectionReason?.find(
+                            (reason) => reason.title === reject
+                          )?.reason || "N/A"}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+             
             </div>
           </div>
         )}
