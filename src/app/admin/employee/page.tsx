@@ -166,7 +166,6 @@ import { FC } from "react";
 import { PiDotsThreeOutlineVertical } from "react-icons/pi";
 import { IoMailOutline } from "react-icons/io5";
 import { CiMobile1 } from "react-icons/ci";
-import Image from "next/image";
 
 interface EmployeeCardProps {
   name: string;

@@ -13,7 +13,8 @@ interface Course {
   name: string;
   duration: string;
   semesters: Semester[];
-  instructors: string[];
+  currentSemester?: "ODD" | "EVEN";
+  section?: number;
 }
 
 interface Department {
@@ -39,9 +40,10 @@ const dummyDepartments: Department[] = [
           { subjects: ["Networking", "Web Development"] },
           { subjects: ["Artificial Intelligence", "Machine Learning"] },
           { subjects: ["Computer Graphics", "Data Analytics"] },
-          { subjects: ["Project Work", "Elective"] }
+          { subjects: ["Project Work", "Elective"] },
         ],
-        instructors: ["Dr. John Doe", "Prof. Jane Smith"]
+        currentSemester: "ODD",
+        section: 2,
       },
       {
         id: "mca",
@@ -55,11 +57,12 @@ const dummyDepartments: Department[] = [
           { subjects: ["Artificial Intelligence", "Data Mining"] },
           { subjects: ["Cloud Computing", "Big Data"] },
           { subjects: ["Information Security", "Software Testing"] },
-          { subjects: ["Project Work", "Elective"] }
+          { subjects: ["Project Work", "Elective"] },
         ],
-        instructors: ["Dr. Emily Davis", "Prof. Robert Brown"]
-      }
-    ]
+        currentSemester: "EVEN",
+        section: 1,
+      },
+    ],
   },
   {
     id: 2,
@@ -77,9 +80,10 @@ const dummyDepartments: Department[] = [
           { subjects: ["Financial Management", "Strategic Management"] },
           { subjects: ["International Business", "Project Management"] },
           { subjects: ["Business Ethics", "Corporate Governance"] },
-          { subjects: ["Project Work", "Elective"] }
+          { subjects: ["Project Work", "Elective"] },
         ],
-        instructors: ["Dr. Alice Green", "Prof. Michael White"]
+        currentSemester: "ODD",
+        section: 3,
       },
       {
         id: "mba",
@@ -93,25 +97,34 @@ const dummyDepartments: Department[] = [
           { subjects: ["Managerial Economics", "Business Research Methods"] },
           { subjects: ["Corporate Finance", "Entrepreneurship"] },
           { subjects: ["Supply Chain Management", "Project Management"] },
-          { subjects: ["Dissertation", "Elective"] }
+          { subjects: ["Dissertation", "Elective"] },
         ],
-        instructors: ["Dr. Sarah Johnson", "Prof. David Lee"]
-      }
-    ]
-  }
+        currentSemester: "EVEN",
+        section: 2,
+      },
+    ],
+  },
 ];
 
 const DepartmentManagement = () => {
-  const [departments, setDepartments] = useState<Department[]>(dummyDepartments);
-  const [showDepartmentModal, setShowDepartmentModal] = useState<boolean>(false);
+  const [departments, setDepartments] =
+    useState<Department[]>(dummyDepartments);
+  const [showDepartmentModal, setShowDepartmentModal] =
+    useState<boolean>(false);
   const [showCourseModal, setShowCourseModal] = useState<boolean>(false);
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
-  const [currentDepartmentId, setCurrentDepartmentId] = useState<number | null>(null);
+  const [currentDepartmentId, setCurrentDepartmentId] = useState<number | null>(
+    null
+  );
   const [currentCourseId, setCurrentCourseId] = useState<string | null>(null);
   const [newDepartmentName, setNewDepartmentName] = useState<string>("");
   const [newCourseName, setNewCourseName] = useState<string>("");
   const [courseDuration, setCourseDuration] = useState<string>("");
   const [courseSemesters, setCourseSemesters] = useState<Semester[]>([]);
+  const [courseCurrentSemesters, setCourseCurrentSemesters] = useState<
+    "ODD" | "EVEN" | undefined
+  >();
+const [courseSection , setCourseSection ] = useState<number|undefined>()
   const [courseInstructors, setCourseInstructors] = useState<string[]>([]);
   const [editDepartmentId, setEditDepartmentId] = useState<number | null>(null);
   const [editCourseId, setEditCourseId] = useState<string | null>(null);
@@ -157,7 +170,8 @@ const DepartmentManagement = () => {
       name: newCourseName,
       duration: courseDuration,
       semesters: courseSemesters,
-      instructors: courseInstructors,
+      currentSemester: courseCurrentSemesters,
+      section: courseSection,
     };
     const updatedDepartments = departments.map((department) =>
       department.id === currentDepartmentId
@@ -200,7 +214,9 @@ const DepartmentManagement = () => {
         department.id === departmentId
           ? {
               ...department,
-              courses: department.courses.filter((course) => course.id !== courseId),
+              courses: department.courses.filter(
+                (course) => course.id !== courseId
+              ),
             }
           : department
       );
@@ -260,7 +276,7 @@ const DepartmentManagement = () => {
   };
 
   const resetConfirmModal = () => {
-    setConfirmAction(()=>{});
+    setConfirmAction(() => {});
     setShowConfirmModal(false);
   };
 
@@ -288,14 +304,18 @@ const DepartmentManagement = () => {
     setNewCourseName(course.name);
     setCourseDuration(course.duration);
     setCourseSemesters(course.semesters);
-    setCourseInstructors(course.instructors);
+    setCourseSemesters(course.semesters);
+    setCourseCurrentSemesters(course.currentSemester);
+    setCourseSection(course.section)
     setModalTitle("Edit Course");
     setShowCourseModal(true);
   };
 
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-8">Department Management</h1>
+      <h1 className="text-3xl font-bold text-center mb-8">
+        Department Management
+      </h1>
       <button
         className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center mb-6"
         onClick={openAddDepartmentModal}
@@ -310,7 +330,9 @@ const DepartmentManagement = () => {
             className="bg-white p-6 rounded-lg shadow-md w-full sm:w-1/2 lg:w-1/3 relative"
           >
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-gray-800">{department.name}</h2>
+              <h2 className="text-xl font-semibold text-gray-800">
+                {department.name}
+              </h2>
               <div className="flex space-x-2">
                 <button
                   className="text-blue-500"
@@ -339,7 +361,10 @@ const DepartmentManagement = () => {
                   key={course.id}
                   className="bg-gray-50 p-4 rounded-lg shadow-sm mb-2 flex justify-between items-center"
                 >
-                  <Link href={`/admin/department/course/${course.id}`} className="text-blue-600 hover:underline">
+                  <Link
+                    href={`/admin/department/course/${course.id}`}
+                    className="text-blue-600 hover:underline"
+                  >
                     {course.name}
                   </Link>
                   <div className="flex space-x-2">
@@ -351,7 +376,9 @@ const DepartmentManagement = () => {
                     </button>
                     <button
                       className="text-red-500"
-                      onClick={() => handleDeleteCourse(department.id, course.id)}
+                      onClick={() =>
+                        handleDeleteCourse(department.id, course.id)
+                      }
                     >
                       <FiTrash />
                     </button>
@@ -408,17 +435,31 @@ const DepartmentManagement = () => {
               placeholder="Enter Duration"
               className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
             />
+            <input
+              type="number"
+              value={courseSection}
+              onChange={(e) => setCourseSection(parseInt(e.target.value))}
+              placeholder="Enter Number of section "
+              className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
+            />
             <div className="mb-4">
               <h3 className="text-lg font-semibold">Semesters</h3>
               {courseSemesters.map((semester, semesterIndex) => (
                 <div key={semesterIndex} className="mb-4">
-                  <h4 className="text-md font-semibold">Semester {semesterIndex + 1}</h4>
+                  <h4 className="text-md font-semibold">
+                    Semester {semesterIndex + 1}
+                  </h4>
                   {semester.subjects.map((subject, subjectIndex) => (
-                    <div key={subjectIndex} className="flex items-center justify-between mb-2">
+                    <div
+                      key={subjectIndex}
+                      className="flex items-center justify-between mb-2"
+                    >
                       <span>{subject}</span>
                       <button
                         className="text-red-500"
-                        onClick={() => removeSubject(semesterIndex, subjectIndex)}
+                        onClick={() =>
+                          removeSubject(semesterIndex, subjectIndex)
+                        }
                       >
                         <FiTrash />
                       </button>
@@ -429,45 +470,42 @@ const DepartmentManagement = () => {
                     placeholder="Add Subject"
                     className="p-2 border border-gray-300 rounded-lg w-full mb-2"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        addSubject(semesterIndex, (e.target as HTMLInputElement).value);
-                        (e.target as HTMLInputElement).value = '';
+                      if (e.key === "Enter") {
+                        addSubject(
+                          semesterIndex,
+                          (e.target as HTMLInputElement).value
+                        );
+                        (e.target as HTMLInputElement).value = "";
                       }
                     }}
                   />
+                  <p className="text-sm text-gray-400 mt-0 pt-0">Press "Enter" to add new Subject</p>
                 </div>
               ))}
               <button
                 className="bg-green-500 text-white px-4 py-2 rounded-lg"
-                onClick={() => setCourseSemesters([...courseSemesters, { subjects: [] }])}
+                onClick={() =>
+                  setCourseSemesters([...courseSemesters, { subjects: [] }])
+                }
               >
                 Add Semester
               </button>
             </div>
             <div className="mb-4">
-              <h3 className="text-lg font-semibold">Instructors</h3>
-              {courseInstructors.map((instructor, instructorIndex) => (
-                <div key={instructorIndex} className="flex items-center justify-between mb-2">
-                  <span>{instructor}</span>
-                  <button
-                    className="text-red-500"
-                    onClick={() => removeInstructor(instructorIndex)}
-                  >
-                    <FiTrash />
-                  </button>
-                </div>
-              ))}
-              <input
-                type="text"
-                placeholder="Add Instructor"
-                className="p-2 border border-gray-300 rounded-lg w-full mb-2"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    addInstructor((e.target as HTMLInputElement).value);
-                    (e.target as HTMLInputElement).value = '';
-                  }
-                }}
-              />
+              <h3 className="text-lg font-semibold">Current Semester</h3>
+
+              <select
+                name="current"
+                value={courseCurrentSemesters}
+                onChange={(e) =>
+                  setCourseCurrentSemesters(e.target.value as "ODD" | "EVEN")
+                }
+                className="p-2 border border-gray-300 rounded-lg w-full"
+              >
+                <option value="">Select Current Semester</option>
+                <option value="ODD">ODD</option>
+                <option value="EVEN">EVEN</option>
+              </select>
             </div>
           </Modal.Body>
           <Modal.Footer>
