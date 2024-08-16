@@ -81,16 +81,16 @@ const UserProfile: React.FC = () => {
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">
-                Department ID
+                Employee ID
               </h4>
               <p className="text-gray-600 mt-1">348973948320</p>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
+            {/* <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
               <h4 className="text-base font-medium text-gray-800">
                 Designation
               </h4>
               <p className="text-gray-600 mt-1">Senior Faculty</p>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -99,10 +99,10 @@ const UserProfile: React.FC = () => {
             Personal Information
           </h3>
           <div className="sm:grid sm:grid-cols-2 flex flex-col gap-4">
-            <div className="bg-white p-4 rounded-lg shadow-sm">
+            {/* <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Name</h4>
               <p className="text-gray-600 mt-1">{personalInfo.name}</p>
-            </div>
+            </div> */}
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">
                 Date of Birth
@@ -118,7 +118,7 @@ const UserProfile: React.FC = () => {
               <p className="text-gray-600 mt-1">{personalInfo.phone}</p>
             </div>
          
-            <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
+            <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Address</h4>
               <p className="text-gray-600 mt-1">{personalInfo.address}</p>
             </div>

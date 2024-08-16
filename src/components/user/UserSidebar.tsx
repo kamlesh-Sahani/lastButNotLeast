@@ -60,7 +60,7 @@ export default function UserSidebar() {
           <div className="flex gap-5 items-center justify-center mb-7 relative ">
             <div className="flex gap-5 items-center justify-center  mt-7">
               <img
-                src={""}
+                src={"https://i.pravatar.cc/150?img=12"}
                 alt="df"
                 className="h-[80px] w-[80px] rounded-full object-cover"
               />
