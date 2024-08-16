@@ -183,9 +183,11 @@ export default function AdminSidebar() {
                     Are you sure you want to Logout?
                   </h3>
                   <div className="flex justify-center gap-4">
+                  <Link href={"/logout"}>
                     <Button color="blue" onClick={() => setOpenModal(false)}>
                       {"Yes, I'm sure"}
                     </Button>
+                    </Link>
                     <Button color="gray" onClick={() => setOpenModal(false)}>
                       No, cancel
                     </Button>

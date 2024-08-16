@@ -1,4 +1,5 @@
 import { OneTimePassord } from "../otp/route";
+import { generateOTP } from "@/utils/otp.utils";
 import { NextRequest, NextResponse } from "next/server";
 let storedOTP: string | null = null;
 let otpExpiration: number | null = null;
@@ -19,4 +20,3 @@ export async function POST(req: NextRequest, res: NextResponse) {
   return  Response.json({ message: "Invalid or expired OTP" }, { status: 300 });
   }
 }
-  
