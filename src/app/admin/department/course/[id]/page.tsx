@@ -112,17 +112,17 @@ export default function CourseDetailPage({
   const [activeTab, setActiveTab] = useState("overview");
   const [course, setCourse] = useState<Course | null>(null);
   const [department, setDepartment] = useState<Department | null>(null);
-  const [semesterFilter, setSemesterFilter] = useState<"ALL" | "ODD" | "EVEN">(
-    "ALL"
-  );
+  const [semesterFilter, setSemesterFilter] = useState<
+    "ODD" | "EVEN" | undefined|"ALL"
+  >(course?.currentSemester);
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSemesterFilter(event.target.value as "ALL" | "ODD" | "EVEN");
+    setSemesterFilter(event.target.value as "ODD" | "EVEN");
   };
 
   useEffect(() => {
     console.log("Params ID:", params.id);
-
+    setSemesterFilter(course?.currentSemester === 'ODD' ? 'ODD' : 'EVEN');
     const dept = initialDepartments.find((dept) =>
       dept.courses.some((course) => course.id === params.id)
     );
@@ -136,7 +136,7 @@ export default function CourseDetailPage({
       setDepartment(dept);
       setCourse(foundCourse || null);
     }
-  }, [params.id]);
+  }, [params.id,course?.currentSemester]);
 
   if (!course || !department) {
     return <div className="text-center p-6">Course not found.</div>;
@@ -175,7 +175,6 @@ export default function CourseDetailPage({
           >
             Semesters
           </button>
-          
         </div>
 
         <div className="p-6">
@@ -219,6 +218,7 @@ export default function CourseDetailPage({
                   onChange={handleFilterChange}
                   className="p-2 border border-gray-300 rounded-lg"
                 >
+                  
                   <option value="ALL">All</option>
                   <option value="ODD">Odd Semesters</option>
                   <option value="EVEN">Even Semesters</option>
@@ -228,7 +228,7 @@ export default function CourseDetailPage({
               {/* Filtered Semesters */}
               {course.semesters
                 .filter((_, index) => {
-                  if (semesterFilter === "ALL") return true;
+                  if(semesterFilter==="ALL") return true;
                   if (semesterFilter === "ODD") return (index + 1) % 2 !== 0;
                   if (semesterFilter === "EVEN") return (index + 1) % 2 === 0;
                   return true;
