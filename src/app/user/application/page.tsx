@@ -1,12 +1,13 @@
-"use client"
+"use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
-
+import { Button } from "flowbite-react";
 interface Arrangement {
   facultyName: string;
   subject: string;
   course: string;
-  semester: string;
+  date: string;
+  time: string;
 }
 
 interface Course {
@@ -34,11 +35,11 @@ const LeaveApplication: React.FC = () => {
     facultyName: "",
     subject: "",
     course: "",
-    semester: "",
+    date: "",
+    time: "",
   });
-  const [isArrangementsVisible, setIsArrangementsVisible] = useState<boolean>(
-    false
-  );
+  const [isArrangementsVisible, setIsArrangementsVisible] =
+    useState<boolean>(false);
 
   const [courses] = useState<Course[]>([
     { name: "BCA", semesters: 6 },
@@ -64,11 +65,7 @@ const LeaveApplication: React.FC = () => {
   };
 
   const handleCourseChange = (course: string) => {
-    setNewArrangement({ ...newArrangement, course, semester: "", subject: "" });
-  };
-
-  const handleSemesterChange = (semester: string) => {
-    setNewArrangement({ ...newArrangement, semester, subject: "" });
+    setNewArrangement({ ...newArrangement, course, subject: "" });
   };
 
   const addArrangement = () => {
@@ -76,7 +73,8 @@ const LeaveApplication: React.FC = () => {
       newArrangement.facultyName &&
       newArrangement.subject &&
       newArrangement.course &&
-      newArrangement.semester
+      newArrangement.date &&
+      newArrangement.time
     ) {
       setArrangements([...arrangements, newArrangement]);
       console.log("New Arrangement Added:", newArrangement);
@@ -84,7 +82,8 @@ const LeaveApplication: React.FC = () => {
         facultyName: "",
         subject: "",
         course: "",
-        semester: "",
+        date: "",
+        time: "",
       });
     } else {
       console.log("Incomplete Arrangement Data");
@@ -122,7 +121,7 @@ const LeaveApplication: React.FC = () => {
 
   return (
     <div className="flex w-full justify-center items-center bg-gray-100">
-      <div className="lg:max-w-4xl w-full p-8 bg-white mt-8 max-xl:m-12 max-sm:m-2 rounded-lg shadow-xl">
+      <div className="lg:max-w-5xl w-full p-8 bg-white mt-8 max-xl:m-12 max-sm:m-2 rounded-lg shadow-xl">
         <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
           Leave Application
         </h1>
@@ -144,7 +143,7 @@ const LeaveApplication: React.FC = () => {
               <option value="short">Short Leave</option>
             </select>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
             <div>
               <label className="block text-sm font-semibold text-gray-600">
                 Start Date
@@ -231,116 +230,146 @@ const LeaveApplication: React.FC = () => {
               className="flex items-center gap-4 cursor-pointer"
               onClick={toggleArrangementsVisibility}
             >
-              <h2 className="text-xl font-semibold text-gray-800">
-                Class Arrangements
+              <h2 className="text-xl font-semibold text-gray-700">
+                Arrangements
               </h2>
               {isArrangementsVisible ? (
-                <HiChevronUp className="w-6 h-6 text-gray-600" />
+                <HiChevronUp className="text-gray-500" />
               ) : (
-                <HiChevronDown className="w-6 h-6 text-gray-600" />
+                <HiChevronDown className="text-gray-500" />
               )}
             </div>
             {isArrangementsVisible && (
-              <div className="mt-4 p-4 rounded-lg shadow-inner">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-600">
-                      Faculty Name
-                    </label>
+              <div className="mt-4 w-full space-y-4">
+                <div className=" p-4 w-full rounded-lg shadow-inner">
+                  <div className="grid  grid-cols-2 gap-4">
                     <select
                       value={newArrangement.facultyName}
-                      onChange={(e) => handleNewArrangementChange("facultyName", e.target.value)}
-                      className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      onChange={(e) =>
+                        handleNewArrangementChange(
+                          "facultyName",
+                          e.target.value
+                        )
+                      }
+                      className="w-full col-span-2  px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     >
-                      <option value="" disabled>Select Faculty</option>
+                      <option value="" disabled>
+                        Select Faculty
+                      </option>
                       {facultyList.map((faculty, index) => (
-                        <option key={index} value={faculty}>{faculty}</option>
+                        <option key={index} value={faculty}>
+                          {faculty}
+                        </option>
                       ))}
                     </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-600">
-                      Course
-                    </label>
+                    <select
+                      value={newArrangement.subject}
+                      onChange={(e) =>
+                        handleNewArrangementChange("subject", e.target.value)
+                      }
+                      className="w-full max-lg:col-span-2 px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    >
+                      <option value="" disabled>
+                        Select Subject
+                      </option>
+                      {subjects[newArrangement.course]?.[1]?.map(
+                        (subject, index) => (
+                          <option key={index} value={subject}>
+                            {subject}
+                          </option>
+                        )
+                      )}
+                    </select>
                     <select
                       value={newArrangement.course}
                       onChange={(e) => handleCourseChange(e.target.value)}
-                      className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 max-lg:col-span-2   py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     >
-                      <option value="" disabled>Select Course</option>
+                      <option value="" disabled>
+                        Select Course
+                      </option>
                       {courses.map((course, index) => (
-                        <option key={index} value={course.name}>{course.name}</option>
+                        <option key={index} value={course.name}>
+                          {course.name}
+                        </option>
                       ))}
                     </select>
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-600">
-                      Semester
-                    </label>
-                    <select
-                      value={newArrangement.semester}
-                      onChange={(e) => handleSemesterChange(e.target.value)}
-                      className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    >
-                      <option value="" disabled>Select Semester</option>
-                      {newArrangement.course &&
-                        courses.find((course) => course.name === newArrangement.course)?.semesters
-                        ? Array.from({ length: courses.find((course) => course.name === newArrangement.course)!.semesters }, (_, i) => i + 1).map((semester) => (
-                          <option key={semester} value={semester}>{semester}</option>
-                        ))
-                        : null}
-                    </select>
+                  <div className="grid grid-cols-2  gap-4">
+                    <div className="mt-4 max-lg:col-span-2 ">
+                      <label className="block text-sm font-semibold text-gray-600">
+                        Date
+                      </label>
+                      <input
+                        type="date"
+                        value={newArrangement.date}
+                        onChange={(e) =>
+                          handleNewArrangementChange("date", e.target.value)
+                        }
+                        className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      />
+                    </div>
+                    <div className="mt-4 max-lg:col-span-2 ">
+                      <label className="block text-sm font-semibold text-gray-600">
+                        Time
+                      </label>
+                      <input
+                        type="time"
+                        value={newArrangement.time}
+                        onChange={(e) =>
+                          handleNewArrangementChange("time", e.target.value)
+                        }
+                        className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-600">
-                      Subject
-                    </label>
-                    <select
-                      value={newArrangement.subject}
-                      onChange={(e) => handleNewArrangementChange("subject", e.target.value)}
-                      className="mt-2 block w-full px-4 py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    >
-                      <option value="" disabled>Select Subject</option>
-                      {newArrangement.course && newArrangement.semester
-                        ? subjects[newArrangement.course]?.[parseInt(newArrangement.semester)]?.map((subject, index) => (
-                          <option key={index} value={subject}>{subject}</option>
-                        ))
-                        : null}
-                    </select>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={addArrangement}
+                    className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600"
+                  >
+                    Add Arrangement
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={addArrangement}
-                  className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  Add Arrangement
-                </button>
-                <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-gray-800">Current Arrangements</h3>
-                  {arrangements.length > 0 ? (
-                    <ul className="mt-4">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm text-left text-gray-500 rounded-lg shadow-inner">
+                    <thead className="text-xs text-gray-700 uppercase">
+                      <tr>
+                        <th className="px-4 py-2">Faculty</th>
+                   
+                        <th className="px-4 py-2">Course</th>
+                        <th className="px-4 py-2">Subject</th>
+                        <th className="px-4 py-2">Date</th>
+                        <th className="px-4 py-2">Time</th>
+                   
+                      </tr>
+                    </thead>
+                    <tbody>
                       {arrangements.map((arrangement, index) => (
-                        <li key={index} className="flex lg:items-center lg:justify-between max-lg:flex-col max-lg:gap-4 bg-gray-100 p-4 rounded-lg shadow-inner mb-2">
-                          <span>
-                            <strong>Faculty:</strong> {arrangement.facultyName} <br />
-                            <strong>Subject:</strong> {arrangement.subject} <br />
-                            <strong>Course:</strong> {arrangement.course} <br />
-                            <strong>Semester:</strong> {arrangement.semester}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => handleDelete(index)}
-                            className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
-                          >
-                            Delete
-                          </button>
-                        </li>
+                        <tr
+                          key={index}
+                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                        >
+                          <td className="px-4 py-2">
+                            {arrangement.facultyName}
+                          </td>
+                    
+                          <td className="px-4 py-2">{arrangement.course}</td>
+                          <td className="px-4 py-2">{arrangement.subject}</td>
+                          <td className="px-4 py-2">{arrangement.date}</td>
+                          <td className="px-4 py-2">{arrangement.time}</td>
+                          <td className="px-4 py-2 text-right">
+                            <button
+                              onClick={() => handleDelete(index)}
+                              className="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
                       ))}
-                    </ul>
-                  ) : (
-                    <p>No arrangements added yet.</p>
-                  )}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             )}
