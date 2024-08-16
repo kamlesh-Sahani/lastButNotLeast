@@ -1,7 +1,10 @@
 "use client";
+import Loader from "@/components/Loader";
+import { profileUser } from "@/lib/strore/features/user/userThanks";
+import { AppDispatch, RootState } from "@/lib/strore/store";
 import { Avatar, Button, Card, Modal } from "flowbite-react";
-import { useState, ChangeEvent } from "react";
-
+import { useState, ChangeEvent, useEffect } from "react";
+import {useDispatch,useSelector} from "react-redux"
 // Define a type for personal information
 interface PersonalInfo {
   name: string;
@@ -14,7 +17,9 @@ interface PersonalInfo {
 }
 
 const UserProfile: React.FC = () => {
+  const dispatch= useDispatch<AppDispatch>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const {user,error,isLoading} = useSelector((state:RootState)=>state.user);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     name: "Saad Mehmood",
     email: "saad.@gmail.com",
@@ -30,9 +35,12 @@ const UserProfile: React.FC = () => {
   };
 
   const handleSave = () => {
-    // Save the updated personal information here
     setModalOpen(false);
   };
+
+  useEffect(()=>{
+    dispatch(profileUser());
+  },[dispatch]);
 
   const handleAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -48,8 +56,12 @@ const UserProfile: React.FC = () => {
     }
   };
 
+  console.log(user,'userprofile ');
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+    <>
+    {
+      isLoading ? <Loader />:  <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
       <Card className="w-full max-w-4xl mx-auto bg-gray-100 shadow-lg rounded-lg p-4 md:p-6">
         <div className="flex flex-col md:flex-row items-center mb-6">
           <Avatar
@@ -281,6 +293,8 @@ const UserProfile: React.FC = () => {
         </Modal.Footer>
       </Modal>
     </div>
+    }
+    </>
   );
 };
 

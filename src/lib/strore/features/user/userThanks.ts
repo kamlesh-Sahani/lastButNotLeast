@@ -2,7 +2,7 @@ import { EmployeeSchemaType } from '@/models/Employee.model';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 // employee login 
-const employeeBaseUrl="api/employee";
+const employeeBaseUrl=`${process.env.NEXT_PUBLIC_DOMAIN}/api/employee`;
 export const loginUser = createAsyncThunk<EmployeeSchemaType,{email:string,password:string}>("user/login",async(userData)=>{
     const {data} = await axios.post(`${employeeBaseUrl}/login`,userData);
     console.log(data,"thank data");
