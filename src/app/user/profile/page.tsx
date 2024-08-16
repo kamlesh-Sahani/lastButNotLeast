@@ -134,13 +134,13 @@ const UserProfile: React.FC = () => {
               <h4 className="text-base font-medium text-gray-800">Address</h4>
               <p className="text-gray-600 mt-1">{personalInfo.address}</p>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
+            {/* <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
               <h4 className="text-base font-medium text-gray-800">Password</h4>
               <p className="text-gray-600 mt-1">{personalInfo.password}</p>
               <Button className="mt-2" color="blue">
                 Change Password
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -170,9 +170,9 @@ const UserProfile: React.FC = () => {
           <Button className="w-full" color="blue" onClick={handleEditClick}>
             Edit Profile
           </Button>
-          <Button className="w-full" color="gray">
+          {/* <Button className="w-full" color="gray">
             Log Out
-          </Button>
+          </Button> */}
         </div>
       </Card>
 
