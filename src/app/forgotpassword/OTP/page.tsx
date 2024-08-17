@@ -1,38 +1,45 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { MdEmail } from "react-icons/md";
+import { generateOTP } from "@/utils/otp.utils";
 
 const ForgotPassword = () => {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+  const router = useRouter();
 
-  const handleRequestOtp = async (e: FormEvent) => {
+  const handleOtp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission
-
     setLoading(true);
     setMessage("");
+
+    const otp = generateOTP();
+    const otpExpiration = Date.now() + 5 * 60 * 1000;
 
     try {
       const response = await fetch("/api/emails/otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, name: "Saad Mehmood", otp }),
       });
-      console.log(email);
+
       const data = await response.json();
-      if (response.ok && data.message === "OTP sent successfully") {
-        setMessage("OTP sent to your email.");
-        router.push("/forgotpassword/OTP/validateOtp"); // Ensure this route is correct
+      if (response.ok && data.message === "Email sent successfully") {
+        setMessageType("success");
+        setMessage("Email sent successfully.");
+        localStorage.setItem("storedOTP", otp);
+        localStorage.setItem("otpExpiration", otpExpiration.toString());
+        router.push("/forgotpassword/OTP/validateOtp");
       } else {
-        setMessage(data.message || "Failed to send OTP.");
+        setMessageType("error");
+        setMessage(data.message || "Invalid EMAIL.");
       }
     } catch (error) {
+      setMessageType("error");
       setMessage("An error occurred.");
-      console.log(email);
     } finally {
       setLoading(false);
     }
@@ -51,12 +58,9 @@ const ForgotPassword = () => {
           Enter your email address and we'll send you a verification code to
           reset your password.
         </p>
-        <form onSubmit={handleRequestOtp}>
+        <form onSubmit={handleOtp}>
           <div>
             <div className="relative">
-              {/* <label htmlFor="email" className="  font-medium mb-2 my-2">
-                Email:
-              </label> */}
               <input
                 type="email"
                 id="email"
@@ -77,7 +81,15 @@ const ForgotPassword = () => {
               {loading ? "Sending OTP..." : "GET OTP"}
             </button>
           </div>
-          {message && <p className="text-center text-red-500">{message}</p>}
+          {message && (
+            <p
+              className={`text-center ${
+                messageType === "success" ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {message}
+            </p>
+          )}
         </form>
       </div>
     </div>
@@ -85,3 +97,4 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
+  
