@@ -1,6 +1,6 @@
-import {NextResponse} from 'next/server';
-import EmployeeModel from '@/models/Employee.model';
-export const generateAccessAndRefreshToken = async (employeeId: any)=> {
+import { NextResponse } from "next/server";
+import EmployeeModel from "@/models/Employee.model";
+export const generateAccessAndRefreshToken = async (employeeId: any) => {
   try {
     const employee = await EmployeeModel.findById(employeeId);
     if (!employee) {

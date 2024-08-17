@@ -495,7 +495,7 @@ const DepartmentManagement = () => {
                 Add Semester
               </button>
             </div>
-            <div className="mb-4">
+            <div className="mb-4 flex gap-5 items-center">
               <h3 className="text-lg font-semibold">Current Semester</h3>
 
               <select
@@ -504,7 +504,7 @@ const DepartmentManagement = () => {
                 onChange={(e) =>
                   setCourseCurrentSemesters(e.target.value as "ODD" | "EVEN")
                 }
-                className="p-2 border border-gray-300 rounded-lg w-full"
+                className="p-2 border border-gray-300 rounded-lg max-w-xs"
               >
                 <option value="">Select Current Semester</option>
                 <option value="ODD">ODD</option>

@@ -1,7 +1,10 @@
 "use client";
+import Loader from "@/components/Loader";
+import { profileUser } from "@/lib/strore/features/user/userThanks";
+import { AppDispatch, RootState } from "@/lib/strore/store";
 import { Avatar, Button, Card, Modal } from "flowbite-react";
-import { useState, ChangeEvent } from "react";
-
+import { useState, ChangeEvent, useEffect } from "react";
+import {useDispatch,useSelector} from "react-redux"
 // Define a type for personal information
 interface PersonalInfo {
   name: string;
@@ -14,7 +17,9 @@ interface PersonalInfo {
 }
 
 const UserProfile: React.FC = () => {
+  const dispatch= useDispatch<AppDispatch>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const {user,error,isLoading} = useSelector((state:RootState)=>state.user);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     name: "Saad Mehmood",
     email: "saad.@gmail.com",
@@ -30,9 +35,12 @@ const UserProfile: React.FC = () => {
   };
 
   const handleSave = () => {
-    // Save the updated personal information here
     setModalOpen(false);
   };
+
+  useEffect(()=>{
+    dispatch(profileUser());
+  },[dispatch]);
 
   const handleAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -48,8 +56,12 @@ const UserProfile: React.FC = () => {
     }
   };
 
+  console.log(user?.employee?.personalInfo,'userprofile ');
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+    <>
+    {
+      isLoading ? <Loader />:  <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
       <Card className="w-full max-w-4xl mx-auto bg-gray-100 shadow-lg rounded-lg p-4 md:p-6">
         <div className="flex flex-col md:flex-row items-center mb-6">
           <Avatar
@@ -60,7 +72,7 @@ const UserProfile: React.FC = () => {
           />
           <div className="text-center md:text-left">
             <h2 className="text-xl md:text-2xl font-bold mb-2">
-              {personalInfo.name}
+              {user?.employee?.personalInfo?.fullName}
             </h2>
             <p className="text-gray-600 text-sm md:text-base">
               Software Engineer
@@ -81,16 +93,16 @@ const UserProfile: React.FC = () => {
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">
-                Department ID
+                Employee ID
               </h4>
               <p className="text-gray-600 mt-1">348973948320</p>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
+            {/* <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
               <h4 className="text-base font-medium text-gray-800">
                 Designation
               </h4>
               <p className="text-gray-600 mt-1">Senior Faculty</p>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -99,15 +111,15 @@ const UserProfile: React.FC = () => {
             Personal Information
           </h3>
           <div className="sm:grid sm:grid-cols-2 flex flex-col gap-4">
-            <div className="bg-white p-4 rounded-lg shadow-sm">
+            {/* <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Name</h4>
               <p className="text-gray-600 mt-1">{personalInfo.name}</p>
-            </div>
+            </div> */}
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">
                 Date of Birth
               </h4>
-              <p className="text-gray-600 mt-1">{personalInfo.dob}</p>
+              <p className="text-gray-600 mt-1">{user?.employee?.personalInfo?.dob}</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Email</h4>
@@ -118,17 +130,17 @@ const UserProfile: React.FC = () => {
               <p className="text-gray-600 mt-1">{personalInfo.phone}</p>
             </div>
          
-            <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
+            <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Address</h4>
               <p className="text-gray-600 mt-1">{personalInfo.address}</p>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
+            {/* <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
               <h4 className="text-base font-medium text-gray-800">Password</h4>
               <p className="text-gray-600 mt-1">{personalInfo.password}</p>
               <Button className="mt-2" color="blue">
                 Change Password
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -158,9 +170,9 @@ const UserProfile: React.FC = () => {
           <Button className="w-full" color="blue" onClick={handleEditClick}>
             Edit Profile
           </Button>
-          <Button className="w-full" color="gray">
+          {/* <Button className="w-full" color="gray">
             Log Out
-          </Button>
+          </Button> */}
         </div>
       </Card>
 
@@ -281,6 +293,8 @@ const UserProfile: React.FC = () => {
         </Modal.Footer>
       </Modal>
     </div>
+    }
+    </>
   );
 };
 
