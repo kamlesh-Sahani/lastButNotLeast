@@ -16,25 +16,9 @@ async function passwordGenerateAndHashing(
 export async function POST(req: NextRequest) {
   try {
     const reqBody = await req.json();
-    const {
-      personalInfo,
-      professionalInfo,
-      experienceInfo,
-      educationInfo,
-      role,
-      isActive,
-    } = reqBody;
-    const { fullName, dob, gender, contactNumber, email, address } =
-      personalInfo;
-
-    const { departmentId, designation, dateOfJoining, employmentType } =
-      professionalInfo;
-
-    const { company, jobTitle, duration, responsibilities } = experienceInfo;
-
-    const { highestQualification, university, yearOfPassing, specialization } =
-      educationInfo;
-
+    console.log(reqBody,"new/employeeee")
+    const  {fullName, dob, gender, contactNumber, email, address ,departmentId, designation, dateOfJoining, employmentType,company, jobTitle, duration, responsibilities,  highestQualification, university, yearOfPassing, specialization,role,
+      isActive} = reqBody;
       const isExist = await EmployeeModel.findOne({$or:[{"personalInfo.contactNumber":contactNumber},{"personalInfo.email":email}]});
       if(isExist){
         return NextResponse.json({
@@ -42,6 +26,7 @@ export async function POST(req: NextRequest) {
           message:"employee is already is exist "
         },{status:400})
       }
+      console.log('up1')
     if (
       !fullName ||
       !dob ||
@@ -70,6 +55,7 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+    console.log("up2")
     // password generate and hasing
     const hashPassword = await passwordGenerateAndHashing(fullName, contactNumber);
 

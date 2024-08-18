@@ -10,8 +10,10 @@ export const loginUser = createAsyncThunk<EmployeeSchemaType,{email:string,passw
 })
 
 // employee register 
-export const registerUser = createAsyncThunk("user/register",async(userData)=>{
+export const registerUser = createAsyncThunk<EmployeeSchemaType,{[key: string]: string }>("user/register",async(userData)=>{
+    console.log(userData,"daya regiser");
     const {data} = await axios.post(`${employeeBaseUrl}/new`,userData);
+    console.log(data,"faya");
     return data;
 })
 

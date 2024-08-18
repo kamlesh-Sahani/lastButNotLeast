@@ -1,14 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { IoPersonSharp } from "react-icons/io5";
 import Link from "next/link";
-import {useDispatch,useSelector} from 'react-redux'
-import { AppDispatch, RootState } from "@/lib/strore/store";
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch,RootState } from "@/lib/strore/store";
+import { registerUser } from "@/lib/strore/features/user/userThanks";
+import { Button, Spinner } from "flowbite-react";
+import toast from "react-hot-toast";
 
 const AddDataForm = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const {user,} = useSelector((state:RootState)=>state.user);
+  const { employee, isLoading, error } = useSelector((state: RootState) => state.register);
+
   const persoonalInfo = [
     ["Full Name", "text", "fullName", "eg. John Doe"],
     ["Date of Birth", "date", "dob", "eg. 1990-05-15"],
@@ -41,23 +45,29 @@ const AddDataForm = () => {
   ];
 
   const [formData, setFormData] = useState<{ [key: string]: string }>({});
-  const valueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev: any) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const formSubmitHandler = (e: any) => {
-    e.preventDefault();
-    console.log(formData, "formData");
-  };
-
   const [showPersonal, setShowPersonal] = useState(true);
   const [showProfessional, setShowProfessional] = useState(false);
   const [showEducation, setShowEducation] = useState(false);
   const [showExperience, setShowExperience] = useState(false);
+
+  const valueHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }, []);
+
+  const formSubmitHandler = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await dispatch(registerUser(formData));
+      if (employee?.success) {
+        toast.success(employee.message);
+      } else {
+        toast.error(employee?.message || "An error occurred. Please try again.");
+      }
+    } catch (err) {
+      toast.error("An unexpected error occurred.");
+    }
+  }, [dispatch, formData, employee]);
 
   return (
     <>
@@ -112,12 +122,25 @@ const AddDataForm = () => {
             ))}
           </div>
           <div className="w-full flex gap-3 flex-col sm:flex-row">
-            <button type="reset" className="h-[50px] w-full sm:w-1/2 mt-5 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-md px-5 py-2.5 text-center dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+            <button
+              type="reset"
+              className="h-[50px] w-full sm:w-1/2 mt-5 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-md px-5 py-2.5 text-center"
+            >
               Reset
             </button>
-            <button type="submit" className="h-[50px] w-full sm:w-1/2 mt-5 text-black hover:text-white border border-purple-700 bg-purple-400 hover:bg-purple-500 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-md px-5 py-2.5 text-center dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">
-              Submit
-            </button>
+            {isLoading ? (
+              <Button>
+                <Spinner aria-label="Spinner button example" size="sm" />
+                <span className="pl-3">loading...</span>
+              </Button>
+            ) : (
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white px-4 py-2 rounded-md font-semibold shadow-lg hover:bg-blue-700 transition-colors duration-300"
+              >
+                Submit
+              </button>
+            )}
           </div>
         </form>
       </div>
@@ -126,4 +149,3 @@ const AddDataForm = () => {
 };
 
 export default AddDataForm;
-

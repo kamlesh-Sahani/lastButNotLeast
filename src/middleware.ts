@@ -22,7 +22,6 @@ export function middleware(request: NextRequest) {
 
     return response;
   }
-  console.log(accessToken, "acc");
   if (loggedUserNotAccessPath) {
     if (accessToken) {
       return NextResponse.redirect(new URL("/user", request.url));
