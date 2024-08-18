@@ -24,7 +24,7 @@ export const logoutUser = createAsyncThunk("user/logout",async()=>{
 // user profile(me)
 export const profileUser = createAsyncThunk("user/me",async()=>{
     const {data} = await axios.get(`${employeeBaseUrl}/me`);
-    return data;
+    return data.employee;
 
 })
 

@@ -1,11 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './features/user/userSlice'
 import leaveApplicationReducer from './features/leave/application/leaveApplicationSlice'
+import loginReducer from './features/user/loginSlice'
+import profileReducer from './features/user/profileSlice'
 export const makeStore = () => {
   return configureStore({
     reducer: {
       user:userReducer,
       leaveApplication:leaveApplicationReducer,
+      login:loginReducer,
+      profile:profileReducer
     },
   })
 }

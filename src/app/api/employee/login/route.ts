@@ -12,7 +12,17 @@ export async function POST(req: NextRequest) {
   try {
     const reqBody = await req.json();
     const { email, password } = reqBody;
-    console.log(reqBody);
+        // Validate request body
+        if (!email || !password) {
+          return NextResponse.json(
+            {
+              success: false,
+              message: "Email and password are required.",
+            },
+            { status: 400 }
+          );
+        }
+        
     const employee = await EmployeeModel.findOne({"personalInfo.email":email});
     if (!employee) {
       return NextResponse.json(

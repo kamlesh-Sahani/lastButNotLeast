@@ -21,21 +21,7 @@ const userSlice = createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         // login
-        builder
-        .addCase(loginUser.pending,(state)=>{
-            state.isLoading=true;
-            state.error=undefined;
-        })
-        .addCase(loginUser.fulfilled,(state,action)=>{
-            state.user=action.payload;
-            state.isLoading=false;
-
-        })
-        .addCase(loginUser.rejected,(state,action)=>{
-            state.user = null;
-            state.isLoading=false;
-            state.error= action.error.message;
-        })
+       
 
 
         // logout user 
@@ -55,9 +41,6 @@ const userSlice = createSlice({
             state.isLoading=false;
             state.error=action.error.message
         })
-
-
-
          // register user 
          builder
          .addCase(registerUser.pending,(state)=>{
@@ -112,23 +95,7 @@ const userSlice = createSlice({
          })
 
 
-           // profile user 
-           builder
-           .addCase(profileUser.pending,(state)=>{
-               state.isLoading=true;
-               state.error=undefined;
-           })
-           .addCase(profileUser.fulfilled,(state,action)=>{
-               state.user=action.payload;
-               state.isLoading=false;
-   
-           })
-           .addCase(profileUser.rejected,(state,action)=>{
-               state.user = null;
-               state.isLoading=false;
-               state.error=action.error.message
-           })
-
+          
 
             // edit user 
             builder

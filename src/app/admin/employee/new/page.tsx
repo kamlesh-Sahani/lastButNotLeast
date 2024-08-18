@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { IoPersonSharp } from "react-icons/io5";
 import Link from "next/link";
+import {useDispatch,useSelector} from 'react-redux'
+import { AppDispatch, RootState } from "@/lib/strore/store";
 
 const AddDataForm = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const {user,} = useSelector((state:RootState)=>state.user);
   const persoonalInfo = [
     ["Full Name", "text", "fullName", "eg. John Doe"],
     ["Date of Birth", "date", "dob", "eg. 1990-05-15"],
