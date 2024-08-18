@@ -8,7 +8,6 @@ import { AppDispatch,RootState } from "@/lib/strore/store";
 import { registerUser } from "@/lib/strore/features/user/userThanks";
 import { Button, Spinner } from "flowbite-react";
 import toast from "react-hot-toast";
-
 const AddDataForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { employee, isLoading, error } = useSelector((state: RootState) => state.register);
