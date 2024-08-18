@@ -19,7 +19,7 @@ interface PersonalInfo {
 const UserProfile: React.FC = () => {
   const dispatch= useDispatch<AppDispatch>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const {user,error,isLoading} = useSelector((state:RootState)=>state.user);
+  const {employee,error,isLoading} = useSelector((state:RootState)=>state.profile);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     name: "Saad Mehmood",
     email: "saad.@gmail.com",
@@ -56,7 +56,7 @@ const UserProfile: React.FC = () => {
     }
   };
 
-  console.log(user?.employee?.personalInfo,'userprofile ');
+  console.log(employee,'userprofile ');
 
   return (
     <>
@@ -72,10 +72,10 @@ const UserProfile: React.FC = () => {
           />
           <div className="text-center md:text-left">
             <h2 className="text-xl md:text-2xl font-bold mb-2">
-              {user?.employee?.personalInfo?.fullName}
+              {employee?.personalInfo?.fullName}
             </h2>
             <p className="text-gray-600 text-sm md:text-base">
-              Software Engineer
+              {employee?.professionalInfo.designation}
             </p>
           </div>
         </div>
@@ -95,7 +95,7 @@ const UserProfile: React.FC = () => {
               <h4 className="text-base font-medium text-gray-800">
                 Employee ID
               </h4>
-              <p className="text-gray-600 mt-1">348973948320</p>
+              <p className="text-gray-600 mt-1">  {employee?._id}</p>
             </div>
             {/* <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
               <h4 className="text-base font-medium text-gray-800">
@@ -119,20 +119,20 @@ const UserProfile: React.FC = () => {
               <h4 className="text-base font-medium text-gray-800">
                 Date of Birth
               </h4>
-              <p className="text-gray-600 mt-1">{user?.employee?.personalInfo?.dob}</p>
+              <p className="text-gray-600 mt-1">{employee?.personalInfo?.dob}</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Email</h4>
-              <p className="text-gray-600 mt-1">{personalInfo.email}</p>
+              <p className="text-gray-600 mt-1">{employee?.personalInfo?.email}</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Phone</h4>
-              <p className="text-gray-600 mt-1">{personalInfo.phone}</p>
+              <p className="text-gray-600 mt-1">{employee?.personalInfo?.contactNumber}</p>
             </div>
          
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Address</h4>
-              <p className="text-gray-600 mt-1">{personalInfo.address}</p>
+              <p className="text-gray-600 mt-1">{employee?.personalInfo?.address}</p>
             </div>
             {/* <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
               <h4 className="text-base font-medium text-gray-800">Password</h4>
