@@ -1,5 +1,6 @@
 "use client";
 import { getAllLeaveType } from "@/lib/strore/features/leave/types/typesThank";
+import { allUser } from "@/lib/strore/features/user/userThanks";
 import { AppDispatch, RootState } from "@/lib/strore/store";
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
@@ -26,6 +27,7 @@ interface Subjects {
 const LeaveApplication: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const {allLeave,isLoading,error} = useSelector((state:RootState)=>state.getAllLeaveType);
+  const {employee} = useSelector((state:RootState)=>state.allEmployee);
 
 
   const [leaveType, setLeaveType] = useState<string>("");
@@ -130,9 +132,10 @@ const LeaveApplication: React.FC = () => {
 
   useEffect(()=>{
     dispatch(getAllLeaveType())
+    dispatch(allUser());
   },[])
   console.log(allLeave,"leaveTpe");
-
+  console.log(employee,"allEmpllloyee");
   return (
     <div className="flex w-full justify-center items-center bg-gray-100">
       <div className="lg:max-w-5xl w-full p-8 bg-white mt-8 max-xl:m-12 max-sm:m-2 rounded-lg shadow-xl">

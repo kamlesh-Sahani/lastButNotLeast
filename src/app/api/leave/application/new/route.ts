@@ -5,7 +5,7 @@ dbConnect();
 export async function POST(req:NextRequest){
     try {
         const reqBody = await req.json();
-        const {employeeId,leaveTypeId,startDate,endDate,reason} = reqBody;
+        const {employeeId,leaveTypeId,startDate,endDate,reason,document,phoneNumber,emailNumder} = reqBody;
         if(!employeeId || !leaveTypeId || !startDate||!endDate || !reason){
             return NextResponse.json({
                 success:false,

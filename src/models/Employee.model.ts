@@ -87,6 +87,7 @@ const employeeSchema: Schema<EmployeeSchemaType> = new Schema(
       password: {
         type: String,
         min: [6, "password must be atleast 6 characters"],
+        select:false
       },
     },
     professionalInfo: {

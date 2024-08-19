@@ -4,7 +4,8 @@ import {NextResponse } from "next/server";
 dbConnect();
 export async function GET(){
 try {
-    const employees  = await EmployeeModel.find({}).select("-personalInfo.password");
+    const employees = await EmployeeModel.find({}).select("personalInfo");
+
     if(employees.length<=0){
         return NextResponse.json({
             success:false,
