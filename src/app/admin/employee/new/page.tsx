@@ -11,7 +11,6 @@ import toast from "react-hot-toast";
 const AddDataForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { employee, isLoading, error } = useSelector((state: RootState) => state.register);
-
   const persoonalInfo = [
     ["Full Name", "text", "fullName", "eg. John Doe"],
     ["Date of Birth", "date", "dob", "eg. 1990-05-15"],
@@ -31,8 +30,8 @@ const AddDataForm = () => {
   const experienceInfo = [
     ["Company", "text", "company", "eg. Tech Corp"],
     ["Job Title", "text", "jobTitle", "eg. Junior Developer"],
-    ["Start Date", "date", "duration.startDate", "eg. 2018-01-01"],
-    ["End Date", "date", "duration.endDate", "eg. 2020-05-31"],
+    ["Start Date", "date", "startDate", "eg. 2018-01-01"],
+    ["End Date", "date", "endDate", "eg. 2020-05-31"],
     ["Responsibilities", "text", "responsibilities", "eg. Developed web applications and collaborated with cross-functional teams."],
   ];
 
@@ -60,8 +59,9 @@ const AddDataForm = () => {
       await dispatch(registerUser(formData));
       if (employee?.success) {
         toast.success(employee.message);
-      } else {
-        toast.error(employee?.message || "An error occurred. Please try again.");
+      } 
+      if(error) {
+        toast.error(error || "An error occurred. Please try again.");
       }
     } catch (err) {
       toast.error("An unexpected error occurred.");

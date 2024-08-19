@@ -3,7 +3,11 @@ import { IoMdEye } from "react-icons/io";
 import { AiOutlineEdit } from "react-icons/ai";
 import Link from "next/link";
 import DisplayTable from "../../../components/admin/DisplayTable";
-
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from "@/lib/strore/store";
+import { useEffect } from "react";
+import { allUser } from "@/lib/strore/features/user/userThanks";
+import Loader from "@/components/Loader";
 interface RequestEmployeeType {
   id: number;
   name: string;
@@ -238,11 +242,10 @@ const columns: TableColumnType[] = [
     className: "w-2/12 sm:w-2/12 md:w-2/12 lg:w-2/12",
     Cell: ({ cell: { value } }: { cell: { value: any } }) => (
       <span
-        className={` font-semibold  rounded-full pt-1 pb-1 pl-3 pr-3 capitalize ${
-          value.toLowerCase() === "active"
+        className={` font-semibold  rounded-full pt-1 pb-1 pl-3 pr-3 capitalize ${value.toLowerCase() === "active"
             ? "text-[#1a513f] bg-[#D1FAE5]"
             : "text-[#6c2121] bg-[#F1C9C9]"
-        }`}
+          }`}
       >
         {value}
       </span>
@@ -270,16 +273,27 @@ const columns: TableColumnType[] = [
     },
   },
 ];
-const employe = () => {
+const employeePage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { employee, isLoading, error } = useSelector((state: RootState) => state.allEmployee);
+
+  useEffect(() => {
+    dispatch(allUser());
+  }, []);
+  console.log(employee,'allEployee');
   return (
     <>
-      <DisplayTable
-        columns={columns}
-        requests={requests}
-        searchableFields={["name", "email", "city", "role", "status"]}
-      />
+      {
+        isLoading ? <Loader /> : <DisplayTable
+          columns={columns}
+          requests={requests}
+          searchableFields={["name", "email", "city", "role", "status"]}
+        />
+
+      }
+
     </>
   );
 };
 
-export default employe;
+export default employeePage;

@@ -3,15 +3,17 @@ import userReducer from './features/user/userSlice'
 import leaveApplicationReducer from './features/leave/application/leaveApplicationSlice'
 import loginReducer from './features/user/loginSlice'
 import profileReducer from './features/user/profileSlice'
-import registerReducer from './features/user/registerSlice'
+import registerReducer from './features/user/registerSlice';
+import getAllReducer from './features/user/getAllSlice';
+import getAllLeaveTypeReducer  from './features/leave/types/getAllType';
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      user:userReducer,
-      leaveApplication:leaveApplicationReducer,
       login:loginReducer,
       profile:profileReducer,
-      register:registerReducer
+      register:registerReducer,
+      allEmployee:getAllReducer,
+      getAllLeaveType:getAllLeaveTypeReducer
     },
   })
 }

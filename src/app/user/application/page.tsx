@@ -1,7 +1,9 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { getAllLeaveType } from "@/lib/strore/features/leave/types/typesThank";
+import { AppDispatch, RootState } from "@/lib/strore/store";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
-import { Button } from "flowbite-react";
+import {useDispatch,useSelector} from 'react-redux';
 interface Arrangement {
   facultyName: string;
   subject: string;
@@ -22,6 +24,10 @@ interface Subjects {
 }
 
 const LeaveApplication: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const {allLeave,isLoading,error} = useSelector((state:RootState)=>state.getAllLeaveType);
+
+
   const [leaveType, setLeaveType] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
@@ -118,6 +124,14 @@ const LeaveApplication: React.FC = () => {
   const toggleArrangementsVisibility = () => {
     setIsArrangementsVisible(!isArrangementsVisible);
   };
+
+
+  
+
+  useEffect(()=>{
+    dispatch(getAllLeaveType())
+  },[])
+  console.log(allLeave,"leaveTpe");
 
   return (
     <div className="flex w-full justify-center items-center bg-gray-100">

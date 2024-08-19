@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   try {
     const reqBody = await req.json();
     console.log(reqBody,"new/employeeee")
-    const  {fullName, dob, gender, contactNumber, email, address ,departmentId, designation, dateOfJoining, employmentType,company, jobTitle, duration, responsibilities,  highestQualification, university, yearOfPassing, specialization,role,
+    const  {fullName, dob, gender, contactNumber, email, address ,departmentId, designation, dateOfJoining, employmentType,company, jobTitle, startDate,endDate, responsibilities,  highestQualification, university, yearOfPassing, specialization,role,
       isActive} = reqBody;
       const isExist = await EmployeeModel.findOne({$or:[{"personalInfo.contactNumber":contactNumber},{"personalInfo.email":email}]});
       if(isExist){
@@ -40,7 +40,8 @@ export async function POST(req: NextRequest) {
       !employmentType ||
       !company ||
       !jobTitle ||
-      !duration ||
+      !startDate ||
+      !endDate ||
       !responsibilities ||
       !highestQualification ||
       !university ||
@@ -69,7 +70,7 @@ export async function POST(req: NextRequest) {
         address,
         password:hashPassword
       },
-      experienceInfo: { company, jobTitle, duration, responsibilities },
+      experienceInfo: { company, jobTitle, duration:{startDate,endDate}, responsibilities },
       educationInfo: {
         highestQualification,
         university,
