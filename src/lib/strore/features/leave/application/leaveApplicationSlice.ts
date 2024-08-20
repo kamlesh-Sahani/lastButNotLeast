@@ -18,7 +18,7 @@ const leaveApplicationSlice = createSlice({
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
-        // new application
+
         builder
         .addCase(newApplication.pending,(state)=>{
             state.isLoading=true;
@@ -35,8 +35,6 @@ const leaveApplicationSlice = createSlice({
             state.application=null;
         })
 
-
-        // all application
         builder
         .addCase(allApplication.pending,(state)=>{
             state.isLoading=true;
@@ -52,7 +50,6 @@ const leaveApplicationSlice = createSlice({
             state.error=action.error.message;
         })
 
-         // one application
          builder
          .addCase(oneApplication.pending,(state)=>{
              state.isLoading=true;

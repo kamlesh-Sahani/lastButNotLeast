@@ -191,7 +191,7 @@ const PermissionsPage: React.FC = () => {
         onClose={() => setIsDeleteModalOpen(false)}
         title="Confirm Deletion"
       >
-        <div className="p-5">
+        <div className="p-5 ]">
           <p>Are you sure you want to delete the role "{roleToDelete?.name}"?</p>
           <div className="mt-6 flex justify-end gap-4">
             <button

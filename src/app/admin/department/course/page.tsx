@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Modal, Button } from "flowbite-react";
-import { FiEdit, FiTrash, FiPlusCircle } from "react-icons/fi";
+import { FiEdit, FiTrash, FiPlusCircle, FiCheck, FiX } from "react-icons/fi";
 
 interface Semester {
   subjects: string[];
@@ -33,7 +33,18 @@ const dummyDepartments: Department[] = [
         name: "BCA",
         duration: "3 years",
         semesters: [
-          { subjects: ["Mathematics", "Computer Science Basics"] },
+          {
+            subjects: [
+              "Mathematics",
+              "Computer Science Basics",
+              "Mathematics",
+              "Computer Science Basics",
+              "Mathematics",
+              "Computer Science Basics",
+              "Mathematics",
+              "Computer Science Basics",
+            ],
+          },
           { subjects: ["Programming", "Data Structures"] },
           { subjects: ["Algorithms", "Database Systems"] },
           { subjects: ["Software Engineering", "Operating Systems"] },
@@ -120,7 +131,7 @@ const DepartmentManagement = () => {
   const [newDepartmentName, setNewDepartmentName] = useState<string>("");
   const [newCourseName, setNewCourseName] = useState<string>("");
   const [courseDuration, setCourseDuration] = useState<string>("");
-  const [courseSemesters, setCourseSemesters] = useState<Semester[]>([]);
+  // const [courseSemesters, setCourseSemesters] = useState<Semester[]>([]);
   const [courseCurrentSemesters, setCourseCurrentSemesters] = useState<
     "ODD" | "EVEN" | undefined
   >();
@@ -310,6 +321,61 @@ const DepartmentManagement = () => {
     setModalTitle("Edit Course");
     setShowCourseModal(true);
   };
+  const [newSemester, setNewSemester] = useState<string>("");
+  const [newSubject, setNewSubject] = useState<string>("");
+  const [courseSemesters, setCourseSemesters] = useState<Semester[]>([]);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [editSubjects, setEditSubjects] = useState<string>("");
+
+  const addSemesterWithSubject = () => {
+    if (!newSemester.trim() || !newSubject.trim()) return;
+    const semesterIndex = parseInt(newSemester) - 1;
+    setCourseSemesters((prevSemesters) => {
+      const newSemesters = [...prevSemesters];
+      if (newSemesters[semesterIndex]) {
+        newSemesters[semesterIndex].subjects.push(newSubject);
+      } else {
+        newSemesters[semesterIndex] = { subjects: [newSubject] };
+      }
+      return newSemesters;
+    });
+    setNewSemester("");
+    setNewSubject("");
+  };
+
+  const startEditing = (index: number) => {
+    setEditingIndex(index);
+    setEditSubjects(courseSemesters[index].subjects.join(", "));
+  };
+
+  const saveEdit = () => {
+    if (editingIndex !== null) {
+      setCourseSemesters((prevSemesters) =>
+        prevSemesters.map((sem, i) =>
+          i === editingIndex
+            ? {
+                ...sem,
+                subjects: editSubjects.split(",").map((subj) => subj.trim()),
+              }
+            : sem
+        )
+      );
+      cancelEdit();
+    }
+  };
+
+  const cancelEdit = () => {
+    setEditingIndex(null);
+    setEditSubjects("");
+  };
+
+  const deleteSemesterSubjects = (index: number) => {
+    setCourseSemesters((prevSemesters) =>
+      prevSemesters.map((sem, i) =>
+        i === index ? { ...sem, subjects: [] } : sem
+      )
+    );
+  };
 
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
@@ -421,187 +487,144 @@ const DepartmentManagement = () => {
 
         {/* Course Modal */}
         <Modal show={showCourseModal} onClose={resetCourseForm}>
-        <Modal.Header>{modalTitle}</Modal.Header>
-        <Modal.Body>
-          {/* Course Name Input */}
-          <input
-            type="text"
-            value={newCourseName}
-            onChange={(e) => setNewCourseName(e.target.value)}
-            placeholder="Enter Course Name"
-            className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
-          />
+          <Modal.Header>{modalTitle}</Modal.Header>
+          <Modal.Body>
+            <input
+              type="text"
+              value={newCourseName}
+              onChange={(e) => setNewCourseName(e.target.value)}
+              placeholder="Enter Course Name"
+              className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
+            />
+            <input
+              type="text"
+              value={courseDuration}
+              onChange={(e) => setCourseDuration(e.target.value)}
+              placeholder="Enter Duration"
+              className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
+            />
+            <input
+              type="number"
+              value={courseSection}
+              onChange={(e) => setCourseSection(parseInt(e.target.value))}
+              placeholder="Enter Number of section "
+              className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
+            />
+            <div className="flex flex-col gap-5">
+              <div className="flex gap-2">
+                <select
+                  name="semester"
+                  value={newSemester}
+                  onChange={(e) => setNewSemester(e.target.value)}
+                  className="p-2 border border-gray-300 rounded-lg max-w-xs"
+                >
+                  <option value="">Select Current Semester</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
 
-          {/* Course Duration Input */}
-          <input
-            type="text"
-            value={courseDuration}
-            onChange={(e) => setCourseDuration(e.target.value)}
-            placeholder="Enter Duration"
-            className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
-          />
-
-          {/* Course Section Input */}
-          <input
-            type="number"
-            value={courseSection}
-            onChange={(e) => setCourseSection(parseInt(e.target.value))}
-            placeholder="Enter Number of sections"
-            className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
-          />
-
-          {/* Semesters and Subjects in Table Format */}
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">Semesters</h3>
-            {courseSemesters.length > 0 && (
-              <table className="w-full mb-4">
-                <thead>
-                  <tr>
-                    <th className="text-left p-2 border-b border-gray-300">
-                      Semester
-                    </th>
-                    <th className="text-left p-2 border-b border-gray-300">
-                      Subjects
-                    </th>
-                    <th className="p-2 border-b border-gray-300">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {courseSemesters.map((semester, semesterIndex) => (
-                    <tr key={semesterIndex}>
-                      <td className="p-2 border-b border-gray-300">
-                        Semester {semesterIndex + 1}
-                      </td>
-                      <td className="p-2 border-b border-gray-300">
-                        <ul>
-                          {semester.subjects.map((subject, subjectIndex) => (
-                            <li
-                              key={subjectIndex}
-                              className="flex justify-between items-center"
+                <input
+                  type="text"
+                  placeholder="Add Subject"
+                  value={newSubject}
+                  onChange={(e) => setNewSubject(e.target.value)}
+                  className="p-2 border border-gray-300 rounded-lg w-full mb-2"
+                />
+                <button
+                  className="px-4 py-2 bg-blue-500 rounded-lg text-white"
+                  onClick={addSemesterWithSubject}
+                >
+                  Add
+                </button>
+              </div>
+              <div className="flex flex-col gap-4">
+                {courseSemesters.map((semester, index) => (
+                  <div key={index} className="flex flex-col gap-2 border-b-2 ">
+                    <div>{`Semester ${index + 1}`}</div>
+                    <div className="flex gap-5 overflow-x-scroll no-scrollbar  bg-red-500">
+                      {semester.subjects.map((subject, subjectIndex) => (
+                        <p key={subjectIndex} className="">{subject}</p>
+                      ))}
+                      {semester.subjects.length > 0 &&
+                        editingIndex !== index && (
+                          <div className="flex gap-2 ">
+                            <button
+                              className="text-blue-500"
+                              onClick={() => startEditing(index)}
                             >
-                              {subject}
-                              <button
-                                className="text-red-500 ml-2"
-                                onClick={() =>
-                                  removeSubject(semesterIndex, subjectIndex)
-                                }
-                              >
-                                <FiTrash />
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      </td>
-                      <td className="p-2 border-b border-gray-300">
+                              <FiEdit />
+                            </button>
+                            <button
+                              className="text-red-500"
+                              onClick={() => deleteSemesterSubjects(index)}
+                            >
+                              <FiTrash />
+                            </button>
+                          </div>
+                        )}
+                    </div>
+
+                    {editingIndex === index && (
+                      <div className="flex gap-2 mt-2">
                         <input
                           type="text"
-                          placeholder="Add Subject"
+                          value={editSubjects}
+                          onChange={(e) => setEditSubjects(e.target.value)}
                           className="p-2 border border-gray-300 rounded-lg w-full"
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              addSubject(
-                                semesterIndex,
-                                (e.target as HTMLInputElement).value
-                              );
-                              (e.target as HTMLInputElement).value = "";
-                            }
-                          }}
                         />
-                        <p className="text-sm text-gray-400 mt-0 pt-0">
-                          Press "Enter" to add new Subject
-                        </p>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-            <button
-              className="bg-green-500 text-white px-4 py-2 rounded-lg"
-              onClick={() =>
-                setCourseSemesters([...courseSemesters, { subjects: [] }])
+                        <button
+                          className="px-4 py-2 bg-green-500 rounded-lg text-white"
+                          onClick={saveEdit}
+                        >
+                          <FiCheck />
+                        </button>
+                        <button
+                          className="px-4 py-2 bg-red-500 rounded-lg text-white"
+                          onClick={cancelEdit}
+                        >
+                          <FiX />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>{" "}
+            <div className="mb-4 flex gap-5 items-center">
+              <h3 className="text-lg font-semibold">Current Semester</h3>
+
+              <select
+                name="current"
+                value={courseCurrentSemesters}
+                onChange={(e) =>
+                  setCourseCurrentSemesters(e.target.value as "ODD" | "EVEN")
+                }
+                className="p-2 border border-gray-300 rounded-lg max-w-xs"
+              >
+                <option value="">Select Current Semester</option>
+                <option value="ODD">ODD</option>
+                <option value="EVEN">EVEN</option>
+              </select>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button color="gray" onClick={resetCourseForm}>
+              Cancel
+            </Button>
+            <Button
+              onClick={
+                editCourseId !== null ? handleEditCourse : handleAddCourse
               }
             >
-              Add Semester
-            </button>
-          </div>
+              {editCourseId !== null ? "Edit Course" : "Add Course"}
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
-          {/* Current Semester Select */}
-          <div className="mb-4 flex gap-5 items-center">
-            <h3 className="text-lg font-semibold">Current Semester</h3>
-            <select
-              name="current"
-              value={courseCurrentSemesters}
-              onChange={(e) =>
-                setCourseCurrentSemesters(e.target.value as "ODD" | "EVEN")
-              }
-              className="p-2 border border-gray-300 rounded-lg max-w-xs"
-            >
-              <option value="">Select Current Semester</option>
-              <option value="ODD">ODD</option>
-              <option value="EVEN">EVEN</option>
-            </select>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button color="gray" onClick={resetCourseForm}>
-            Cancel
-          </Button>
-          <Button
-            onClick={editCourseId !== null ? handleEditCourse : handleAddCourse}
-          >
-            {editCourseId !== null ? "Edit Course" : "Add Course"}
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      {/* Confirmation Modal */}
-      <Modal show={showConfirmModal} onClose={resetConfirmModal}>
-        <Modal.Header>Confirmation</Modal.Header>
-        <Modal.Body>
-          <p className="text-center text-gray-700">
-            Are you sure you want to delete this item?
-          </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button color="gray" onClick={resetConfirmModal}>
-            Cancel
-          </Button>
-          <Button
-            color="red"
-            onClick={() => {
-              if (confirmAction) confirmAction();
-              resetConfirmModal();
-            }}
-          >
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      {/* Confirmation Modal */}
-      <Modal show={showConfirmModal} onClose={resetConfirmModal}>
-        <Modal.Header>Confirmation</Modal.Header>
-        <Modal.Body>
-          <p className="text-center text-gray-700">
-            Are you sure you want to delete this item?
-          </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button color="gray" onClick={resetConfirmModal}>
-            Cancel
-          </Button>
-          <Button
-            color="red"
-            onClick={() => {
-              if (confirmAction) confirmAction();
-              resetConfirmModal();
-            }}
-          >
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
         {/* Confirmation Modal */}
         <Modal show={showConfirmModal} onClose={resetConfirmModal}>
           <Modal.Header>Confirmation</Modal.Header>
