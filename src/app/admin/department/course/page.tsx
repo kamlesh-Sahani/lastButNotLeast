@@ -421,111 +421,187 @@ const DepartmentManagement = () => {
 
         {/* Course Modal */}
         <Modal show={showCourseModal} onClose={resetCourseForm}>
-          <Modal.Header>{modalTitle}</Modal.Header>
-          <Modal.Body>
-            <input
-              type="text"
-              value={newCourseName}
-              onChange={(e) => setNewCourseName(e.target.value)}
-              placeholder="Enter Course Name"
-              className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
-            />
-            <input
-              type="text"
-              value={courseDuration}
-              onChange={(e) => setCourseDuration(e.target.value)}
-              placeholder="Enter Duration"
-              className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
-            />
-            <input
-              type="number"
-              value={courseSection}
-              onChange={(e) => setCourseSection(parseInt(e.target.value))}
-              placeholder="Enter Number of section "
-              className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
-            />
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold">Semesters</h3>
-              {courseSemesters.map((semester, semesterIndex) => (
-                <div key={semesterIndex} className="mb-4">
-                  <h4 className="text-md font-semibold">
-                    Semester {semesterIndex + 1}
-                  </h4>
-                  {semester.subjects.map((subject, subjectIndex) => (
-                    <div
-                      key={subjectIndex}
-                      className="flex items-center justify-between mb-2"
-                    >
-                      <span>{subject}</span>
-                      <button
-                        className="text-red-500"
-                        onClick={() =>
-                          removeSubject(semesterIndex, subjectIndex)
-                        }
-                      >
-                        <FiTrash />
-                      </button>
-                    </div>
-                  ))}
-                  <input
-                    type="text"
-                    placeholder="Add Subject"
-                    className="p-2 border border-gray-300 rounded-lg w-full mb-2"
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        addSubject(
-                          semesterIndex,
-                          (e.target as HTMLInputElement).value
-                        );
-                        (e.target as HTMLInputElement).value = "";
-                      }
-                    }}
-                  />
-                  <p className="text-sm text-gray-400 mt-0 pt-0">
-                    Press "Enter" to add new Subject
-                  </p>
-                </div>
-              ))}
-              <button
-                className="bg-green-500 text-white px-4 py-2 rounded-lg"
-                onClick={() =>
-                  setCourseSemesters([...courseSemesters, { subjects: [] }])
-                }
-              >
-                Add Semester
-              </button>
-            </div>
-            <div className="mb-4 flex gap-5 items-center">
-              <h3 className="text-lg font-semibold">Current Semester</h3>
+        <Modal.Header>{modalTitle}</Modal.Header>
+        <Modal.Body>
+          {/* Course Name Input */}
+          <input
+            type="text"
+            value={newCourseName}
+            onChange={(e) => setNewCourseName(e.target.value)}
+            placeholder="Enter Course Name"
+            className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
+          />
 
-              <select
-                name="current"
-                value={courseCurrentSemesters}
-                onChange={(e) =>
-                  setCourseCurrentSemesters(e.target.value as "ODD" | "EVEN")
-                }
-                className="p-2 border border-gray-300 rounded-lg max-w-xs"
-              >
-                <option value="">Select Current Semester</option>
-                <option value="ODD">ODD</option>
-                <option value="EVEN">EVEN</option>
-              </select>
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button color="gray" onClick={resetCourseForm}>
-              Cancel
-            </Button>
-            <Button
-              onClick={
-                editCourseId !== null ? handleEditCourse : handleAddCourse
+          {/* Course Duration Input */}
+          <input
+            type="text"
+            value={courseDuration}
+            onChange={(e) => setCourseDuration(e.target.value)}
+            placeholder="Enter Duration"
+            className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
+          />
+
+          {/* Course Section Input */}
+          <input
+            type="number"
+            value={courseSection}
+            onChange={(e) => setCourseSection(parseInt(e.target.value))}
+            placeholder="Enter Number of sections"
+            className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
+          />
+
+          {/* Semesters and Subjects in Table Format */}
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold">Semesters</h3>
+            {courseSemesters.length > 0 && (
+              <table className="w-full mb-4">
+                <thead>
+                  <tr>
+                    <th className="text-left p-2 border-b border-gray-300">
+                      Semester
+                    </th>
+                    <th className="text-left p-2 border-b border-gray-300">
+                      Subjects
+                    </th>
+                    <th className="p-2 border-b border-gray-300">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {courseSemesters.map((semester, semesterIndex) => (
+                    <tr key={semesterIndex}>
+                      <td className="p-2 border-b border-gray-300">
+                        Semester {semesterIndex + 1}
+                      </td>
+                      <td className="p-2 border-b border-gray-300">
+                        <ul>
+                          {semester.subjects.map((subject, subjectIndex) => (
+                            <li
+                              key={subjectIndex}
+                              className="flex justify-between items-center"
+                            >
+                              {subject}
+                              <button
+                                className="text-red-500 ml-2"
+                                onClick={() =>
+                                  removeSubject(semesterIndex, subjectIndex)
+                                }
+                              >
+                                <FiTrash />
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </td>
+                      <td className="p-2 border-b border-gray-300">
+                        <input
+                          type="text"
+                          placeholder="Add Subject"
+                          className="p-2 border border-gray-300 rounded-lg w-full"
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              addSubject(
+                                semesterIndex,
+                                (e.target as HTMLInputElement).value
+                              );
+                              (e.target as HTMLInputElement).value = "";
+                            }
+                          }}
+                        />
+                        <p className="text-sm text-gray-400 mt-0 pt-0">
+                          Press "Enter" to add new Subject
+                        </p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+            <button
+              className="bg-green-500 text-white px-4 py-2 rounded-lg"
+              onClick={() =>
+                setCourseSemesters([...courseSemesters, { subjects: [] }])
               }
             >
-              {editCourseId !== null ? "Edit Course" : "Add Course"}
-            </Button>
-          </Modal.Footer>
-        </Modal>
+              Add Semester
+            </button>
+          </div>
 
+          {/* Current Semester Select */}
+          <div className="mb-4 flex gap-5 items-center">
+            <h3 className="text-lg font-semibold">Current Semester</h3>
+            <select
+              name="current"
+              value={courseCurrentSemesters}
+              onChange={(e) =>
+                setCourseCurrentSemesters(e.target.value as "ODD" | "EVEN")
+              }
+              className="p-2 border border-gray-300 rounded-lg max-w-xs"
+            >
+              <option value="">Select Current Semester</option>
+              <option value="ODD">ODD</option>
+              <option value="EVEN">EVEN</option>
+            </select>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button color="gray" onClick={resetCourseForm}>
+            Cancel
+          </Button>
+          <Button
+            onClick={editCourseId !== null ? handleEditCourse : handleAddCourse}
+          >
+            {editCourseId !== null ? "Edit Course" : "Add Course"}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmModal} onClose={resetConfirmModal}>
+        <Modal.Header>Confirmation</Modal.Header>
+        <Modal.Body>
+          <p className="text-center text-gray-700">
+            Are you sure you want to delete this item?
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button color="gray" onClick={resetConfirmModal}>
+            Cancel
+          </Button>
+          <Button
+            color="red"
+            onClick={() => {
+              if (confirmAction) confirmAction();
+              resetConfirmModal();
+            }}
+          >
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmModal} onClose={resetConfirmModal}>
+        <Modal.Header>Confirmation</Modal.Header>
+        <Modal.Body>
+          <p className="text-center text-gray-700">
+            Are you sure you want to delete this item?
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button color="gray" onClick={resetConfirmModal}>
+            Cancel
+          </Button>
+          <Button
+            color="red"
+            onClick={() => {
+              if (confirmAction) confirmAction();
+              resetConfirmModal();
+            }}
+          >
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
         {/* Confirmation Modal */}
         <Modal show={showConfirmModal} onClose={resetConfirmModal}>
           <Modal.Header>Confirmation</Modal.Header>
