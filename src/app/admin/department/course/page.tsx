@@ -37,12 +37,6 @@ const dummyDepartments: Department[] = [
             subjects: [
               "Mathematics",
               "Computer Science Basics",
-              "Mathematics",
-              "Computer Science Basics",
-              "Mathematics",
-              "Computer Science Basics",
-              "Mathematics",
-              "Computer Science Basics",
             ],
           },
           { subjects: ["Programming", "Data Structures"] },
@@ -510,6 +504,22 @@ const DepartmentManagement = () => {
               placeholder="Enter Number of section "
               className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
             />
+             <div className="mb-4 flex gap-5 items-center">
+              <h3 className="text-lg font-semibold">Current Semester</h3>
+
+              <select
+                name="current"
+                value={courseCurrentSemesters}
+                onChange={(e) =>
+                  setCourseCurrentSemesters(e.target.value as "ODD" | "EVEN")
+                }
+                className="p-2 border border-gray-300 rounded-lg max-w-xs"
+              >
+                <option value="">Select Current Semester</option>
+                <option value="ODD">ODD</option>
+                <option value="EVEN">EVEN</option>
+              </select>
+            </div>
             <div className="flex flex-col gap-5">
               <div className="flex gap-2">
                 <select
@@ -532,7 +542,7 @@ const DepartmentManagement = () => {
                   placeholder="Add Subject"
                   value={newSubject}
                   onChange={(e) => setNewSubject(e.target.value)}
-                  className="p-2 border border-gray-300 rounded-lg w-full mb-2"
+                  className="px-2 py-3 border border-gray-300  rounded-lg w-full mb-2"
                 />
                 <button
                   className="px-4 py-2 bg-blue-500 rounded-lg text-white"
@@ -543,13 +553,9 @@ const DepartmentManagement = () => {
               </div>
               <div className="flex flex-col gap-4">
                 {courseSemesters.map((semester, index) => (
-                  <div key={index} className="flex flex-col gap-2 border-b-2 ">
-                    <div>{`Semester ${index + 1}`}</div>
-                    <div className="flex gap-5 overflow-x-scroll no-scrollbar  bg-red-500">
-                      {semester.subjects.map((subject, subjectIndex) => (
-                        <p key={subjectIndex} className="">{subject}</p>
-                      ))}
-                      {semester.subjects.length > 0 &&
+                  <div key={index} className="flex flex-col gap-2 border-b-2 w-full border border-red-600 rounded-lg p-2 shadow-lg dark:shadow-white">
+                    <div className="text-lg font-medium border flex justify-between">{`Semester ${index + 1} :`}
+                    {semester.subjects.length > 0 &&
                         editingIndex !== index && (
                           <div className="flex gap-2 ">
                             <button
@@ -566,6 +572,15 @@ const DepartmentManagement = () => {
                             </button>
                           </div>
                         )}
+                    </div>
+                    <div className="flex flex-col min-w-full gap-2">
+                      {semester.subjects.map((subject, subjectIndex) => (
+                        <div className="">
+
+                        <p key={subjectIndex} className="text-base font-medium">{subject}</p>
+                        </div>
+                      ))}
+                      
                     </div>
 
                     {editingIndex === index && (
@@ -594,22 +609,7 @@ const DepartmentManagement = () => {
                 ))}
               </div>
             </div>{" "}
-            <div className="mb-4 flex gap-5 items-center">
-              <h3 className="text-lg font-semibold">Current Semester</h3>
-
-              <select
-                name="current"
-                value={courseCurrentSemesters}
-                onChange={(e) =>
-                  setCourseCurrentSemesters(e.target.value as "ODD" | "EVEN")
-                }
-                className="p-2 border border-gray-300 rounded-lg max-w-xs"
-              >
-                <option value="">Select Current Semester</option>
-                <option value="ODD">ODD</option>
-                <option value="EVEN">EVEN</option>
-              </select>
-            </div>
+           
           </Modal.Body>
           <Modal.Footer>
             <Button color="gray" onClick={resetCourseForm}>
