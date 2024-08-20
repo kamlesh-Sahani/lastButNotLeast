@@ -53,7 +53,7 @@ export default function UserSidebar() {
       {showSidebar && (
         <div
           className={`bg-white max-md:${
-            showSidebar ? "block absolute z-[999]" : "hidden "
+            showSidebar ? "block absolute z-[100]" : "hidden "
           } flex flex-col md:relative`}
           style={{ width: "300px", height: "100vh" }}
         >

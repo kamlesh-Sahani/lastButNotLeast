@@ -220,7 +220,7 @@ const LeaveTypes: React.FC = () => {
         </div>
       </div>
       {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 z-[200] flex justify-center items-center">
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 z-[999] flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
             <h2 className="text-lg font-semibold mb-4">Confirm Delete</h2>
             <p className="mb-4">Are you sure you want to delete this leave type?</p>
@@ -242,7 +242,7 @@ const LeaveTypes: React.FC = () => {
         </div>
       )}
       {showModal && currentLeaveType && (
-        <div className="fixed inset-0 z-[200] bg-gray-800 bg-opacity-50 flex justify-center items-center">
+        <div className="fixed inset-0 z-[999] bg-gray-800 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
             <h2 className="text-lg font-semibold mb-4">
               {currentLeaveType.id ? "Edit Leave Type" : "Add New Leave Type"}

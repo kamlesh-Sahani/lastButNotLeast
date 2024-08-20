@@ -39,7 +39,7 @@ export default function AdminSidebar() {
     <>
       <div onClick={() => setShowSidebar(!showSidebar)}>
         {!showSidebar && (
-          <RiMenu4Fill className="text-3xl cursor-pointer md:hidden absolute top-4 left-4 z-[999]" />
+          <RiMenu4Fill className="text-3xl cursor-pointer md:hidden absolute top-4 left-4 z-[100]" />
         )}
       </div>
 
