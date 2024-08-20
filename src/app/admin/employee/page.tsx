@@ -273,7 +273,7 @@ const columns: TableColumnType[] = [
     },
   },
 ];
-const employeePage = () => {
+const EmployeePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { employee, isLoading, error } = useSelector((state: RootState) => state.allEmployee);
 
@@ -296,4 +296,4 @@ const employeePage = () => {
   );
 };
 
-export default employeePage;
+export default EmployeePage;
