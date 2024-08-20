@@ -6,6 +6,7 @@ import profileReducer from './features/user/profileSlice'
 import registerReducer from './features/user/registerSlice';
 import getAllReducer from './features/user/getAllSlice';
 import getAllLeaveTypeReducer  from './features/leave/types/getAllType';
+import getOneReducer from './features/user/getOneSlice'
 export const makeStore = () => {
   return configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const makeStore = () => {
       profile:profileReducer,
       register:registerReducer,
       allEmployee:getAllReducer,
-      getAllLeaveType:getAllLeaveTypeReducer
+      getAllLeaveType:getAllLeaveTypeReducer,
+      getOneEmployee:getOneReducer
     },
   })
 }
