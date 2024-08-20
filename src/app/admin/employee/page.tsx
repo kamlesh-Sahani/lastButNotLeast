@@ -10,7 +10,7 @@ import Loader from "@/components/Loader";
 import axios from "axios";
 
 interface RequestEmployeeType {
-  id: string; 
+  // id: string; 
   name: string;
   email: string;
   city: string;
