@@ -4,7 +4,7 @@ import {NextResponse } from "next/server";
 dbConnect();
 export async function GET(){
 try {
-    const employees = await EmployeeModel.find({}).select("personalInfo");
+    const employees = await EmployeeModel.find({}).select("personalInfo role isActive");
 
     if(employees.length<=0){
         return NextResponse.json({

@@ -43,12 +43,12 @@ const DisplayTable = ({
     previousPage,
     state: { pageIndex, pageSize },
     setPageSize,
-
   }: any = useTable(
-    { columns, data: filteredRequests,},
+    { columns, data: filteredRequests },
     usePagination
   );
 
+  // Setting default page size to 5
   useMemo(() => {
     setPageSize(5);
   }, [setPageSize]);
@@ -153,17 +153,6 @@ const DisplayTable = ({
           >
             {">>"}
           </button>
-          {/* <select
-            value={pageSize}
-            onChange={(e) => setPageSize(Number(e.target.value))}
-            className="border rounded py-1 px-2"
-          >
-            {[10, 20, 30, 40].map((size) => (
-              <option key={size} value={size}>
-                Show {size}
-              </option>
-            ))}
-          </select> */}
         </div>
       </div>
     </>
