@@ -11,6 +11,7 @@ async function passwordCompare(plainPassword: string, hashedPassword: string) {
 export async function POST(req: NextRequest) {
   try {
     const reqBody = await req.json();
+    console.log(reqBody,"login req body");
     const { email, password } = reqBody;
         // Validate request body
         if (!email || !password) {
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
           );
         }
         
-    const employee = await EmployeeModel.findOne({"personalInfo.email":email});
+    const employee = await EmployeeModel.findOne({"personalInfo.email":email}).select("personalInfo.password");
     if (!employee) {
       return NextResponse.json(
         {
@@ -48,12 +49,11 @@ export async function POST(req: NextRequest) {
     // password and email is right
 
  const {accessToken,refreshToken}:any = await generateAccessAndRefreshToken(employee._id)
- const loggedEmployee = await EmployeeModel.findById(employee._id).select("-personalInfo.password");
-
-
+ const loggedEmployee = await EmployeeModel.findById(employee._id)
     const option = {
       httpOnly: true,
       secure: true,
+      maxAge: 10 * 24 * 60 * 60 * 1000 // Set a more reasonable cookie expiration time (10 days)
     };
 
     const response = NextResponse.json(

@@ -5,7 +5,6 @@ import { NextResponse,NextRequest } from "next/server";
 dbConnect();
 export async function GET(req:NextRequest){
     try {
-        console.log(req,"me api")
         const employeeId = await getDataFromCookie(req);
         const employee = await EmployeeModel.findById(employeeId).select("-personalInfo.password");
         if(!employee){
