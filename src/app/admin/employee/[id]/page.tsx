@@ -1,6 +1,6 @@
 "use client";
 import Loader from "@/components/Loader";
-import { profileUser } from "@/lib/strore/features/user/userThanks";
+import { oneUser, profileUser } from "@/lib/strore/features/user/userThanks";
 import { AppDispatch, RootState } from "@/lib/strore/store";
 import { Avatar, Button, Card, Modal } from "flowbite-react";
 import { useState, ChangeEvent, useEffect } from "react";
@@ -16,7 +16,7 @@ interface PersonalInfo {
   password: string;
 }
 
-const UserProfile: React.FC = () => {
+const UserProfile = ({params}:{params:{id:string}}) => {
   const dispatch= useDispatch<AppDispatch>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const {employee,error,isLoading} = useSelector((state:RootState)=>state.getOneEmployee);
@@ -39,7 +39,7 @@ const UserProfile: React.FC = () => {
   };
 
   useEffect(()=>{
-    dispatch(profileUser());
+    dispatch(oneUser(params.id));
   },[dispatch]);
 
   const handleAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +75,7 @@ const UserProfile: React.FC = () => {
               {employee?.personalInfo?.fullName}
             </h2>
             <p className="text-gray-600 text-sm md:text-base">
-              {employee?.professionalInfo.designation}
+              {employee?.professionalInfo?.designation}
             </p>
           </div>
         </div>

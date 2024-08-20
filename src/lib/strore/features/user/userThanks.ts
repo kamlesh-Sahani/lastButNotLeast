@@ -3,14 +3,20 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 // employee login 
 const employeeBaseUrl=`${process.env.NEXT_PUBLIC_DOMAIN}/api/employee`;
-export const loginUser = createAsyncThunk<EmployeeSchemaType,{email:string,password:string}>("user/login",async(userData)=>{
+
+interface EmployeeDataReturn {
+    message:string,
+    employee:EmployeeSchemaType,
+    success:boolean
+}
+export const loginUser = createAsyncThunk<EmployeeDataReturn,{email:string,password:string}>("user/login",async(userData)=>{
     const {data} = await axios.post(`${employeeBaseUrl}/login`,userData);
     console.log(data,"thank data");
     return data;
 })
 
 // employee register 
-export const registerUser = createAsyncThunk<EmployeeSchemaType,{[key: string]: string }>("user/register",async(userData)=>{
+export const registerUser = createAsyncThunk<EmployeeDataReturn,{[key: string]: string }>("user/register",async(userData)=>{
     console.log(userData,"daya regiser");
     const {data} = await axios.post(`${employeeBaseUrl}/new`,userData);
     console.log(data,"faya");
@@ -45,7 +51,7 @@ export const editUser = createAsyncThunk("user/edit",async(userData)=>{
 
 // get specific employee data 
 
-export const oneUser = createAsyncThunk("user/one",async(userId)=>{
-const {data} = await axios.post(`${employeeBaseUrl}?id=${userId}`);
+export const oneUser = createAsyncThunk<EmployeeDataReturn,string>("user/one",async(userId)=>{
+const {data} = await axios.get(`${employeeBaseUrl}?id=${userId}`);
 return data;
 })
