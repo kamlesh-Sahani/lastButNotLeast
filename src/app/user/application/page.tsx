@@ -280,6 +280,20 @@ const LeaveApplication: React.FC = () => {
                       ))}
                     </select>
                     <select
+                      value={newArrangement.course}
+                      onChange={(e) => handleCourseChange(e.target.value)}
+                      className="w-full px-4 max-lg:col-span-2   py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    >
+                      <option value="" disabled>
+                        Select Course
+                      </option>
+                      {courses.map((course, index) => (
+                        <option key={index} value={course.name}>
+                          {course.name}
+                        </option>
+                      ))}
+                    </select>
+                    <select
                       value={newArrangement.subject}
                       onChange={(e) =>
                         handleNewArrangementChange("subject", e.target.value)
@@ -297,20 +311,7 @@ const LeaveApplication: React.FC = () => {
                         )
                       )}
                     </select>
-                    <select
-                      value={newArrangement.course}
-                      onChange={(e) => handleCourseChange(e.target.value)}
-                      className="w-full px-4 max-lg:col-span-2   py-3 bg-gray-50 shadow-inner border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    >
-                      <option value="" disabled>
-                        Select Course
-                      </option>
-                      {courses.map((course, index) => (
-                        <option key={index} value={course.name}>
-                          {course.name}
-                        </option>
-                      ))}
-                    </select>
+                   
                   </div>
                   <div className="grid grid-cols-2  gap-4">
                     <div className="mt-4 max-lg:col-span-2 ">
