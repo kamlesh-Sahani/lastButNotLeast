@@ -116,10 +116,10 @@ const EmployeePage = () => {
           status: emp.isActive || "", 
           image: "https://i.pravatar.cc/150?img=5",
           action: [
-            <Link href={`/edit/${emp._id}`} key={`edit-${emp._id}`}>
+            <Link href={`/admin/edit/${emp._id}`} key={`edit-${emp._id}`}>
               <AiOutlineEdit />
             </Link>,
-            <Link href={`/employee/${emp._id}`} key={`view-${emp._id}`}>
+            <Link href={`/admin/employee/${emp._id}`} key={`view-${emp._id}`}>
               <IoMdEye />
             </Link>,
           ],
