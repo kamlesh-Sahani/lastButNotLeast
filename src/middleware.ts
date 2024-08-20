@@ -5,6 +5,7 @@ export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken")?.value;
   const refreshToken = request.cookies.get("refreshToken")?.value;
   const loggedUserNotAccessPath = request.nextUrl.pathname === "/login";
+  
   const isLogoutPath = request.nextUrl.pathname === "/logout";
   const protectedRoutes =
     request.nextUrl.pathname === "/user" ||
