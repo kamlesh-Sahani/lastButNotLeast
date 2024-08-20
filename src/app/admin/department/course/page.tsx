@@ -543,11 +543,11 @@ const DepartmentManagement = () => {
               </div>
               <div className="flex flex-col gap-4">
                 {courseSemesters.map((semester, index) => (
-                  <div key={index} className="flex gap-2 border-b-2 ">
+                  <div key={index} className="flex flex-col gap-2 border-b-2 ">
                     <div>{`Semester ${index + 1}`}</div>
                     <div className="flex gap-5 overflow-x-scroll no-scrollbar  bg-red-500">
                       {semester.subjects.map((subject, subjectIndex) => (
-                        <p key={subjectIndex} className="flex">{subject}</p>
+                        <p key={subjectIndex} className="">{subject}</p>
                       ))}
                       {semester.subjects.length > 0 &&
                         editingIndex !== index && (
