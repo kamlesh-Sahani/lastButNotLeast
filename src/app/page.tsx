@@ -2,6 +2,7 @@ import dbitLogo from "@/assets/dbitlogo.png";
 import TypingAnimation from "../components/TypingAnimation";
 import Image from "next/image";
 import Link from "next/link";
+
 const HomePage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
