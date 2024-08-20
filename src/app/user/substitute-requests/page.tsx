@@ -78,10 +78,10 @@ const SubstituteRequestPage = () => {
     // Add more request objects as needed
   ];
 
-  const handleViewMore = (index:any) => {
-    setSelectedRequest(index);
-    setOpenDetails(true);
-  };
+  // const handleViewMore = (index:any) => {
+  //   setSelectedRequest(index);
+  //   setOpenDetails(true);
+  // };
 
   return (
     <div className="min-h-screen  p-6 md:p-8 xl:w-[90%] m-auto">
