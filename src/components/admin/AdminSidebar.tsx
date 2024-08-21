@@ -74,7 +74,7 @@ export default function AdminSidebar() {
             <Link href={"/admin"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/admin" ? "bg-[#eee]" : ""
+                  pathname === "/admin" ? "bg-[#3d24fc2a]": ""
                 }`}
               >
                 <HiChartPie />
@@ -85,7 +85,7 @@ export default function AdminSidebar() {
             <Link href={"/admin/employee"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/admin/employee" ? "bg-[#eee]" : ""
+                  pathname === "/admin/employee" ? "bg-[#3d24fc2a]": ""
                 }`}
               >
                 <HiUser />
@@ -96,7 +96,7 @@ export default function AdminSidebar() {
             <Link href={"/admin/department/course"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/admin/department/course" ? "bg-[#eee]" : ""
+                  pathname === "/admin/department/course" ? "bg-[#3d24fc2a]": ""
                 }`}
               >
                 <HiBookOpen />
@@ -111,7 +111,7 @@ export default function AdminSidebar() {
               <Link href={"/admin/leave/request"}>
                 <div
                   className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                    pathname === "/admin/leave/request" ? "bg-[#eee]" : ""
+                    pathname === "/admin/leave/request" ? "bg-[#3d24fc2a]": ""
                   }`}
                 >
                   <HiOutlineClipboardCheck />
@@ -122,7 +122,7 @@ export default function AdminSidebar() {
               <Link href={"/admin/leave/type"}>
                 <div
                   className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                    pathname === "/admin/leave/type" ? "bg-[#eee]" : ""
+                    pathname === "/admin/leave/type" ? "bg-[#3d24fc2a]": ""
                   }`}
                 >
                   <HiOutlineDocumentText />
@@ -139,7 +139,7 @@ export default function AdminSidebar() {
                 <div
                   className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
                     pathname === "/admin/user-management/role"
-                      ? "bg-[#eee]"
+                      ? "bg-[#3d24fc2a]"
                       : ""
                   }`}
                 >
@@ -152,7 +152,7 @@ export default function AdminSidebar() {
                 <div
                   className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
                     pathname === "/admin/user-management/permission"
-                      ? "bg-[#eee]"
+                      ? "bg-[#3d24fc2a]"
                       : ""
                   }`}
                 >
@@ -163,13 +163,13 @@ export default function AdminSidebar() {
             </div>
           </div>
           <div className="flex items-center w-full justify-center flex-auto">
-            <Button
+            <button
               onClick={() => setOpenModal(true)}
-              className="w-[270px] items-center bg-transparent border border-blue-500 text-black hover:bg-blue-600 hover:text-white hover:border-transparent"
-              color={"blue-500"}
+              className="w-[270px] items-center bg-blue-500 h-[40px] rounded-md text-white"
+              
             >
               Logout
-            </Button>
+            </button>
             <Modal
               show={openModal}
               size="md"

@@ -11,7 +11,6 @@ import {
   HiCheckCircle,
   HiUserGroup,
 } from "react-icons/hi";
-import { IoIosNotifications } from "react-icons/io";
 import { SlGraph } from "react-icons/sl";
 import { RiAdminFill, RiMenu4Fill } from "react-icons/ri";
 import { usePathname } from "next/navigation";
@@ -184,14 +183,13 @@ export default function UserSidebar() {
 
           </div>
           <div className=" flex items-center w-full justify-center flex-auto">
-         
-            <Button
+            <button
               onClick={() => setOpenModal(true)}
-              className=" w-[270px] items-center bg-transparent border border-blue-500 text-black hover:bg-blue-600 hover:text-white hover:border-transparent"
-              color={"blue-500"}
+              className="w-[270px] items-center bg-blue-500 h-[40px] rounded-md text-white"
+              
             >
               Logout
-            </Button>
+            </button>
      
             <Modal
               show={openModal}
