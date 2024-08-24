@@ -7,10 +7,9 @@ dbConnect();
 export async function POST(req: NextRequest) {
   try {
     const reqBody = await req.json();
-    const { departmentHead, departmentName, employees = [], courses } = reqBody;
-
+    const { departmentHead, departmentName, courses } = reqBody;
     // Validate request body
-    if (!departmentHead || !departmentName) {
+    if (!departmentName) {
       return NextResponse.json(
         {
           success: false,
@@ -36,7 +35,6 @@ export async function POST(req: NextRequest) {
     const department = await DepartmentModel.create({
       departmentHead,
       departmentName,
-      employees,
       courses,
     });
 

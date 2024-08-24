@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import profileReducer from './features/user/profileSlice'
+import profileSlice from './features/user/profileSlice';
 import registerReducer from './features/user/registerSlice';
 import getAllReducer from './features/user/getAllSlice';
 import getAllLeaveTypeReducer  from './features/leave/types/getAllType';
@@ -9,7 +9,7 @@ export const makeStore = () => {
   return configureStore({
     reducer: {
       [userSlice.name]:userSlice.reducer,
-      profile:profileReducer,
+      [profileSlice.name]:profileSlice.reducer,
       register:registerReducer,
       allEmployee:getAllReducer,
       getAllLeaveType:getAllLeaveTypeReducer,

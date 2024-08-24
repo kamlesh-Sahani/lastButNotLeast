@@ -15,6 +15,10 @@ import { SlGraph } from "react-icons/sl";
 import { RiAdminFill, RiMenu4Fill } from "react-icons/ri";
 import { usePathname } from "next/navigation";
 import { SlCalender } from "react-icons/sl";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/strore/store";
+import { profileUser } from "@/lib/strore/features/user/userThanks";
+import Loader from "../Loader";
 export default function UserSidebar() {
   const pathname = usePathname();
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -35,7 +39,13 @@ export default function UserSidebar() {
     };
   }, []);
 
-  return (
+  const dispatch = useDispatch<AppDispatch>();
+  const {user,isLoading} = useSelector((state:RootState)=>state.me);
+  useEffect(()=>{
+    dispatch(profileUser());
+  },[dispatch])
+
+  return isLoading?<Loader />: (
     <>
       <div onClick={() => setShowSidebar(!showSidebar)}>
         {!showSidebar && (
@@ -171,8 +181,8 @@ export default function UserSidebar() {
                 </div>
               </div>
             </Link>
-
-            <Link href={"/admin"}>
+            {
+              user?.role==="ADMIN" &&  <Link href={"/admin"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#3d24fc2a] pl-4 text-[20px] text-[#595959] `}
               >
@@ -180,6 +190,9 @@ export default function UserSidebar() {
                 <p className="text">Admin</p>
               </div>
             </Link>
+            }
+
+           
 
           </div>
           <div className=" flex items-center w-full justify-center flex-auto">

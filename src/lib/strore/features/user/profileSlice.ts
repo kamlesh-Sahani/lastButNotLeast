@@ -4,16 +4,16 @@ import {createSlice} from '@reduxjs/toolkit'
 
 interface initialStateType {
     isLoading:boolean;
-    employee:any;
+    user:any;
     error:string | undefined
 }
 const initialState:initialStateType = {
     isLoading:false,
-    employee:null,
+    user:null,
     error:undefined
 }
 const profileSlice = createSlice({
-    name:'profile',
+    name:'me',
     reducers:{},
     initialState,
     extraReducers:(builder)=>{
@@ -24,12 +24,12 @@ const profileSlice = createSlice({
             state.error=undefined;
         })
         .addCase(profileUser.fulfilled,(state,action)=>{
-            state.employee=action.payload;
+            state.user=action.payload;
             state.isLoading=false;
 
         })
         .addCase(profileUser.rejected,(state,action)=>{
-            state.employee = null;
+            state.user = null;
             state.isLoading=false;
             state.error=action.error.message
         })
@@ -37,4 +37,4 @@ const profileSlice = createSlice({
     }
 })
 
-export default profileSlice.reducer;
+export default profileSlice;

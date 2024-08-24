@@ -6,24 +6,29 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import { removeUser, setUser } from "@/lib/strore/features/user/userSlice";
+import {useDispatch} from 'react-redux'
+import { AppDispatch } from "@/lib/strore/store";
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading,setIsLoading] =  useState<boolean>(false);
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>()
   const loginHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
    try {
     setIsLoading(true);
     const {data} = await axios.post(`${process.env.NEXT_PUBLIC_DOMAIN}/api/employee/login`,{email,password},{withCredentials:true});
     if(data.success){
-      setUser(data.employee);
+
+      dispatch(setUser({user:data.employee,role:data.employee.role}));
       toast.success(data?.message);
+      
       router.push("/user");
     }
     setIsLoading(false);
     } catch (error: any) {
-      removeUser();
+      dispatch(removeUser());
       console.log(error.response?.data.message,"loginerror 2");
       toast.error(error.response?.data.message || "Something went wrong");
       setIsLoading(false);
