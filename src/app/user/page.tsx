@@ -12,11 +12,15 @@ import {
   Legend,
   ArcElement,
 } from 'chart.js';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/strore/store';
+
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
 const DashboardPage = () => {
-
+  const {user}  = useSelector((state:RootState)=>state.user);
+  console.log(user,"login user");
   // Sample data for the line chart (Leave Requests Over Time)
   const lineData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
