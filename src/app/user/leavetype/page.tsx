@@ -1,4 +1,5 @@
 "use client";
+import Loader from "@/components/Loader";
 import { getAllLeaveType } from "@/lib/strore/features/leave/types/typesThank";
 import { AppDispatch, RootState } from "@/lib/strore/store";
 import { useEffect, useState } from "react";
@@ -14,26 +15,15 @@ const LeaveTypes: React.FC = () => {
   
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
-  const handleAddNewClick = () => {
-
-  };
-
-
   const handleToggleDetails = (id: number) => {
     setExpandedId(expandedId === id ? null : id);
   };
 
-  return (
+  return isLoading ?<Loader />: (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold">Leave Types</h1>
-        <button
-          className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-          onClick={handleAddNewClick}
-        >
-          <FiPlus className="mr-2" />
-          Add New Leave
-        </button>
+  
       </div>
 
       <div className="relative">
@@ -100,6 +90,8 @@ const LeaveTypes: React.FC = () => {
           ))}
         </div>
       </div>
+
+      
     </div>
   );
 };

@@ -19,7 +19,7 @@ interface PersonalInfo {
 const UserProfile: React.FC = () => {
   const dispatch= useDispatch<AppDispatch>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const {employee,error,isLoading} = useSelector((state:RootState)=>state.profile);
+  const {user,isLoading} = useSelector((state:RootState)=>state.me);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     name: "Saad Mehmood",
     email: "saad.@gmail.com",
@@ -56,12 +56,10 @@ const UserProfile: React.FC = () => {
     }
   };
 
-  console.log(employee,'userprofile ');
+  console.log(user,'userprofile ');
 
-  return (
-    <>
-    {
-      isLoading ? <Loader />:  <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+  return   isLoading ? <Loader />:(
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
       <Card className="w-full max-w-4xl mx-auto bg-gray-100 shadow-lg rounded-lg p-4 md:p-6">
         <div className="flex flex-col md:flex-row items-center mb-6">
           <Avatar
@@ -72,10 +70,10 @@ const UserProfile: React.FC = () => {
           />
           <div className="text-center md:text-left">
             <h2 className="text-xl md:text-2xl font-bold mb-2">
-              {employee?.personalInfo?.fullName}
+              {user?.personalInfo?.fullName}
             </h2>
             <p className="text-gray-600 text-sm md:text-base">
-              {employee?.professionalInfo.designation}
+              {user?.professionalInfo.designation}
             </p>
           </div>
         </div>
@@ -93,9 +91,9 @@ const UserProfile: React.FC = () => {
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">
-                Employee ID
+                user ID
               </h4>
-              <p className="text-gray-600 mt-1">  {employee?._id}</p>
+              <p className="text-gray-600 mt-1">  {user?._id}</p>
             </div>
             {/* <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
               <h4 className="text-base font-medium text-gray-800">
@@ -119,20 +117,20 @@ const UserProfile: React.FC = () => {
               <h4 className="text-base font-medium text-gray-800">
                 Date of Birth
               </h4>
-              <p className="text-gray-600 mt-1">{employee?.personalInfo?.dob}</p>
+              <p className="text-gray-600 mt-1">{user?.personalInfo?.dob}</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Email</h4>
-              <p className="text-gray-600 mt-1">{employee?.personalInfo?.email}</p>
+              <p className="text-gray-600 mt-1">{user?.personalInfo?.email}</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Phone</h4>
-              <p className="text-gray-600 mt-1">{employee?.personalInfo?.contactNumber}</p>
+              <p className="text-gray-600 mt-1">{user?.personalInfo?.contactNumber}</p>
             </div>
          
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <h4 className="text-base font-medium text-gray-800">Address</h4>
-              <p className="text-gray-600 mt-1">{employee?.personalInfo?.address}</p>
+              <p className="text-gray-600 mt-1">{user?.personalInfo?.address}</p>
             </div>
             {/* <div className="bg-white p-4 rounded-lg shadow-sm col-span-2">
               <h4 className="text-base font-medium text-gray-800">Password</h4>
@@ -293,8 +291,6 @@ const UserProfile: React.FC = () => {
         </Modal.Footer>
       </Modal>
     </div>
-    }
-    </>
   );
 };
 
