@@ -15,6 +15,8 @@ interface Course {
   semesters: Semester[];
   currentSemester?: "ODD" | "EVEN";
   section?: number;
+  durationType?: "Semester" | "Seasonal" | "Quaterly";
+  noOfDurationType?: number;
 }
 
 interface Department {
@@ -34,10 +36,7 @@ const dummyDepartments: Department[] = [
         duration: "3 years",
         semesters: [
           {
-            subjects: [
-              "Mathematics",
-              "Computer Science Basics",
-            ],
+            subjects: ["Mathematics", "Computer Science Basics"],
           },
           { subjects: ["Programming", "Data Structures"] },
           { subjects: ["Algorithms", "Database Systems"] },
@@ -49,6 +48,8 @@ const dummyDepartments: Department[] = [
         ],
         currentSemester: "ODD",
         section: 2,
+        durationType: "Quaterly",
+        noOfDurationType: 16,
       },
       {
         id: "mca",
@@ -66,6 +67,8 @@ const dummyDepartments: Department[] = [
         ],
         currentSemester: "EVEN",
         section: 1,
+        durationType: "Seasonal",
+        noOfDurationType: 3,
       },
     ],
   },
@@ -89,6 +92,8 @@ const dummyDepartments: Department[] = [
         ],
         currentSemester: "ODD",
         section: 3,
+        durationType: "Quaterly",
+        noOfDurationType: 16,
       },
       {
         id: "mba",
@@ -106,6 +111,8 @@ const dummyDepartments: Department[] = [
         ],
         currentSemester: "EVEN",
         section: 2,
+        durationType: "Semester",
+        noOfDurationType: 8,
       },
     ],
   },
@@ -129,6 +136,10 @@ const DepartmentManagement = () => {
   const [courseCurrentSemesters, setCourseCurrentSemesters] = useState<
     "ODD" | "EVEN" | undefined
   >();
+  const [courseDurationType, setCourseDurationType] = useState<
+    "Semester" | "Seasonal" | "Quaterly"
+  >();
+  const [noOfDurationType, setNoOfDurationType] = useState<number>();
   const [courseSection, setCourseSection] = useState<number | undefined>();
   const [courseInstructors, setCourseInstructors] = useState<string[]>([]);
   const [editDepartmentId, setEditDepartmentId] = useState<number | null>(null);
@@ -136,6 +147,9 @@ const DepartmentManagement = () => {
   const [modalTitle, setModalTitle] = useState<string>("");
   const [confirmAction, setConfirmAction] = useState<() => void | null>();
 
+  const handleForm = () => {
+    handleAddCourse();
+  };
   const handleAddDepartment = () => {
     if (!newDepartmentName.trim()) return;
     const newDepartment: Department = {
@@ -144,7 +158,7 @@ const DepartmentManagement = () => {
       courses: [],
     };
     setDepartments([...departments, newDepartment]);
-    resetDepartmentForm();
+    console.log(newDepartment, "new Department");
   };
 
   const handleEditDepartment = () => {
@@ -156,7 +170,7 @@ const DepartmentManagement = () => {
           : department
       )
     );
-    resetDepartmentForm();
+    // resetDepartmentForm();
   };
 
   const handleDeleteDepartment = (id: number) => {
@@ -177,6 +191,8 @@ const DepartmentManagement = () => {
       semesters: courseSemesters,
       currentSemester: courseCurrentSemesters,
       section: courseSection,
+      durationType: courseDurationType,
+      noOfDurationType: noOfDurationType,
     };
     const updatedDepartments = departments.map((department) =>
       department.id === currentDepartmentId
@@ -185,6 +201,7 @@ const DepartmentManagement = () => {
     );
     setDepartments(updatedDepartments);
     resetCourseForm();
+    console.log(newCourse, "new course");
   };
 
   const handleEditCourse = () => {
@@ -200,14 +217,15 @@ const DepartmentManagement = () => {
                     name: newCourseName,
                     duration: courseDuration,
                     semesters: courseSemesters,
-                    instructors: courseInstructors,
                   }
-                : course
-            ),
+                : course,
+                  console.log(department)
+              ),
           }
         : department
     );
     setDepartments(updatedDepartments);
+    console.log(updatedDepartments);
     resetCourseForm();
   };
 
@@ -229,39 +247,6 @@ const DepartmentManagement = () => {
       resetConfirmModal();
     });
     setShowConfirmModal(true);
-  };
-
-  const addSubject = (semesterIndex: number, subject: string) => {
-    setCourseSemesters((prevSemesters) =>
-      prevSemesters.map((semester, index) =>
-        index === semesterIndex
-          ? { ...semester, subjects: [...semester.subjects, subject] }
-          : semester
-      )
-    );
-  };
-
-  const removeSubject = (semesterIndex: number, subjectIndex: number) => {
-    setCourseSemesters((prevSemesters) =>
-      prevSemesters.map((semester, index) =>
-        index === semesterIndex
-          ? {
-              ...semester,
-              subjects: semester.subjects.filter((_, i) => i !== subjectIndex),
-            }
-          : semester
-      )
-    );
-  };
-
-  const addInstructor = (instructor: string) => {
-    setCourseInstructors((prevInstructors) => [...prevInstructors, instructor]);
-  };
-
-  const removeInstructor = (instructorIndex: number) => {
-    setCourseInstructors((prevInstructors) =>
-      prevInstructors.filter((_, i) => i !== instructorIndex)
-    );
   };
 
   const resetDepartmentForm = () => {
@@ -302,15 +287,16 @@ const DepartmentManagement = () => {
     setModalTitle("Add Course");
     setShowCourseModal(true);
   };
-
+  // course edit modals
   const openEditCourseModal = (departmentId: number, course: Course) => {
     setCurrentDepartmentId(departmentId);
     setCurrentCourseId(course.id);
     setNewCourseName(course.name);
     setCourseDuration(course.duration);
     setCourseSemesters(course.semesters);
-    setCourseSemesters(course.semesters);
     setCourseCurrentSemesters(course.currentSemester);
+    setCourseDurationType(course.durationType);
+    setNoOfDurationType(course.noOfDurationType);
     setCourseSection(course.section);
     setModalTitle("Edit Course");
     setShowCourseModal(true);
@@ -331,6 +317,7 @@ const DepartmentManagement = () => {
       } else {
         newSemesters[semesterIndex] = { subjects: [newSubject] };
       }
+      console.log("new semster:", newSemester);
       return newSemesters;
     });
     setNewSemester("");
@@ -504,7 +491,7 @@ const DepartmentManagement = () => {
               placeholder="Enter Number of section "
               className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
             />
-             <div className="mb-4 flex gap-5 items-center">
+            {/* <div className="mb-4 flex gap-5 items-center">
               <h3 className="text-lg font-semibold">Current Semester</h3>
 
               <select
@@ -519,7 +506,25 @@ const DepartmentManagement = () => {
                 <option value="ODD">ODD</option>
                 <option value="EVEN">EVEN</option>
               </select>
-            </div>
+            </div> */}
+            <input
+              type="text"
+              value={courseDurationType}
+              onChange={(e) =>
+                setCourseDurationType(
+                  e.target.value as "Semester" | "Seasonal" | "Quaterly"
+                )
+              }
+              placeholder={`Semester"|"Seasonal"|"Quaterly"`}
+              className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
+            />
+            <input
+              type="number"
+              value={noOfDurationType}
+              onChange={(e) => setNoOfDurationType(parseInt(e.target.value))}
+              placeholder={`No of  "Semester"|"Seasonal"|"Quaterly"`}
+              className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
+            />
             <div className="flex flex-col gap-5">
               <div className="flex gap-2">
                 <select
@@ -529,6 +534,7 @@ const DepartmentManagement = () => {
                   className="p-2 border border-gray-300 rounded-lg max-w-xs"
                 >
                   <option value="">Select Current Semester</option>
+
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -553,9 +559,13 @@ const DepartmentManagement = () => {
               </div>
               <div className="flex flex-col gap-4">
                 {courseSemesters.map((semester, index) => (
-                  <div key={index} className="flex flex-col gap-2 border-b-2 w-full border border-red-600 rounded-lg p-2 shadow-lg dark:shadow-white">
-                    <div className="text-lg font-medium border flex justify-between">{`Semester ${index + 1} :`}
-                    {semester.subjects.length > 0 &&
+                  <div
+                    key={index}
+                    className="flex flex-col gap-2 border-b-2 w-full border border-red-600 rounded-lg p-2 shadow-lg dark:shadow-white"
+                  >
+                    <div className="text-lg font-medium border flex justify-between">
+                      {`${courseDurationType} ${index + 1} :`}
+                      {semester.subjects.length > 0 &&
                         editingIndex !== index && (
                           <div className="flex gap-2 ">
                             <button
@@ -576,11 +586,14 @@ const DepartmentManagement = () => {
                     <div className="flex flex-col min-w-full gap-2">
                       {semester.subjects.map((subject, subjectIndex) => (
                         <div className="">
-
-                        <p key={subjectIndex} className="text-base font-medium">{subject}</p>
+                          <p
+                            key={subjectIndex}
+                            className="text-base font-medium"
+                          >
+                            {subject}
+                          </p>
                         </div>
                       ))}
-                      
                     </div>
 
                     {editingIndex === index && (
@@ -609,7 +622,6 @@ const DepartmentManagement = () => {
                 ))}
               </div>
             </div>{" "}
-           
           </Modal.Body>
           <Modal.Footer>
             <Button color="gray" onClick={resetCourseForm}>
@@ -617,10 +629,11 @@ const DepartmentManagement = () => {
             </Button>
             <Button
               onClick={
-                editCourseId !== null ? handleEditCourse : handleAddCourse
+                editCourseId?.length !== 0 ? handleEditCourse : handleAddCourse
               }
+              onSubmit={handleForm}
             >
-              {editCourseId !== null ? "Edit Course" : "Add Course"}
+              {editCourseId?.length === 0 ? "ADD" : "EDIT"}
             </Button>
           </Modal.Footer>
         </Modal>
@@ -653,21 +666,4 @@ const DepartmentManagement = () => {
   );
 };
 
-import Head from "next/head";
-
-const Home = () => {
-  return (
-    <div>
-      <Head>
-        <title>Department Management</title>
-        <meta name="description" content="Department management system" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <DepartmentManagement />
-      </main>
-    </div>
-  );
-};
-
-export default Home;
+export default DepartmentManagement;
