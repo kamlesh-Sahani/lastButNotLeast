@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import profileSlice from './features/user/profileSlice';
 import registerReducer from './features/user/registerSlice';
 import getAllReducer from './features/user/getAllSlice';
-import getAllLeaveTypeReducer  from './features/leave/types/getAllType';
+import getAllLeaveTypeSlice from './features/leave/types/getAllType';
 import userSlice from './features/user/userSlice';
 import getOneReducer from './features/user/getOneSlice'
 export const makeStore = () => {
@@ -12,7 +12,7 @@ export const makeStore = () => {
       [profileSlice.name]:profileSlice.reducer,
       register:registerReducer,
       allEmployee:getAllReducer,
-      getAllLeaveType:getAllLeaveTypeReducer,
+      [getAllLeaveTypeSlice.name]:getAllLeaveTypeSlice.reducer,
       getOneEmployee:getOneReducer
     },
   })

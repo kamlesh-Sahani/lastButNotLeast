@@ -34,4 +34,4 @@ const getAllLeaveTypeSlice = createSlice({
     }
 })
 
-export default getAllLeaveTypeSlice.reducer;
+export default getAllLeaveTypeSlice;

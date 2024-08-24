@@ -2,18 +2,19 @@ import dbConnect from "@/lib/dbConnect";
 import LeaveTypesModel from "@/models/LeaveType.model";
 import { NextResponse,NextRequest } from "next/server";
 dbConnect();
-
 export async function POST(req:NextRequest){
     try {
         const reqBody = await req.json();
-        const {name,description,daysPerYear} = reqBody;
-        if(!name || !description || !daysPerYear){
+        const {name,description,allowances,rules} = reqBody;
+        const {monthly,yearly,weekly} = allowances;
+        if(!name || !description || !monthly || !yearly || !weekly || !rules){
             return NextResponse.json({
                 success:true,
                 message:"please fill the all fields "
             },{status:400});
         }
-        const isExist= await LeaveTypesModel.findOne({name});
+        const lowerName = name.toLowerCase().trim();
+        const isExist= await LeaveTypesModel.findOne({name:lowerName});
         if(isExist){
             return NextResponse.json({
                 success:false,
@@ -21,9 +22,9 @@ export async function POST(req:NextRequest){
             },{status:400})
         }
         const leaveType = await LeaveTypesModel.create({
-            name,
+            name:lowerName,
             description,
-            daysPerYear
+            allowances
         })
         if(!leaveType){
             return NextResponse.json({

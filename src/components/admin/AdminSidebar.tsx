@@ -85,7 +85,7 @@ export default function AdminSidebar() {
             <Link href={"/admin/employee"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/admin/employee" ? "bg-[#3d24fc2a]": ""
+                  pathname.includes("/admin/employee") ? "bg-[#3d24fc2a]": ""
                 }`}
               >
                 <HiUser />
