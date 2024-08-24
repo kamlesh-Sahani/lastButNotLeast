@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if the department already exists
-    const isExist = await DepartmentModel.findOne({ departmentName });
+    const isExist = await DepartmentModel.findOne({ departmentName});
     if (isExist) {
       return NextResponse.json(
         {

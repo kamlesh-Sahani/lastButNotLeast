@@ -1,17 +1,13 @@
 import mongoose,{Schema,Document} from "mongoose";
-
 // types of schema 
-
 interface SemesterSubjects {
-    [semester: string]: string[]; // e.g., sem1: ["subject1", "subject2"]
+    [semester: string]: string[];
   }
-  
   interface QuarterlySubjects {
-    [quarter: string]: string[]; // e.g., qtr1: ["subject1", "subject2"]
+    [quarter: string]: string[];
   }
-  
   interface SessionalSubjects {
-    [session: string]: string[]; // e.g., summer: ["subject1", "subject2"]
+    [session: string]: string[];
   }
 
   interface CourseType {
@@ -41,7 +37,8 @@ const departmentSchema = new Schema<DepartmentSchemaType>({
     }],
     departmentName:{
         type:String,
-        required:[true,"please enter the department name"]
+        required:[true,"please enter the department name"],
+        unique:true
     },
     courses:[
         {
@@ -66,5 +63,13 @@ const departmentSchema = new Schema<DepartmentSchemaType>({
 
     }]
 },{timestamps:true})
+
+departmentSchema.pre("save",function (next){
+  if(this.isModified(this.departmentName)){
+    this.departmentName = this.departmentName.toLowerCase().trim();
+  }
+  next();
+})
 const DepartmentModel = (mongoose.models.Department as mongoose.Model<DepartmentSchemaType>) || mongoose.model<DepartmentSchemaType>("Department",departmentSchema);
+
 export default DepartmentModel;

@@ -424,7 +424,7 @@ const DepartmentManagement = () => {
                   className="bg-gray-50 p-4 rounded-lg shadow-sm mb-2 flex justify-between items-center"
                 >
                   <Link
-                    href={`/admin/department/course/${course.id}`}
+                    href={`/admin/department/${course.id}`}
                     className="text-blue-600 hover:underline"
                   >
                     {course.name}
