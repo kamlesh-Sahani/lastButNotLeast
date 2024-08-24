@@ -93,14 +93,14 @@ export default function AdminSidebar() {
               </div>
             </Link>
 
-            <Link href={"/admin/department/course"}>
+            <Link href={"/admin/department"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/admin/department/course" ? "bg-[#3d24fc2a]": ""
+                  pathname === "/admin/department" ? "bg-[#3d24fc2a]": ""
                 }`}
               >
                 <HiBookOpen />
-                <p className="text">Course</p>
+                <p className="text">Department & Courses</p>
               </div>
             </Link>
 
