@@ -11,7 +11,6 @@ async function passwordCompare(plainPassword: string, hashedPassword: string) {
 export async function POST(req: NextRequest) {
   try {
     const reqBody = await req.json();
-    console.log(reqBody,"login req body");
     const { email, password } = reqBody;
         // Validate request body
         if (!email || !password) {

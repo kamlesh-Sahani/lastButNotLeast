@@ -9,11 +9,6 @@ interface EmployeeDataReturn {
     employee:EmployeeSchemaType,
     success:boolean
 }
-export const loginUser = createAsyncThunk<EmployeeDataReturn,{email:string,password:string}>("user/login",async(userData)=>{
-    const {data} = await axios.post(`${employeeBaseUrl}/login`,userData);
-    console.log(data,"thank data");
-    return data;
-})
 
 // employee register 
 export const registerUser = createAsyncThunk<EmployeeDataReturn,{[key: string]: string }>("user/register",async(userData)=>{
