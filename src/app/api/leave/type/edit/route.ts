@@ -23,9 +23,7 @@ export async function PUT(req:NextRequest){
         if(description){
             leaveType.description= description;
         }
-        if(daysPerYear){
-            leaveType.daysPerYear = daysPerYear;
-        }
+ 
 
         const updatedLeaveType =await leaveType.save({validateBeforeSave:false});
 
