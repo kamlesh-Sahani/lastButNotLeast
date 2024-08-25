@@ -5,6 +5,19 @@ export interface LeaveApplicationType extends Document {
     startDate:Date;
     endDate:Date;
     reason:string;
+    additionalInfo:{
+        alternativePhoneNumber:number;
+        alternativeEmail:string;
+    };
+    document:string;
+    classArragment:{
+        faculty:mongoose.Schema.Types.ObjectId;
+        course:mongoose.Schema.Types.ObjectId;
+        subject:mongoose.Schema.Types.ObjectId;
+        date:Date;
+        timming: string;
+
+    };
     status:"PENDING" |"APPROVED" |"REJECTED";
     appliedDate:Date;
     createdAt:Date;
@@ -32,11 +45,17 @@ const leaveApplicationSchema:Schema<LeaveApplicationType>= new Schema({
         type:String,
         required:[true,"please enter the reason of leave"]
     },
+    additionalInfo:{
+        alternativePhoneNumber:Number,
+        alternativeEmail:String
+    },
+    document:String,
     status:{
         type:String,
         enum:["PENDING","APPROVED","REJECTED"],
         default:"PENDING"
     },
+
     appliedDate:{
         type:Date,
         default:()=>Date.now(),
