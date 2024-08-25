@@ -407,6 +407,7 @@ const DepartmentManagement = () => {
             <div className="mt-4">
               {department.courses.map((course) => (
                 <div
+
                   key={course.id}
                   className="bg-gray-50 p-4 rounded-lg shadow-sm mb-2 flex justify-between items-center"
                 >
@@ -585,7 +586,7 @@ const DepartmentManagement = () => {
                     </div>
                     <div className="flex flex-col min-w-full gap-2">
                       {semester.subjects.map((subject, subjectIndex) => (
-                        <div className="">
+                        <div key={subjectIndex}>
                           <p
                             key={subjectIndex}
                             className="text-base font-medium"
