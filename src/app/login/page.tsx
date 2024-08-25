@@ -23,7 +23,6 @@ const LoginPage = () => {
 
       dispatch(setUser({user:data.employee,role:data.employee.role}));
       toast.success(data?.message);
-      
       router.push("/user");
     }
     setIsLoading(false);
@@ -35,6 +34,7 @@ const LoginPage = () => {
     }
   };
   return (
+
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center mb-6 text-blue-500">
