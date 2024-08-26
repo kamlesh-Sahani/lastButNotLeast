@@ -15,9 +15,9 @@ export const generateAccessAndRefreshToken = async (employeeId: any) => {
     }
     const accessToken = await employee.generateAccessToken();
     const refreshToken = await employee.generateRefreshToken();
-
     employee.refreshToken = refreshToken;
-    await employee.save();
+    console.log("func2")
+    await employee.save({validateBeforeSave:false});
     return { accessToken, refreshToken };
   } catch (error) {
     return NextResponse.json(

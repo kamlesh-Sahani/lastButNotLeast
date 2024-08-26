@@ -5,36 +5,34 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
-import { removeUser, setUser } from "@/lib/strore/features/user/userSlice";
 import {useDispatch} from 'react-redux'
 import { AppDispatch } from "@/lib/strore/store";
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading,setIsLoading] =  useState<boolean>(false);
+  const [userData,setUserData] = useState<any>()
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>()
   const loginHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
    try {
     setIsLoading(true);
-    const {data} = await axios.post(`${process.env.NEXT_PUBLIC_DOMAIN}/api/employee/login`,{email,password},{withCredentials:true});
+    const {data} = await axios.post(`${process.env.NEXT_PUBLIC_DOMAIN}/api/employee/login`,{email,password});
     if(data.success){
-
-      dispatch(setUser({user:data.employee,role:data.employee.role}));
       toast.success(data?.message);
+      setUserData(data);
+      console.count("success");
       router.push("/user");
+      console.log(data);
+      console.count("success");
     }
     setIsLoading(false);
     } catch (error: any) {
-      dispatch(removeUser());
-      console.log(error.response?.data.message,"loginerror 2");
       toast.error(error.response?.data.message || "Something went wrong");
       setIsLoading(false);
     }
   };
   return (
-
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center mb-6 text-blue-500">

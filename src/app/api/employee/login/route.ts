@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
       { success: true, message: "loging successfuly",employee:loggedEmployee,accessToken,refreshToken },
       { status: 200 }
     )
-
+    
     response.cookies.set("accessToken",accessToken,option);
     response.cookies.set("refreshToken",refreshToken,option);
     return response;
