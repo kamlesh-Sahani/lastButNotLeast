@@ -104,11 +104,7 @@ const initialDepartments: Department[] = [
   },
 ];
 
-export default function CourseDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function CourseDetailPage(params:{id:string}) {
   const [activeTab, setActiveTab] = useState("overview");
   const [course, setCourse] = useState<Course | null>(null);
   const [department, setDepartment] = useState<Department | null>(null);
